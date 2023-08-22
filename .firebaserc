@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "dabubble-2023": {
+      "hosting": {
+        "DABubble": [
+          "dabubble-2023"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "dabubble-2023"
+  }
+}
