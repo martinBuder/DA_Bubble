@@ -6,6 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./animation.component.scss'],
 })
 export class AnimationComponent  {
-  firstTime: boolean = true;
-  window: string = 'logIn';
+ 
 }

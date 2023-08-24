@@ -1,25 +1,55 @@
 .animation-wrapper {
-	// position: absolute;
-	// top: 0;
-	// left: 0;
-	height: 100vh;
-	height: 100svh;
-	width: 100%;
-	background: linear-gradient(0deg, var(--colorPurpleDark) 0%, var(--colorPurple) 100%);
-	padding: var(--bodyPadding);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  height: 100svh;
+  width: 100%;
+  background: linear-gradient(
+    0deg,
+    var(--colorPurpleDark) 0%,
+    var(--colorPurple) 100%
+  );
+  padding: var(--bodyPadding);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: get-transparent 500ms 3.4s ease-in-out forwards;
+  opacity: 1;
+}
+
+@keyframes get-transparent {
+  to {
+    opacity: 0;
+  }
 }
 
 .animation-container {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
+  background-color: aqua;
+  animation: slide-up 1200ms 2.4s ease-in-out forwards;
 }
 
 .logo-container {
-	width: 50px;
-	display: inline-block;
+  width: 50px;
+  display: inline-block;
 }
 
+@keyframes slide-up {
+  from {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 
+  to {
+    position: absolute;
+    left: var(--bodyPadding);
+    top: calc(var(--bodyPadding) + var(--headerPadding));
+  }
+}
 
 /* BEGIN WRITE LOGOTEXT ANIMATION - this have 3 parts
 	1. the width of the hidden container goes to his full width => animation typing
@@ -28,55 +58,52 @@
 */
 
 .logo-text {
-	display: inline-block;
-	overflow: hidden;
-	white-space: nowrap;
-	border-right: 2px solid #333; /* this is for the "cursor" */
-	animation: typing 1.5s steps(10) 1 forwards, blink-cursor 0.8s 5 forwards; // 5 is amount of animation-duration, after this it will end
-	max-width: 10rem;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #333; /* this is for the "cursor" */
+  animation: typing 1.5s steps(10) 1 forwards, blink-cursor 0.8s 4 forwards; // 5 is amount of animation-duration, after this it will end
+  max-width: 10rem;
 }
 
 .animate-text {
-	margin-left: 10px;
-	font-size: 2rem;
-	width: max-content;
-	color: transparent; 
-	animation: text-color-change 2s 1 forwards;
+  margin-left: 10px;
+  font-size: 2rem;
+  width: max-content;
+  color: transparent;
+  animation: text-color-change 2s 1 forwards;
 }
 
 @keyframes typing {
-	0% {
-					width: 0;
-	}
+  0% {
+    width: 0;
+  }
 
-	100% {
-					width: 10rem;
-					border-right: 2px solid #333;
-	}
-
+  100% {
+    width: 10rem;
+    border-right: 2px solid #333;
+  }
 }
 
 @keyframes text-color-change {
-	0% {
-					color: transparent; 
-	}
-	50% {
-					color: var(--colorFont); 
-	}
-	100% {
-					color: var(--colorFont); 
-	}
+  0% {
+    color: transparent;
+  }
+  50% {
+    color: var(--colorFont);
+  }
+  100% {
+    color: var(--colorFont);
+  }
 }
 
 @keyframes blink-cursor {
-	0%, 100% {
-		border-right-color: transparent;
-	}
+  0%,
+  100% {
+    border-right-color: transparent;
+  }
 
-	50% {
-		border-right-color: #333;
-	}
+  50% {
+    border-right-color: #333;
+  }
 }
-
-
-
