@@ -10,7 +10,7 @@
   --colorBlack: #000;
   --colorPurpleLight: #adb0d9;
   --colorPurple: #797ef3;
-  --colorPurpleDark: #797ef3;
+  --colorPurpleDark: #444df2;
   --colorTextGray: #686868;
   --colorWhite: #fff;
 		--bodyPadding: 2rem;
@@ -18,5 +18,11 @@
 
 body {
 	background: var(--colorBackground);
-	padding: var(--bodyPadding)
+	padding: var(--bodyPadding);
+	width: 100%;
+}
+
+img {
+	width: 100%;
+	height: auto;
 }
