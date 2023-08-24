@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --colorBackground: #eceefe;
+  --colorBlack: #000;
+  --colorPurpleLight: #adb0d9;
+  --colorPurple: #797ef3;
+  --colorPurpleDark: #797ef3;
+  --colorTextGray: #686868;
+  --colorWhite: #fff;
+		--bodyPadding: 2rem;
+}
+
+body {
+	background: var(--colorBackground);
+	padding: var(--bodyPadding)
+}
