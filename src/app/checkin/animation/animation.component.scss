@@ -27,12 +27,12 @@
 .animation-container {
   display: flex;
   align-items: center;
-  background-color: aqua;
-  animation: slide-up 1200ms 2.4s ease-in-out forwards;
+  animation: slide-up 1200ms 2.2s ease-in-out forwards;
+		transform: scale(3);
 }
 
 .logo-container {
-  width: 50px;
+  width: var(--logoWidth);
   display: inline-block;
 }
 
@@ -42,12 +42,14 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+				transform: scale(3);
   }
 
   to {
     position: absolute;
     left: var(--bodyPadding);
     top: calc(var(--bodyPadding) + var(--headerPadding));
+				transform: scale(1);
   }
 }
 
