@@ -1,7 +1,7 @@
 .headerWrapper {
 	display: flex;
 	justify-content: space-between;
-	margin: var(--bodyPadding) 0;
+	margin-bottom: var(--bodyPadding);
 }
 
 .logo-wrapper {
@@ -17,5 +17,5 @@
 .logo-text {
 	display: inline-block;
 	margin-left: 10px;
-	font-size: 2rem;
+	font-size: var(--logoFontsize);
 }

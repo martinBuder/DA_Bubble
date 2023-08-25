@@ -48,7 +48,7 @@
   to {
     position: absolute;
     left: var(--bodyPadding);
-    top: calc(var(--bodyPadding) + var(--headerPadding));
+    top: var(--bodyPadding) ;
 				transform: scale(1);
   }
 }
@@ -70,7 +70,7 @@
 
 .animate-text {
   margin-left: 10px;
-  font-size: 2rem;
+  font-size: var(--logoFontsize);
   width: max-content;
   color: transparent;
   animation: text-color-change 2s 1 forwards;
