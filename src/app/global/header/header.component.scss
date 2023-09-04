@@ -1,7 +1,10 @@
 .headerWrapper {
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: var(--bodyPadding);
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: var(--bodyPadding);
 }
 
 .logo-wrapper {

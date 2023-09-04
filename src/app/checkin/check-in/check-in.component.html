@@ -1,0 +1,10 @@
+<div class="check-in-wrapper">
+	<div class="check-in-container">
+		<app-animation *ngIf="firstTime"></app-animation>
+		<app-log-in *ngIf="checkInSite == 'logIn'"></app-log-in>
+		<app-sign-in *ngIf="checkInSite == 'signIn'"></app-sign-in>
+		<app-choose-avatar *ngIf="checkInSite == 'chooseAvatar'"></app-choose-avatar>
+		<app-reset-email *ngIf="checkInSite == 'resetEmail'"></app-reset-email>
+		<app-reset-password *ngIf="checkInSite == 'resetPassword'"></app-reset-password>
+	</div>
+</div>

@@ -33,6 +33,9 @@ import { EditChannelComponent } from './chat/edit-channel/edit-channel.component
 import { ShowMembersComponent } from './chat/show-members/show-members.component';
 import { AddMembersComponent } from './chat/add-members/add-members.component';
 import { EditMessageComponent } from './chat/edit-message/edit-message.component';
+import { CheckInComponent } from './checkin/check-in/check-in.component';
+import { ReactiveFormsModule} from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -61,11 +64,13 @@ import { EditMessageComponent } from './chat/edit-message/edit-message.component
     EditChannelComponent,
     ShowMembersComponent,
     AddMembersComponent,
-    EditMessageComponent
+    EditMessageComponent,
+    CheckInComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),

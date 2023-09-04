@@ -1,0 +1,19 @@
+.check-in-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	height: 100svh;
+	width: 100%;
+	background-color: var(--colorBackground);
+}
+
+.check-in-container {
+	display: flex;
+	flex-direction: column;
+	padding: var(--bodyPadding);
+	background-color: var(--colorWhite);
+	border-radius: 30px;
+	box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+}
+ 

@@ -6,15 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent {
-  firstTime: boolean = true;
 
-  ngOnInit(): void {
-    this.firstTimeToFalse();
-  }
-
-  firstTimeToFalse() {
-    setTimeout(() => {
-      this.firstTime = false;
-    }, 3800);
-  }
 }
