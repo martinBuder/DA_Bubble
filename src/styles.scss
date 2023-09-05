@@ -13,6 +13,7 @@
   --colorPurpleDark: #444df2;
   --colorTextGray: #686868;
   --colorWhite: #fff;
+  --colorErrorRed: rgb(248, 75, 75); 
 	--bodyPadding: 2rem;
   --logoWidth: 50px;
   --logoFontsize: 2rem;
@@ -27,4 +28,16 @@ body {
 img {
 	width: 100%;
 	height: auto;
+}
+
+.error {
+  color: var(--colorErrorRed);
+}
+
+.fieldWrapper mat-icon {
+  color: var(--colorTextGray);
+}
+
+body { 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
 }

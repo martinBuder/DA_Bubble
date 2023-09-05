@@ -1,11 +1,43 @@
 <h1>Anmeldung</h1>
 <p>Wir empfehlen dir, die E-Mail-Adresse zu nutzen die du bei der Arbeit verwendest.</p>
-<!-- <form action="">
-	<mat-form-field appearance="fill">
-		<mat-label>Fill form field</mat-label>
-		<input matInput placeholder="Placeholder">
-		<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-		<mat-hint>Hint</mat-hint>
-</mat-form-field>
 
-</form> -->
+<p>{{ logInForm.value | json }}</p>
+
+<form [formGroup]="logInForm" (ngSubmit)="logIn()">
+	<div class="fieldWrapper">
+		 <mat-icon>mail_outline</mat-icon>
+			<input formControlName="email" type="email" placeholder="beispielname@email.com">
+		</div>
+		<ng-container *ngIf="logInForm.controls['email'].touched">
+			<p class="error" *ngIf="logInForm.controls['email'].errors?.['required']"> Dieses Feld ist ein Pflichtfeld.
+			</p>
+			<p class="error" *ngIf="logInForm.controls['email'].errors?.['pattern']"> Diese E-Mail-Adresse ist ungültig.
+			</p>
+		</ng-container>
+
+	<div class="fieldWrapper">
+		<mat-icon>lock_outline</mat-icon>
+		<input formControlName="password" type="password" placeholder="Passwort">
+	</div>
+	<ng-container *ngIf="logInForm.controls['password'].touched ">
+		<p class="error" *ngIf="logInForm.controls['password'].errors?.['required']">Dieses Feld ist ein Pflichtfeld.</p>
+		<p class="error" *ngIf="logInForm.controls['password'].errors?.['minLength']"> Passwort ist falsch.
+		</p>
+	</ng-container>
+</form>
+<div class="textBtn">Passwort vergessen?</div>
+<div class="betweenBtns">
+	<div class="line"></div>
+	<p>oder</p>
+</div>
+<button class="googleLogIn" (click)="googleLogIn()">
+
+<p>Anmelden mit Google</p>
+</button>
+<div class="btnWrapper">
+	<button class="primaryBtn" type="submit" [disabled]="!logInForm.valid">Anmelden</button>
+	<button class="secondaryBtn" type="submit" [disabled]="!logInForm.valid">Gäste-Login</button>
+	</div>
+
+
+
