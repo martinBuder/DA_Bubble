@@ -11,7 +11,7 @@
   --colorPurpleLight: #adb0d9;
   --colorPurple: #797ef3;
   --colorPurpleDark: #444df2;
-  --colorTextGray: #686868;
+  --colorTextGrey: #686868;
   --colorWhite: #fff;
   --colorErrorRed: rgb(248, 75, 75); 
 	--bodyPadding: 2rem;
@@ -30,14 +30,99 @@ img {
 	height: auto;
 }
 
-.error {
-  color: var(--colorErrorRed);
-}
-
-.fieldWrapper mat-icon {
-  color: var(--colorTextGray);
-}
-
 body { 
   font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+// buttons
+
+button {
+  cursor: pointer;
+  border-radius: 100px;
+  padding: 12px 25px;
+
+  &:disabled {
+    cursor: auto;
+  }
+}
+
+.text-btn {
+  color: var(--colorPurple);
+  padding: 5px 15px;
+  border-radius: 100px;
+
+  &:hover {
+    background-color: var(--colorBackground);
+  }
+}
+
+.primary-btn {
+  color: var(--colorWhite);
+  background-color: var(--colorPurple);
+
+  &:hover {
+    filter: brightness(1.2);
+  }
+}
+
+.secondary-btn {
+  color: var(--colorPurple);
+  border-color: var(--colorPurple);
+
+  &:hover {
+    color: var(--colorWhite);
+    background-color: var(--colorPurple);
+  }
+}
+
+
+
+//check in area
+
+.check-in-headline {
+	color: var(--colorPurpleDark);
+}
+
+.check-in-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--bodyPadding);
+  width: 100%;
+}
+
+.inputfield-wrapper{
+	background-color: var(--colorBackground);
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  gap: 32px;
+  border-radius: 100px;
+  position: relative;
+
+  &:focus-within { //with '-within' we can style the parent of focused elements
+    border: 1px solid var(--colorPurple);
+  }
+
+  mat-icon {
+    color: var(--colorTextGrey);
+  };
+
+  input {
+    background-color: var(--colorBackground);
+    border: none;
+    padding: 18px 0;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.error {
+  position: absolute;
+  bottom: -16px;
+  left: 32px;
+  color: var(--colorErrorRed);
+  font-size: 0.6rem;
 }

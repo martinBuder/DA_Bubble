@@ -1,0 +1,49 @@
+
+.between-btns {
+	position: relative;
+	width: 100%;
+
+	.line {
+		position: absolute;
+		top: 50%;
+		left: 0;
+		width: 100%;
+		height: 1px;
+		background-color: var(--colorBackground);
+	}
+
+	p {
+		position: relative;
+		text-transform: uppercase;
+		padding: 5px 15px;
+		z-index: 1;
+		max-width: max-content;
+		background-color: var(--colorWhite);
+		margin: 0 auto; // put the text in the middle
+	}
+}
+
+.btn-wrapper {
+	display: flex;
+	gap: var(--bodyPadding);
+}
+
+.google-log-in {
+	background-color: var(--colorBackground);
+	width: 100%;
+	color: var(--colorPurple);
+	border: 1px solid var(--colorWhite);
+	
+
+	&:hover {
+		border: 1px solid var(--colorPurpleDark);
+		
+		* {
+			transform: scale(1.1);
+			color: var(--colorPurpleDark);
+		}
+	}
+}
+
+
+ 

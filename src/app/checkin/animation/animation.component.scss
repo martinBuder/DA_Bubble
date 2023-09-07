@@ -16,6 +16,7 @@
   justify-content: center;
   animation: get-transparent 500ms 3.4s ease-in-out forwards;
   opacity: 1;
+  z-index: 20;
 }
 
 @keyframes get-transparent {

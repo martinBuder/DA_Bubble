@@ -9,11 +9,18 @@
 }
 
 .check-in-container {
-	display: flex;
-	flex-direction: column;
 	padding: var(--bodyPadding);
 	background-color: var(--colorWhite);
 	border-radius: 30px;
 	box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+	max-width: calc(606px - var(--bodyPadding) - var(--bodyPadding));
+
+
+	>* {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: var(--bodyPadding);
+	}
 }
- 
