@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { CheckInSiteServiceService } from 'src/app/services/check-in-site-service.service';
+
 
 @Component({
   selector: 'app-check-in',
@@ -7,7 +9,9 @@ import { Component } from '@angular/core';
 })
 export class CheckInComponent {
   firstTime: boolean = true;
-  checkInSite: string = 'logIn'
+
+  constructor(public checkInSiteServiceService: CheckInSiteServiceService){};
+  
 
   ngOnInit(): void {
     this.firstTimeToFalse();
@@ -18,4 +22,6 @@ export class CheckInComponent {
       this.firstTime = false;
     }, 3800);
   }
+
+
 }

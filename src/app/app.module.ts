@@ -37,6 +37,7 @@ import { CheckInComponent } from './checkin/check-in/check-in.component';
 import { ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
+import { CheckInSiteServiceService } from './services/check-in-site-service.service';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,9 @@ import { MatIconModule } from '@angular/material/icon';
     provideFirestore(() => getFirestore()),
 
   ],
-  providers: [],
+  providers: [
+    CheckInSiteServiceService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

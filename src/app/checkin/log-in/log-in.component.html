@@ -27,18 +27,18 @@
 	</div>
 	
 </form>
-<div class="text-btn">Passwort vergessen?</div>
+<div class="text-btn" (click)="checkInSiteServiceService.changeCheckInSite('resetPassword')">Passwort vergessen?</div>
 <div class="between-btns">
 	<div class="line"></div>
 	<p>oder</p>
 </div>
 <button class="google-log-in" (click)="googleLogIn()">
-
-<p>Anmelden mit Google</p>
+	<img src="assets/img/google.png" alt="">
+	<p>Anmelden mit Google</p>
 </button>
 <div class="btn-wrapper">
 	<button class="primary-btn" type="submit" [disabled]="!logInForm.valid">Anmelden</button>
-	<button class="secondary-btn" type="submit" [disabled]="!logInForm.valid">Gäste-Login</button>
+	<button class="secondary-btn" type="submit" [disabled]="!logInForm.valid" routerLink="chat">Gäste-Login</button>
 	</div>
 
 

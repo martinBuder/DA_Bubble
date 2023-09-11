@@ -33,7 +33,14 @@
 	width: 100%;
 	color: var(--colorPurple);
 	border: 1px solid var(--colorWhite);
-	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 12px;
+
+	img {
+		width: 30px
+	}	
 
 	&:hover {
 		border: 1px solid var(--colorPurpleDark);

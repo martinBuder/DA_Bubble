@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CheckInSiteServiceService } from 'src/app/services/check-in-site-service.service';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LogInComponent {
 
-  /**
+   /**
    * this is the validation for the input fields
    */
   public logInForm : FormGroup = new FormGroup({
@@ -24,7 +25,7 @@ export class LogInComponent {
     ], [])
   });
 
-  constructor() {
+  constructor(public checkInSiteServiceService: CheckInSiteServiceService) {
     this.logInForm.valueChanges.subscribe();
   }
 

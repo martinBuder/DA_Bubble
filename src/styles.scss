@@ -50,6 +50,7 @@ button {
   color: var(--colorPurple);
   padding: 5px 15px;
   border-radius: 100px;
+  cursor: pointer;
 
   &:hover {
     background-color: var(--colorBackground);
