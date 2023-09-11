@@ -2,17 +2,17 @@
 
 <h1 class="check-in-headline"><div class="back-arrow text-btn" (click)="checkInSiteServiceService.changeCheckInSite('logIn')">&larr;</div>Passwort zurücksetzen</h1>
 <p>Bitte geben Sie Ihre E-Mail-Adresse ein.</p>
-<form [formGroup]="logInForm" (ngSubmit)="sendResetMail()" class="check-in-form">
+<form [formGroup]="resetMailForm" (ngSubmit)="sendResetMail()" class="check-in-form">
 	<div class="inputfield-wrapper">
 		 <mat-icon>mail_outline</mat-icon>
 			<input formControlName="email" type="email" placeholder="beispielname@email.com">
-			<ng-container *ngIf="logInForm.controls['email'].touched">
-				<p class="error" *ngIf="logInForm.controls['email'].errors?.['required']"> *Dieses Feld ist ein Pflichtfeld.
+			<ng-container *ngIf="resetMailForm.controls['email'].touched">
+				<p class="error" *ngIf="resetMailForm.controls['email'].errors?.['required']"> *Dieses Feld ist ein Pflichtfeld.
 				</p>
-				<p class="error" *ngIf="logInForm.controls['email'].errors?.['pattern']"> *Diese E-Mail-Adresse ist ungültig.
+				<p class="error" *ngIf="resetMailForm.controls['email'].errors?.['pattern']"> *Diese E-Mail-Adresse ist ungültig.
 				</p>
 			</ng-container>
 	</div>	
 </form>
 <p>Wir senden Ihnen eine E-Mail, über die Sie Ihr Passwort ändern können</p>
-<button class="primary-btn" type="submit" [disabled]="!logInForm.valid">E-Mail senden</button>
+<button class="primary-btn" type="submit" [disabled]="!resetMailForm.valid">E-Mail senden</button>

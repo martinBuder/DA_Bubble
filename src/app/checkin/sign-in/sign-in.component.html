@@ -1,1 +1,43 @@
-<p>sign-in works!</p>
+<h1 class="check-in-headline"><div class="back-arrow text-btn" (click)="checkInSiteServiceService.changeCheckInSite('logIn')">&larr;</div>Konto erstellen</h1>
+<p>Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto.</p>
+<form [formGroup]="signInForm" (ngSubmit)="createAccount()" class="check-in-form">
+	<div class="inputfield-wrapper">
+		 <mat-icon>person_outline</mat-icon>
+			<input formControlName="name" type="text" placeholder="Name und Vorname">
+			<ng-container *ngIf="signInForm.controls['name'].touched">
+				<p class="error" *ngIf="signInForm.controls['name'].errors?.['required']"> *Dieses Feld ist ein Pflichtfeld.
+				</p>
+				<p class="error" *ngIf="signInForm.controls['name'].errors?.['pattern']"> *Bitte verwende deine vollständigen echten Namen (Vor- und Familienname).
+				</p>
+			</ng-container>
+	</div>	
+	<div class="inputfield-wrapper">
+		<mat-icon>mail_outline</mat-icon>
+		<input formControlName="email" type="email" placeholder="beispielname@email.com">
+		<ng-container *ngIf="signInForm.controls['email'].touched">
+			<p class="error" *ngIf="signInForm.controls['email'].errors?.['required']"> *Dieses Feld ist ein Pflichtfeld.
+			</p>
+			<p class="error" *ngIf="signInForm.controls['email'].errors?.['pattern']"> *Diese E-Mail-Adresse ist ungültig.
+			</p>
+		</ng-container>
+</div>	
+<div class="inputfield-wrapper">
+	<mat-icon>lock_outline</mat-icon>
+	<input formControlName="password" type="password" placeholder="Passwort">
+	<ng-container *ngIf="signInForm.controls['password'].touched">
+		<p class="error" *ngIf="signInForm.controls['password'].errors?.['required']"> *Dieses Feld ist ein Pflichtfeld.
+		</p>
+		<p class="error" *ngIf="signInForm.controls['password'].errors?.['pattern']"> *Das Passwort sollte Groß- und Kleinbuchstaben haben. Zudem mindestens eine Zahl und ein Sonderzeichen.
+		</p>
+		<p class="error" *ngIf="signInForm.controls['password'].errors?.['minLength']"> *Das Passwort sollte mindestens 8 Zeichen lang sein.
+		</p>
+	</ng-container>
+</div>	
+<div class="checkboxWrapper">
+	<input formControlName="terms" type="checkbox" id="dsgvoCheckbox" name="acceptTerms">
+	<label for="dsgvoCheckbox">Ich stimme der <a [routerLink]="" >Datenschtutzerklärung</a> zu.</label>
+	<!-- ! HIER fehlt dsgvo router -->
+</div>
+</form>
+<p>Wir senden Ihnen eine E-Mail, über die Sie Ihr Passwort ändern können</p>
+<button class="primary-btn" type="submit" [disabled]="!signInForm.valid">E-Mail senden</button>

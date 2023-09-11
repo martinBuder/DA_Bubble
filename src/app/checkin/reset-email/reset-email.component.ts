@@ -12,7 +12,7 @@ export class ResetEmailComponent {
    /**
    * this is the validation for the input fields
    */
-   public logInForm : FormGroup = new FormGroup({
+   public resetMailForm : FormGroup = new FormGroup({
    
     email: new FormControl ('', [
       Validators.required,
