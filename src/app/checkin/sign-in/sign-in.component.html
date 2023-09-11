@@ -33,11 +33,10 @@
 		</p>
 	</ng-container>
 </div>	
-<div class="checkboxWrapper">
+<div class="checkbox-wrapper">
 	<input formControlName="terms" type="checkbox" id="dsgvoCheckbox" name="acceptTerms">
 	<label for="dsgvoCheckbox">Ich stimme der <a [routerLink]="" >Datenschtutzerklärung</a> zu.</label>
 	<!-- ! HIER fehlt dsgvo router -->
-</div>
+	</div>
 </form>
-<p>Wir senden Ihnen eine E-Mail, über die Sie Ihr Passwort ändern können</p>
-<button class="primary-btn" type="submit" [disabled]="!signInForm.valid">E-Mail senden</button>
+<button class="primary-btn one-btn" type="submit" [disabled]="!signInForm.valid">weiter</button>

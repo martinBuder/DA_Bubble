@@ -115,6 +115,7 @@ button {
     background-color: var(--colorBackground);
     border: none;
     padding: 18px 0;
+    width: 100%;
 
     &:focus {
       outline: none;
@@ -152,3 +153,17 @@ button {
 .check-in-container p {
   text-align: center;
 }
+
+.one-btn {
+  align-self: flex-end;
+}
+
+.checkbox-wrapper {
+  padding-left: 32px;
+
+  input {
+    margin-right: 10px;
+  }
+}
+
+
