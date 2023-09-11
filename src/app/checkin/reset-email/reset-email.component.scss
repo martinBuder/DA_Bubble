@@ -1,0 +1,22 @@
+p {
+	text-align: center;
+}
+
+h1 {
+	position: relative;
+	width: 100%;
+	text-align: center;
+}
+
+.back-arrow {
+	position: absolute;
+	top:-15%;
+	color: var(--colorFont);
+ width: 20px;
+	overflow: hidden;
+	text-align: center;
+
+	&:hover {
+		background-color: var(--colorWhite);
+	}
+}

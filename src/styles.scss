@@ -43,6 +43,7 @@ button {
 
   &:disabled {
     cursor: auto;
+    background-color: var(--colorTextGrey);
   }
 }
 
@@ -69,6 +70,7 @@ button {
 .secondary-btn {
   color: var(--colorPurple);
   border-color: var(--colorPurple);
+  background-color: var(--colorWhite);
 
   &:hover {
     color: var(--colorWhite);

@@ -1,7 +1,7 @@
 <h1 class="check-in-headline">Anmeldung</h1>
 <p>Wir empfehlen dir, die E-Mail-Adresse zu nutzen die du bei der Arbeit verwendest.</p>
 
-<p>{{ logInForm.value | json }}</p>
+<p>Just for testing: {{ logInForm.value | json }}</p>
 
 <form [formGroup]="logInForm" (ngSubmit)="logIn()" class="check-in-form">
 	<div class="inputfield-wrapper">
@@ -27,7 +27,7 @@
 	</div>
 	
 </form>
-<div class="text-btn" (click)="checkInSiteServiceService.changeCheckInSite('resetPassword')">Passwort vergessen?</div>
+<div class="text-btn" (click)="checkInSiteServiceService.changeCheckInSite('resetEmail')">Passwort vergessen?</div>
 <div class="between-btns">
 	<div class="line"></div>
 	<p>oder</p>
@@ -38,7 +38,7 @@
 </button>
 <div class="btn-wrapper">
 	<button class="primary-btn" type="submit" [disabled]="!logInForm.valid">Anmelden</button>
-	<button class="secondary-btn" type="submit" [disabled]="!logInForm.valid" routerLink="chat">Gäste-Login</button>
+	<button class="secondary-btn" type="submit" routerLink="chat">Gäste-Login</button>
 	</div>
 
 
