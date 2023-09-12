@@ -1,6 +1,6 @@
 <h1 class="check-in-headline"><div class="back-arrow text-btn" (click)="checkInSiteServiceService.changeCheckInSite('logIn')">&larr;</div>Konto erstellen</h1>
 <p>Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto.</p>
-<form [formGroup]="signInForm" (ngSubmit)="createAccount()" class="check-in-form">
+<form [formGroup]="signInForm" class="check-in-form">
 	<div class="inputfield-wrapper">
 		 <mat-icon>person_outline</mat-icon>
 			<input formControlName="name" type="text" placeholder="Name und Vorname">
@@ -35,8 +35,8 @@
 </div>	
 <div class="checkbox-wrapper">
 	<input formControlName="terms" type="checkbox" id="dsgvoCheckbox" name="acceptTerms">
-	<label for="dsgvoCheckbox">Ich stimme der <a [routerLink]="" >Datenschtutzerklärung</a> zu.</label>
+	<label for="dsgvoCheckbox">Ich stimme der <a [routerLink]="" class="text-btn">Datenschtutzerklärung</a> zu.</label>
 	<!-- ! HIER fehlt dsgvo router -->
 	</div>
 </form>
-<button class="primary-btn one-btn" type="submit" [disabled]="!signInForm.valid">weiter</button>
+<button class="primary-btn one-btn" type="submit" [disabled]="!signInForm.valid" (click)="createAccount()">Weiter</button>

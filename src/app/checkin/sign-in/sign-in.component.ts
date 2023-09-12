@@ -37,7 +37,10 @@ export class SignInComponent {
    constructor(public checkInSiteServiceService: CheckInSiteServiceService){};
 
    createAccount() {
-
-   }
+    // ! here function for create a account
+    this.checkInSiteServiceService.changeCheckInSite('chooseAvatar')
+ console.log(this.checkInSiteServiceService.checkInSite);
+ 
+  }
 
 }
