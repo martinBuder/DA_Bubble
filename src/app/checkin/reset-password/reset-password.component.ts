@@ -30,10 +30,10 @@ export class ResetPasswordComponent {
     constructor(public checkInSiteServiceService: CheckInSiteServiceService){};
 
     matchEmails(control: FormControl): { [key: string]: any } | null {
-      const email = this.resetPasswordForm.get('password').value;
+      const password = this.resetPasswordForm.get('password')!.value;
       const confirmPassword = control.value;
   
-      if (email !== confirmPassword) {
+      if (password !== confirmPassword) {
         return { 'passwordMismatch': true }; // Validierungsfehler, wenn die E-Mails nicht übereinstimmen
       }
   
