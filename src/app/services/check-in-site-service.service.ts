@@ -8,7 +8,7 @@ export class CheckInSiteServiceService {
     throw new Error('Method not implemented.');
   }
 
-  checkInSite: string = 'logIn';
+  checkInSite: string = 'resetPassword';
 
   changeCheckInSite(newSite: string) {
     this.checkInSite = newSite;
