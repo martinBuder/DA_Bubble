@@ -1,4 +1,4 @@
-.headerWrapper {
+.check-in-header-wrapper, .chat-header-wrapper {
 	display: flex;
 	justify-content: space-between;
 	position: absolute;
@@ -6,6 +6,7 @@
 	left: 0;
 	padding: var(--bodyPadding);
 }
+
 
 .logo-wrapper {
 	display: flex;
@@ -22,3 +23,5 @@
 	margin-left: 10px;
 	font-size: var(--logoFontsize);
 }
+
+

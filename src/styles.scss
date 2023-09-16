@@ -83,7 +83,15 @@ button {
 //check in area
 
 .check-in-headline {
-	color: var(--colorPurpleDark);
+  color: var(--colorPurpleDark);
+  position: relative;
+  width: 100%;
+	text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding-right: 30px;
 }
 
 .check-in-form {
@@ -91,7 +99,7 @@ button {
   flex-direction: column;
   justify-content: space-between;
   gap: var(--bodyPadding);
-  width: 100%;
+  width: 80%;
 }
 
 .inputfield-wrapper{
@@ -109,6 +117,7 @@ button {
 
   mat-icon {
     color: var(--colorTextGrey);
+    min-width: min-content;
   };
 
   input {
@@ -131,18 +140,10 @@ button {
   font-size: 0.6rem;
 }
 
-.check-in-headline {
-	position: relative;
-	width: 100%;
-	text-align: center;
-}
-
 .back-arrow {
-	position: absolute;
-	top:-15%;
 	color: var(--colorFont);
- width: 20px;
-	overflow: hidden;
+  width: 20px;
+ 	overflow: hidden;
 	text-align: center;
 
 	&:hover {
@@ -167,3 +168,37 @@ button {
 }
 
 
+@media screen and (max-width: 600px) {
+
+  .check-in-headline {
+    padding-left: 50px;
+  }
+
+  .back-arrow {
+    position: absolute;
+    left: 0;
+    top: 0;
+    line-height: 20px;
+  }
+
+  .check-in-form {
+    width: 100%;
+  }
+
+}
+
+@media screen and (max-width: 420px) {
+
+  :root {
+    --bodyPadding: 1.5rem;
+  }
+
+  .check-in-headline {
+    font-size: 1rem;
+  }
+
+  .back-arrow {
+    font-size: 2rem;
+  }
+
+}
