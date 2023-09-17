@@ -23,3 +23,25 @@
 		gap: var(--bodyPadding);
 	}
 }
+
+.text-btn-wrapper {
+	position: absolute;
+	bottom: var(--bodyPadding);
+	display: flex;
+	justify-content: center;
+	gap: var(--bodyPadding);
+}
+
+
+@media screen and (max-width: 600px) {
+
+	.check-in-wrapper {
+		height: auto;
+		flex-direction: column;
+	}
+
+	.text-btn-wrapper {
+		position: inherit;
+	}
+
+}

@@ -73,5 +73,25 @@
 	}
 }
 
+.check-in-form {
+	width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+
+	.new-on-bubble {
+		position: inherit;
+		align-items: center;
+
+		p {
+			text-align: center;
+		}
+
+		.text-btn {
+			padding-right: 15px;
+		}
+	}
+
+}
 
  

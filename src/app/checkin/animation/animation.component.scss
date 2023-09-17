@@ -110,3 +110,28 @@
     border-right-color: #333;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .animation-container {
+    animation: slide-up-mobile 1200ms 2.2s ease-in-out forwards;
+    
+  }
+
+  // !nach justierung nötig
+  @keyframes slide-up-mobile {
+    from {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+          transform: scale(3);
+    }
+  
+    to {
+      position: absolute;
+      top: 15vh ;
+      transform: scale(1);
+    }
+  }
+  
+}

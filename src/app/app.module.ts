@@ -38,6 +38,7 @@ import { ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { CheckInSiteServiceService } from './services/check-in-site-service.service';
+import { ChatSiteComponent } from './main/chat-site/chat-site.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { CheckInSiteServiceService } from './services/check-in-site-service.serv
     AddMembersComponent,
     EditMessageComponent,
     CheckInComponent,
+    ChatSiteComponent,
   ],
   imports: [
     BrowserModule,
