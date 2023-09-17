@@ -24,6 +24,52 @@
 	font-size: var(--logoFontsize);
 }
 
+// chat header
+.chat-header-wrapper {
+	display: flex;
+	width: 100%;
+
+	.logo-wrapper {
+		width: var(--widthChatLeft);
+	}
+}
+
+.searchfield {
+	flex: 1;
+	background-color: var(--colorWhite);
+	margin: 10px 0;
+
+	input {
+		background-color: var(--colorWhite);
+	}
+}
+
+.user-header {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	width: var(--widthChatRight);
+	gap: 8px;
+}
+
+.person-img-wrapper {
+	position: relative;
+	width: 50px;	
+
+	.status-point {
+		background-color: rgb(19, 175, 19);
+		position: absolute;
+		height: 10px;
+		width: 10px;
+		bottom: 5px;
+		right: 5px;
+		z-index: 1;
+		border-radius: 50%;
+		border: 1.4px solid var(--colorBackground);
+	}
+}
+
+
 
 @media screen and (max-width: 600px) {
 
