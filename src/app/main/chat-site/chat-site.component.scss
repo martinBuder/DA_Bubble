@@ -6,20 +6,18 @@
 		margin-top: calc(var(--bodyPadding)*4);
 		height: calc(100svh - var(--bodyPadding)*5);
 		border-radius: 25px;
+		background: var(--colorWhite);
 	}
 }
 
 .contact-site {
 	width: var(--widthChatLeft);
-	background: green;
 }
 
 .main-chat {
 	flex: 1;
-	background: yellow;
 }
 
 .thread-site {
 	width: var(--widthChatRight);
-	background: orange;
 }

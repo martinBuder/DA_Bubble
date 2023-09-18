@@ -1,0 +1,14 @@
+.sidebar-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: var(--bodyPadding);
+	
+	img {
+		width: 40px;
+	}
+
+	mat-icon {
+		font-size: 1.2rem;
+	}
+}

@@ -39,6 +39,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { CheckInSiteServiceService } from './services/check-in-site-service.service';
 import { ChatSiteComponent } from './main/chat-site/chat-site.component';
+import { ChannelAreaComponent } from './chat/channel-area/channel-area.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { ChatSiteComponent } from './main/chat-site/chat-site.component';
     EditMessageComponent,
     CheckInComponent,
     ChatSiteComponent,
+    ChannelAreaComponent,
   ],
   imports: [
     BrowserModule,
