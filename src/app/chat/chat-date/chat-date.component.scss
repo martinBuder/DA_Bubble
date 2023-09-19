@@ -1,0 +1,21 @@
+.date-container {
+	width: 100%;
+}
+
+.date-line {
+	height: 1.8px;
+	width: 100%;
+	background-color: var(--colorBackground);
+}
+
+.date {
+	margin: 0 auto;
+	max-width: max-content;
+	border-radius: 25px;
+	padding: var(--chatGap);
+	border: 1px solid var(--colorBackground);
+	position: relative;
+	top: -22px;
+	background-color: var(--colorWhite);
+	z-index: 1;
+}

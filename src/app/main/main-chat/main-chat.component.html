@@ -1,1 +1,25 @@
-<p>main-chat works!</p>
+<div class="main-chat-header">
+	<div class="chat-name">
+		<mat-icon>numbers</mat-icon>
+		<h3>Channel</h3>
+		<mat-icon>arrow_drop_down</mat-icon>
+	</div>
+	<div class="chat-persons">
+		<div class="person-images">
+			<img src="assets/img/avatars/person-2.png" alt="">
+			<img src="assets/img/avatars/person-1.png" alt="">
+			<img src="assets/img/avatars/person-5.png" alt="">
+		</div>
+		<p class="person-amounts">
+			3
+		</p>
+		<mat-icon class="icon-background">person_add_alt</mat-icon>
+	</div>
+</div>
+<div class="chat-container">
+	<app-chat-date></app-chat-date>
+	<app-message-wrapper></app-message-wrapper>
+	<app-message-wrapper></app-message-wrapper>
+	<app-chat-date></app-chat-date>
+	<app-message-wrapper></app-message-wrapper>
+</div>

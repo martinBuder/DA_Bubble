@@ -7,18 +7,22 @@
 		height: calc(100svh - var(--bodyPadding)*5);
 		border-radius: 25px;
 		background: var(--colorWhite);
-		padding: var(--bodyPadding);
+
 	}
 }
 
 .contact-site {
 	width: var(--widthChatLeft);
+	padding: var(--bodyPadding);
 }
 
 .main-chat {
 	flex: 1;
+	padding: 0;
+	overflow: hidden;
 }
 
 .thread-site {
 	width: var(--widthChatRight);
+	padding: var(--bodyPadding);
 }

@@ -1,11 +1,24 @@
-.members-header {
+.members-header, .members-text {
 	display: flex;
+	align-items: center;
 }
 
+
+
 .contact-list {
-	
+	overflow-y: auto;
+		
 	img{
 		width: 30px;
 		margin-right: 10px;
 	}
+
+	li {
+		margin-bottom: var(--bodyPadding);
+
+		&:first-child {
+			margin-top: var(--bodyPadding);
+		}
+	}
 }
+
