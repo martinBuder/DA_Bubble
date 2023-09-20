@@ -1,26 +1,3 @@
-.message-wrapper, .first-line, .answer-container, .smilies-wrapper, .smilie-container {
-	display: flex;
-	gap: var(--chatGap);
-	align-items: center;
-
-	img {
-		width: 30px;
-		height: 30px;
-		align-self: flex-start;
-	}
-}
-
-.message {
-	border-radius: 0 25px 25px 25px;
-	padding: var(--chatGap);
-	background: var(--colorBackground);
-}
-
-.smilie-container {
-	border: 1px solid var(--colorBackground);
-	border-radius: 25px;
-	padding: 2px 8px;
-}
 
 mat-icon {
 	color: var(--colorPurple);

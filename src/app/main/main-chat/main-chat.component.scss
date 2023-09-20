@@ -3,6 +3,9 @@
 	justify-content: space-between;
 	padding: 25px 45px;
 	box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+	position: relative;
+	z-index: 5;
+	max-height: var(--chatHeaderMaxWidth);
 }
 
 .chat-name, .chat-persons {
@@ -33,9 +36,11 @@
 
 .chat-container {
 	padding: var(--bodyPadding);
+	margin-bottom: var(--chatGap);
 	display: flex;
 	flex-direction: column;
 	gap: var(--bodyPadding);
+	flex: 1;
 }
 
 app-chat-date {

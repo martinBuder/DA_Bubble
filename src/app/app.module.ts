@@ -41,6 +41,7 @@ import { CheckInSiteServiceService } from './services/check-in-site-service.serv
 import { ChatSiteComponent } from './main/chat-site/chat-site.component';
 import { ChannelAreaComponent } from './chat/channel-area/channel-area.component';
 import { ChatDateComponent } from './chat/chat-date/chat-date.component';
+import { ThreadMessageWrapperComponent } from './chat/thread-message-wrapper/thread-message-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { ChatDateComponent } from './chat/chat-date/chat-date.component';
     ChatSiteComponent,
     ChannelAreaComponent,
     ChatDateComponent,
+    ThreadMessageWrapperComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,7 +7,8 @@
 		height: calc(100svh - var(--bodyPadding)*5);
 		border-radius: 25px;
 		background: var(--colorWhite);
-
+		display: flex;
+		flex-direction: column;
 	}
 }
 
@@ -24,5 +25,5 @@
 
 .thread-site {
 	width: var(--widthChatRight);
-	padding: var(--bodyPadding);
+	overflow: hidden;
 }
