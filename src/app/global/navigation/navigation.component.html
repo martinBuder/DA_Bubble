@@ -1,1 +1,8 @@
-<p>navigation works!</p>
+<div class="nav-background-site" (click)="navOpen = !navOpen">
+	<div class="nav" (click)="$event.stopPropagation()">
+		<div class="link">Profil</div>
+		<div class="link">Log out</div>
+		<div class="link">Impressum</div>
+		<div class="link">Datenschutz</div>
+	</div>
+</div>

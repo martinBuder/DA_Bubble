@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
+  navOpen : boolean = false;
+
   constructor(public router: Router) { }
 
 

@@ -1,0 +1,38 @@
+.nav-background-site {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	height: 100svh;
+	background: rgba(0,0,0, 0.6);
+	z-index: 10;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.nav {
+	background: var(--colorWhite);
+	width: max-content;
+	height: max-content;
+	margin: 80px var(--bodyPadding) auto auto;
+	padding: var(--bodyPadding) calc(var(--bodyPadding)*2);
+	text-align: center;
+	border-radius: 25px 0 25px 25px;
+
+	.link {
+		margin-bottom: calc(var(--bodyPadding) - var(--chatGap)) ;
+		padding: var(--chatGap);
+		border-radius: 25px;
+		transition: all ease-in-out 128ms;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+			&:hover {
+				color: var(--colorPurple);
+				background-color: var(--colorBackground);
+			}
+	}
+}
