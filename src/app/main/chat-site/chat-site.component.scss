@@ -27,3 +27,21 @@
 	width: var(--widthChatRight);
 	overflow: hidden;
 }
+
+.sidebar-close-area {
+	display: flex;
+	gap: var(--chatGap);
+	position: absolute;
+	top: 65vh;
+	left: -116px;
+	transform: rotate(-90deg);
+	background-color: var(--colorWhite);
+	padding: var(--chatGap) var(--bodyPadding);
+	border-radius: 0 0 25px 25px;
+	box-shadow: -4px 4px 7px 0px rgba(0, 0, 0, 0.20);
+
+	img {
+		transform: rotate(90deg);
+		width: 20px;
+	}
+}
