@@ -1,12 +1,13 @@
 .members-header, .members-text {
 	display: flex;
 	align-items: center;
+	gap: var(--chatGap);
 }
 
-
-
 .contact-list {
-	overflow-y: auto;
+	padding-left: 30px;
+	max-height: 55vh;
+	margin-top: var(--chatGap);
 		
 	img{
 		width: 30px;
@@ -17,7 +18,7 @@
 		margin-bottom: var(--bodyPadding);
 
 		&:first-child {
-			margin-top: var(--bodyPadding);
+			margin-top: calc(var(--bodyPadding) - var(--chatGap));
 		}
 	}
 }

@@ -1,8 +1,15 @@
+.channel-wrapper {
+	display: flex;
+	flex-direction: column;
+	height: fit-content;
+	max-height: 80vh;
+}
+
 .channel-header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-
+	gap: var(--chatGap);
 }
 
 .channel-text {
@@ -21,13 +28,21 @@
 
 .channel-list {
 	list-style: none;
+	padding-left: 30px;
+	max-height: 55vh;
+	margin: var(--chatGap) 0;
 
 	li {
 		display: flex;
 		margin-bottom: var(--bodyPadding);
 
 		&:first-child {
-			margin-top: var(--bodyPadding);
+			margin-top: calc(var(--bodyPadding) - var(--chatGap));
+		}
+
+		&:last-child {
+			margin-bottom: calc(var(--bodyPadding) - var(--chatGap));
 		}
 	}
 }
+

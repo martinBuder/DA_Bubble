@@ -3,6 +3,7 @@
 	align-items: center;
 	justify-content: space-between;
 	margin-bottom: var(--bodyPadding);
+	max-height: var(--chatHeaderMaxWidth);
 	
 	img {
 		width: 40px;
@@ -12,3 +13,6 @@
 		font-size: 1.2rem;
 	}
 }
+
+
+
