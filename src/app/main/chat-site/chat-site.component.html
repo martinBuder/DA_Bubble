@@ -4,7 +4,8 @@
 	<app-thread-right class="thread-site"></app-thread-right>
 </div>	
 <div class="sidebar-close-area" (click)="sidebarOpen = !sidebarOpen">
-	<p>Workspace-Menü schließen</p>
+	<p *ngIf="sidebarOpen">Workspace-Menü schließen</p>
 	<img *ngIf="sidebarOpen" src="assets/img/no-mat-icons/sidebar-close.svg" alt="">
-	<img *ngIf="!sidebarOpen" src="assets/img/no-mat-icons/sidebar-open.svg" alt="">
+	<p *ngIf="!sidebarOpen" class="closed-sidebar">Workspace-Menü öffnen</p>
+	<img *ngIf="!sidebarOpen" class="closed-sidebar" src="assets/img/no-mat-icons/sidebar-open.svg" alt="">
 </div>
