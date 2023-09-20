@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./chat-site.component.scss']
 })
 export class ChatSiteComponent {
-
+  sidebarOpen : boolean = true;
 }
