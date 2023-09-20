@@ -92,12 +92,21 @@ button {
   }
 }
 
+.person-img-wrapper {
+	position: relative;
+	width: 36px;	
+
+	img {
+		width: 30px;
+	}
+}
+
 .status-point {
   background-color: rgb(19, 175, 19);
   position: absolute;
   height: 10px;
   width: 10px;
-  bottom: 5px;
+  bottom: 4px;
   right: 5px;
   z-index: 1;
   border-radius: 50%;

@@ -7,10 +7,17 @@
 	padding: var(--bodyPadding);
 	max-height: var(--chatHeaderMaxWidth);
 	overflow: hidden;
+	gap: var(--bodyPadding);
 }
 
 .header-text {
 	display: flex;
+	gap: 5px;
+	align-items: center;
+
+	h4 {
+		margin-right: 5px;
+	}
 }
 
 .thread-content {
