@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ThreadOpenCloseService } from 'src/app/services/thread-open-close.service';
 
 @Component({
   selector: 'app-thread-right',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class ThreadRightComponent {
 
+  constructor(public threadOpenCloseService: ThreadOpenCloseService){};
 }

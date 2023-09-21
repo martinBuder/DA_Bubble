@@ -1,7 +1,7 @@
 <div class="chat-site-wrapper">
 	<app-sidebar-left class="contact-site" *ngIf="sidebarOpen"></app-sidebar-left>
 	<app-main-chat class="main-chat"></app-main-chat>
-	<app-thread-right class="thread-site"></app-thread-right>
+	<app-thread-right class="thread-site" *ngIf="threadOpenCloseService.threadOpen"></app-thread-right>
 </div>	
 <div class="sidebar-close-area" (click)="sidebarOpen = !sidebarOpen">
 	<p *ngIf="sidebarOpen">Workspace-Menü schließen</p>

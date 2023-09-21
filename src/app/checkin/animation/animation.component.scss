@@ -67,6 +67,7 @@
   border-right: 2px solid #333; /* this is for the "cursor" */
   animation: typing 1.5s steps(10) 1 forwards, blink-cursor 0.8s 4 forwards; // 5 is amount of animation-duration, after this it will end
   max-width: 10rem;
+
 }
 
 .animate-text {
@@ -93,10 +94,10 @@
     color: transparent;
   }
   50% {
-    color: var(--colorFont);
+    color: var(--colorWhite);
   }
   100% {
-    color: var(--colorFont);
+    color: var(--colorWhite);
   }
 }
 
