@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./channel-area.component.scss']
 })
 export class ChannelAreaComponent {
-
+  channelsOpen : boolean = true;
 }

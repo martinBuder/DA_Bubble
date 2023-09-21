@@ -3,11 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
-import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideDatabase,getDatabase } from '@angular/fire/database';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+
 import { AnimationComponent } from './checkin/animation/animation.component';
 import { SignInComponent } from './checkin/sign-in/sign-in.component';
 import { LogInComponent } from './checkin/log-in/log-in.component';
@@ -42,6 +38,12 @@ import { ChatSiteComponent } from './main/chat-site/chat-site.component';
 import { ChannelAreaComponent } from './chat/channel-area/channel-area.component';
 import { ChatDateComponent } from './chat/chat-date/chat-date.component';
 import { ThreadMessageWrapperComponent } from './chat/thread-message-wrapper/thread-message-wrapper.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+
 
 @NgModule({
   declarations: [
@@ -87,7 +89,6 @@ import { ThreadMessageWrapperComponent } from './chat/thread-message-wrapper/thr
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
-
   ],
   providers: [
     CheckInSiteServiceService,

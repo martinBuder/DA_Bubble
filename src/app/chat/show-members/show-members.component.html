@@ -1,12 +1,13 @@
 <div class="members-wrapper">
 	<div class="members-header">
-		<mat-icon>arrow_drop_down</mat-icon>
+		<mat-icon (click)="contactsOpen = !contactsOpen" *ngIf="contactsOpen">arrow_drop_down</mat-icon>
+		<mat-icon (click)="contactsOpen = !contactsOpen" *ngIf="!contactsOpen" class="closedArrow">arrow_drop_down</mat-icon>
 		<h4 class="members-text">
 			<mat-icon>people_outline</mat-icon>
 			<p>Direktnachrichten</p>
 		</h4>
 	</div>
-	<ul class="contact-list scrollbar-none">
+	<ul class="contact-list scrollbar-none" *ngIf="contactsOpen">
 		<li class="person-img-wrapper"><img src="assets/img/avatars/person-2.png" alt=""><div class="status-point"></div><p>Name Familienname</p></li>
 		<li class="person-img-wrapper"><img src="assets/img/avatars/person-3.png" alt=""><div class="status-point"></div><p>Name Familienname</p></li>
 		<li class="person-img-wrapper"><img src="assets/img/avatars/person-4.png" alt=""><div class="status-point"></div><p>Name Familienname</p></li>

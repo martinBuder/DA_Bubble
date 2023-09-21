@@ -4,6 +4,10 @@
 	gap: var(--chatGap);
 }
 
+.members-header > mat-icon {
+	cursor: pointer;
+}
+
 .contact-list {
 	padding-left: 30px;
 	max-height: 55vh;

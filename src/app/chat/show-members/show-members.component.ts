@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./show-members.component.scss']
 })
 export class ShowMembersComponent {
-
+  contactsOpen : boolean = true;
 }

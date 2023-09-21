@@ -10,6 +10,11 @@
 	justify-content: space-between;
 	align-items: center;
 	gap: var(--chatGap);
+	margin-bottom: var(--chatGap);
+
+	mat-icon {
+		cursor: pointer;
+	}
 }
 
 .channel-text {
@@ -37,7 +42,7 @@
 		margin-bottom: var(--bodyPadding);
 
 		&:first-child {
-			margin-top: calc(var(--bodyPadding) - var(--chatGap));
+			margin-top: calc(var(--bodyPadding) - var(--chatGap)*2);
 		}
 
 		&:last-child {
@@ -45,4 +50,6 @@
 		}
 	}
 }
+
+
 

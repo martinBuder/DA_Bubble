@@ -1,13 +1,14 @@
 <div class="channel-wrapper">
 	<div class="channel-header">
-		<mat-icon>arrow_drop_down</mat-icon>
+		<mat-icon (click)="channelsOpen = !channelsOpen" *ngIf="channelsOpen">arrow_drop_down</mat-icon>
+		<mat-icon (click)="channelsOpen = !channelsOpen" *ngIf="!channelsOpen" class="closedArrow">arrow_drop_down</mat-icon>
 		<h4 class="channel-text">
 			<img src="assets/img/no-mat-icons/channel-purple.svg" class="channel-img" alt="">
 			<p>Channel</p>
 		</h4>
 		<mat-icon>add</mat-icon>
 	</div>
-	<ul class="channel-list scrollbar-none">
+	<ul class="channel-list scrollbar-none" *ngIf="channelsOpen">
 		<li><mat-icon>numbers</mat-icon><p>channel</p></li>
 		<li><mat-icon>numbers</mat-icon><p>channel</p></li>
 		<li><mat-icon>numbers</mat-icon><p>channel</p></li>

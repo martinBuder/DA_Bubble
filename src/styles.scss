@@ -113,6 +113,10 @@ button {
   border: 1.4px solid var(--colorBackground);
 }
 
+.closedArrow {
+	transform: rotate(-90deg);
+}
+
 //check in area
 
 .check-in-headline {
@@ -246,6 +250,8 @@ button {
     display: none; 
   }
 }
+
+
 
 
 @media screen and (max-width: 600px) {

@@ -1,14 +1,14 @@
 {
   "targets": {
-    "dabubble-2023": {
+    "mb-dabubble-1985": {
       "hosting": {
         "DABubble": [
-          "dabubble-2023"
+          "mb-dabubble-1985"
         ]
       }
     }
   },
   "projects": {
-    "default": "dabubble-2023"
+    "default": "mb-dabubble-1985"
   }
 }
