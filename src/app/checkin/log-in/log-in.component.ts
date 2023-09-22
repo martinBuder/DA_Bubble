@@ -40,19 +40,18 @@ export class LogInComponent {
 
   logIn() {
     this.isLoggingIn = true; 
-    const auth = getAuth();
-      signInWithEmailAndPassword(auth, this.logInForm.value.email, this.logInForm.value.password)
-        .then((userCredential) => {
-          // Signed in 
-          const user = userCredential.user;
-          this.routerLink.navigate(['/chat']);
-          // ...
-        })
-        .catch((error) => {
-          this.isLoggingIn = false;
-          const errorCode = error.code;
-          const errorMessage = error.message;
-        });
+      // signInWithEmailAndPassword(auth, this.logInForm.value.email, this.logInForm.value.password)
+      //   .then((userCredential) => {
+      //     // Signed in 
+      //     const user = userCredential.user;
+      //     this.routerLink.navigate(['/chat']);
+      //     // ...
+      //   })
+      //   .catch((error) => {
+      //     this.isLoggingIn = false;
+      //     const errorCode = error.code;
+      //     const errorMessage = error.message;
+      //   });
 
     // this.authService.logIn( {
     //   email: this.logInForm.value.email,
