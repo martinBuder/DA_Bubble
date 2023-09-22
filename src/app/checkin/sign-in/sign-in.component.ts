@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CheckInSiteServiceService } from 'src/app/services/check-in-site-service.service';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { initializeApp } from 'firebase/app'; // Importieren Sie die Firebase-Initialisierungsfunktion
+import { environment } from 'src/environments/environment';
+
 
 
 @Component({
@@ -39,7 +42,7 @@ export class SignInComponent {
 
    constructor(public checkInSiteServiceService: CheckInSiteServiceService){};
 
-
+   firebaseApp = initializeApp(environment.firebase);
 
    createAccount() {
     const auth = getAuth();
