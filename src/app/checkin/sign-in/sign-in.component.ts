@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CheckInSiteServiceService } from 'src/app/services/check-in-site-service.service';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { initializeApp } from 'firebase/app'; // Importieren Sie die Firebase-Initialisierungsfunktion
+import { initializeApp } from 'firebase/app'; 
 import { environment } from 'src/environments/environment';
 
 
@@ -44,23 +44,23 @@ export class SignInComponent {
 
    firebaseApp = initializeApp(environment.firebase);
 
-   createAccount() {
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, this.signInForm.value.email, this.signInForm.value.password)
-    .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
-    // ! here function for create a account
-    this.checkInSiteServiceService.changeCheckInSite('chooseAvatar')
-
- 
+    async createAccount() {
+      const auth = getAuth();
+      await createUserWithEmailAndPassword(auth, this.signInForm.value.email, this.signInForm.value.password)
+      .then((userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          console.log(user);
+          
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+        });
+      // ! here function for create a account
+      this.checkInSiteServiceService.changeCheckInSite('chooseAvatar')
   }
 
 }

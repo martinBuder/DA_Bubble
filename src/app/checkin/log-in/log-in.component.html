@@ -37,7 +37,7 @@
 	<p>Anmelden mit Google</p>
 </button>
 <div class="btn-wrapper">
-	<button class="primary-btn" type="submit" [disabled]="!logInForm.valid">Anmelden</button>
+	<button class="primary-btn" type="submit" [disabled]="!logInForm.valid" (click)="logIn()">Anmelden</button>
 	<button class="secondary-btn" type="submit" routerLink="chat">Gäste-Login</button>
 	</div>
 	<div class="logIn-loader" *ngIf="isLoggingIn">

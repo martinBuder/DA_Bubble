@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { Router } from '@angular/router';
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { initializeApp } from 'firebase/app'; 
+import { environment } from 'src/environments/environment';
 import { CheckInSiteServiceService } from 'src/app/services/check-in-site-service.service';
-
 
 @Component({
   selector: 'app-log-in',
@@ -32,39 +33,61 @@ export class LogInComponent {
 
   constructor(
     public checkInSiteServiceService: CheckInSiteServiceService,
+    private router: Router
     ) {
-
     this.logInForm.valueChanges.subscribe();
-
   }
 
-  logIn() {
+  firebaseApp = initializeApp(environment.firebase);
+
+  async logIn() {
     this.isLoggingIn = true; 
-      // signInWithEmailAndPassword(auth, this.logInForm.value.email, this.logInForm.value.password)
-      //   .then((userCredential) => {
-      //     // Signed in 
-      //     const user = userCredential.user;
-      //     this.routerLink.navigate(['/chat']);
-      //     // ...
-      //   })
-      //   .catch((error) => {
-      //     this.isLoggingIn = false;
-      //     const errorCode = error.code;
-      //     const errorMessage = error.message;
-      //   });
-
-    // this.authService.logIn( {
-    //   email: this.logInForm.value.email,
-    //   password: this.logInForm.value.password
-    // }).subscribe(() => {
-    //     this.routerLink.navigate(['/chat']);
-    //   },(error: any) => {
-    //     this.isLoggingIn = false;
-    //   })
+    const auth = getAuth();
+      await signInWithEmailAndPassword(auth, this.logInForm.value.email, this.logInForm.value.password)
+        .then((userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          console.log(user);
+          this.router.navigate(['/chat']);
+          console.log('is here');
+          
+          // ...
+        })
+        .catch((error) => {
+          this.isLoggingIn = false;
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
   }
 
-  googleLogIn() {
-   
+  async googleLogIn() {
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+    await signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        if (credential !== null) {
+         const token = credential.accessToken;
+        }
+        // The signed-in user info.
+        const user = result.user;
+        this.router.navigate(['/chat']);
+        console.log(user);
+     
+        
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
 
   }
 
