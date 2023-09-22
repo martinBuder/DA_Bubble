@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CheckInSiteServiceService } from 'src/app/services/check-in-site-service.service';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 
 @Component({
   selector: 'app-sign-in',
@@ -8,6 +10,8 @@ import { CheckInSiteServiceService } from 'src/app/services/check-in-site-servic
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent {
+
+
    /**
    * this is the validation for the input fields
    */
@@ -32,14 +36,27 @@ export class SignInComponent {
     ], []),  
      });
 
-   
 
    constructor(public checkInSiteServiceService: CheckInSiteServiceService){};
 
+
+
    createAccount() {
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, this.signInForm.value.email, this.signInForm.value.password)
+    .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
     // ! here function for create a account
     this.checkInSiteServiceService.changeCheckInSite('chooseAvatar')
- console.log(this.checkInSiteServiceService.checkInSite);
+
  
   }
 

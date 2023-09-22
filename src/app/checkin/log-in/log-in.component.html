@@ -40,6 +40,9 @@
 	<button class="primary-btn" type="submit" [disabled]="!logInForm.valid">Anmelden</button>
 	<button class="secondary-btn" type="submit" routerLink="chat">Gäste-Login</button>
 	</div>
+	<div class="logIn-loader" *ngIf="isLoggingIn">
+		Hier kommt ein loader circle hin dieser zeigt das eingelogt wird.
+	</div>
 
 	<div class="new-on-bubble">
 		<p>Neu bei DABubble?</p>
