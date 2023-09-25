@@ -23,13 +23,13 @@
       <mat-icon>search</mat-icon>
     </div>
     <div class="user-header" (click)="navOpen = !navOpen">
-      <p>Name Familienname</p>
+      <p>{{ this.userDatasService.loggedInUser.displayName }}</p>
       <div class="person-img-wrapper">
         <img src="assets/img/avatars/person-1.png" alt="">
         <div class="status-point"></div>
       </div>
       <mat-icon>arrow_drop_down</mat-icon>
-      <app-navigation *ngIf="navOpen" [navOpen]="false"></app-navigation>
+      <app-navigation *ngIf="navOpen" ></app-navigation>
     </div>
   </div>
 </ng-container>

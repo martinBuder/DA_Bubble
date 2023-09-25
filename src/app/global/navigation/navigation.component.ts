@@ -12,7 +12,11 @@ import { environment } from 'src/environments/environment';
 export class NavigationComponent {
   @Input() navOpen : boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+
+    this.navOpen = false;
+
+  }
   firebaseApp = initializeApp(environment.firebase);
 
   async logOut() {

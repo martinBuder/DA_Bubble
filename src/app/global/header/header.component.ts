@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserDatasService } from 'src/app/services/user-datas.service';
 
 
 @Component({
@@ -9,9 +10,15 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
-  navOpen : boolean = false;
+  navOpen : boolean = true;
 
-  constructor(public router: Router) { }
+  constructor(
+    public router: Router,
+    public userDatasService: UserDatasService,
+    ) { }
 
+   
+
+  
 
 }

@@ -5,6 +5,7 @@ import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvide
 import { initializeApp } from 'firebase/app'; 
 import { environment } from 'src/environments/environment';
 import { CheckInSiteServiceService } from 'src/app/services/check-in-site-service.service';
+import { UserDatasService } from 'src/app/services/user-datas.service';
 
 @Component({
   selector: 'app-log-in',
@@ -33,6 +34,7 @@ export class LogInComponent {
 
   constructor(
     public checkInSiteServiceService: CheckInSiteServiceService,
+    private userDatasService: UserDatasService,
     private router: Router
     ) {
     this.logInForm.valueChanges.subscribe();
@@ -47,11 +49,8 @@ export class LogInComponent {
         .then((userCredential) => {
           // Signed in 
           const user = userCredential.user;
-          console.log(user);
+          this.userDatasService.setLoggedInUser(user);
           this.router.navigate(['/chat']);
-          console.log('is here');
-          
-          // ...
         })
         .catch((error) => {
           this.isLoggingIn = false;
@@ -72,8 +71,9 @@ export class LogInComponent {
         }
         // The signed-in user info.
         const user = result.user;
+        this.userDatasService.setLoggedInUser(user);
         this.router.navigate(['/chat']);
-        console.log(user);
+       
      
         
         // IdP data available using getAdditionalUserInfo(result)
