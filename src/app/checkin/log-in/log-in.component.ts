@@ -72,13 +72,16 @@ export class LogInComponent {
         // The signed-in user info.
         const user = result.user;
         this.userDatasService.setLoggedInUser(user);
+        this.userDatasService.saveUserInLocalStorage(this.userDatasService.loggedInUser);
+        
         this.router.navigate(['/chat']);
        
      
         
         // IdP data available using getAdditionalUserInfo(result)
         // ...
-      }).catch((error) => {
+      })
+      .catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -90,5 +93,4 @@ export class LogInComponent {
       });
 
   }
-
 }

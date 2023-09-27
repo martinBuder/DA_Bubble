@@ -23,9 +23,9 @@
       <mat-icon>search</mat-icon>
     </div>
     <div class="user-header" (click)="navOpen = !navOpen">
-      <p>{{ this.userDatasService.loggedInUser.displayName }}</p>
+      <p>{{ this.userDatasService.loggedInUser.name }}</p>
       <div class="person-img-wrapper">
-        <img src="assets/img/avatars/person-1.png" alt="">
+        <img src="{{ this.userDatasService.loggedInUser.img }}" alt="">
         <div class="status-point"></div>
       </div>
       <mat-icon>arrow_drop_down</mat-icon>

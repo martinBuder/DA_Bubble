@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { UserDatasService } from 'src/app/services/user-datas.service';
 import { Router } from '@angular/router';
 import { getAuth, signOut } from "firebase/auth";
 import { initializeApp } from 'firebase/app'; 
@@ -12,20 +13,12 @@ import { environment } from 'src/environments/environment';
 export class NavigationComponent {
   @Input() navOpen : boolean = false;
 
-  constructor(private router: Router) {
+  constructor(
+    public userDatasService: UserDatasService,
+  ) {
 
     this.navOpen = false;
 
   }
-  firebaseApp = initializeApp(environment.firebase);
-
-  async logOut() {
-    const auth = getAuth();
-    await signOut(auth).then(() => {
-      this.router.navigate(['/']);
-      // Sign-out successful.
-    }).catch((error) => {
-      // An error happened.
-    });
-  }
+  
 }
