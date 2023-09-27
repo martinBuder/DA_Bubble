@@ -98,5 +98,4 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 })
 export class AppModule {
 
-
 }

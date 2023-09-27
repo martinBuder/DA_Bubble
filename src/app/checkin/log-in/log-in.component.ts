@@ -8,6 +8,7 @@ import { CheckInSiteServiceService } from 'src/app/services/check-in-site-servic
 import { UserDatasService } from 'src/app/services/user-datas.service';
 import { browserLocalPersistence, setPersistence } from '@angular/fire/auth';
 
+
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
@@ -31,7 +32,7 @@ export class LogInComponent {
       Validators.minLength(8)
     ], [])
   });
-  routerLink: any;
+ 
 
   constructor(
     public checkInSiteServiceService: CheckInSiteServiceService,
@@ -46,12 +47,14 @@ export class LogInComponent {
   async logIn() {
     this.isLoggingIn = true; 
     const auth = getAuth();
+    setPersistence(auth, browserLocalPersistence)
     // await setPersistence(auth, browserLocalPersistence);
       await signInWithEmailAndPassword(auth, this.logInForm.value.email, this.logInForm.value.password)
         .then((userCredential) => {
           // Signed in 
           const user = userCredential.user;
           this.userDatasService.setLoggedInUser(user);
+          this.userDatasService.saveUserInLocalStorage(this.userDatasService.loggedInUser);
           this.router.navigate(['/chat']);
         })
         .catch((error) => {
