@@ -6,6 +6,7 @@ import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
 import { CheckInSiteServiceService } from 'src/app/services/check-in-site-service.service';
 import { UserDatasService } from 'src/app/services/user-datas.service';
+import { browserLocalPersistence, setPersistence } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-log-in',
@@ -45,6 +46,7 @@ export class LogInComponent {
   async logIn() {
     this.isLoggingIn = true; 
     const auth = getAuth();
+    // await setPersistence(auth, browserLocalPersistence);
       await signInWithEmailAndPassword(auth, this.logInForm.value.email, this.logInForm.value.password)
         .then((userCredential) => {
           // Signed in 
@@ -62,6 +64,7 @@ export class LogInComponent {
   async googleLogIn() {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
+    // await setPersistence(auth, browserLocalPersistence);
     await signInWithPopup(auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
