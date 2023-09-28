@@ -34,6 +34,7 @@ import { CheckInComponent } from './checkin/check-in/check-in.component';
 import { ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CheckInSiteServiceService } from './services/check-in-site-service.service';
 import { ChatSiteComponent } from './main/chat-site/chat-site.component';
 import { ChannelAreaComponent } from './chat/channel-area/channel-area.component';
@@ -85,6 +86,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),

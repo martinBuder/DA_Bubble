@@ -48,6 +48,9 @@
 		<p>Neu bei DABubble?</p>
 		<div class="text-btn" (click)="checkInSiteServiceService.changeCheckInSite('signIn')">Konto erstellen</div>
 	</div>
+	<div class="spinner-wrapper" *ngIf="isLoggingIn">
+		<mat-spinner class="spinner"></mat-spinner>
+	</div>
 
 
 

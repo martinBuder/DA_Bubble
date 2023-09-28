@@ -77,10 +77,10 @@ export class LogInComponent {
    * log in with google sign in and go to the next site -- we use firebase getAuth()
    */
   async googleLogIn() {
+    this.isLoggingIn = true; 
     const provider = new GoogleAuthProvider();
     await signInWithPopup(this.auth, provider)
-    
-      .then((result) => {
+          .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         if (credential !== null) {
@@ -99,7 +99,8 @@ export class LogInComponent {
         const email = error.customData.email;
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
-        });
+      });
+      this.isLoggingIn = false;
   }
 
   /**
