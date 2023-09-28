@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserDatasService } from 'src/app/services/user-datas.service';
+import { User } from '@firebase/auth';
 
 
 @Component({
@@ -9,14 +10,17 @@ import { UserDatasService } from 'src/app/services/user-datas.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  
 
   navOpen : boolean = true;
 
   constructor(
     public router: Router,
     public userDatasService: UserDatasService,
-    ) { }
+    ) { 
+    }
 
+  
 
    
 

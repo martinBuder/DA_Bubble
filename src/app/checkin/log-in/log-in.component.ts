@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, setPersistence, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, browserLocalPersistence } from "firebase/auth";
 import { initializeApp } from 'firebase/app'; 
 import { environment } from 'src/environments/environment';
 import { CheckInSiteServiceService } from 'src/app/services/check-in-site-service.service';
 import { UserDatasService } from 'src/app/services/user-datas.service';
-import { browserLocalPersistence, setPersistence } from '@angular/fire/auth';
+
 
 
 @Component({
@@ -16,9 +16,11 @@ import { browserLocalPersistence, setPersistence } from '@angular/fire/auth';
 })
 export class LogInComponent {
 
-  isLoggingIn : boolean = false
+  auth : any;
+  isLoggingIn : boolean = false;
 
-   /**
+
+  /**
    * this is the validation for the input fields
    */
   public logInForm : FormGroup = new FormGroup({
@@ -37,38 +39,47 @@ export class LogInComponent {
   constructor(
     public checkInSiteServiceService: CheckInSiteServiceService,
     private userDatasService: UserDatasService,
-    private router: Router
-    ) {
-    this.logInForm.valueChanges.subscribe();
-  }
+    private router: Router,
+    ) { 
+      this.getFirebaseAuth()
+     }
 
   firebaseApp = initializeApp(environment.firebase);
 
-  async logIn() {
-    this.isLoggingIn = true; 
-    const auth = getAuth();
-    setPersistence(auth, browserLocalPersistence)
-    // await setPersistence(auth, browserLocalPersistence);
-      await signInWithEmailAndPassword(auth, this.logInForm.value.email, this.logInForm.value.password)
-        .then((userCredential) => {
-          // Signed in 
-          const user = userCredential.user;
-          this.userDatasService.setLoggedInUser(user);
-          this.userDatasService.saveUserInLocalStorage(this.userDatasService.loggedInUser);
-          this.router.navigate(['/chat']);
-        })
-        .catch((error) => {
-          this.isLoggingIn = false;
-          const errorCode = error.code;
-          const errorMessage = error.message;
-        });
+  /**
+   * get the firebase authentification and changed the persistence - so we must  * check out the user -> when you reload the page the user isn't loged out - 
+   * without local storage from us.
+   */
+  getFirebaseAuth() {
+    this.auth = getAuth();
+    setPersistence(this.auth, browserLocalPersistence);
   }
 
+  /**
+   * normal log In with email and password and go to the next site-- we use firebase getAuth()
+   */
+  async logIn() {
+    this.isLoggingIn = true; 
+    await signInWithEmailAndPassword(this.auth, this.logInForm.value.email, this.logInForm.value.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        this.userDatasService.setLoggedInUser(user);
+        this.router.navigate(['/chat']);
+        })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      })
+    this.isLoggingIn = false;
+  }
+
+  /**
+   * log in with google sign in and go to the next site -- we use firebase getAuth()
+   */
   async googleLogIn() {
     const provider = new GoogleAuthProvider();
-    const auth = getAuth();
-    // await setPersistence(auth, browserLocalPersistence);
-    await signInWithPopup(auth, provider)
+    await signInWithPopup(this.auth, provider)
+    
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -78,14 +89,7 @@ export class LogInComponent {
         // The signed-in user info.
         const user = result.user;
         this.userDatasService.setLoggedInUser(user);
-        this.userDatasService.saveUserInLocalStorage(this.userDatasService.loggedInUser);
-        
-        this.router.navigate(['/chat']);
-       
-     
-        
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
+        this.goToNextPage();
       })
       .catch((error) => {
         // Handle Errors here.
@@ -95,8 +99,13 @@ export class LogInComponent {
         const email = error.customData.email;
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
+        });
+  }
 
+  /**
+   * go to the chatpage
+   */
+  goToNextPage() {
+    this.router.navigate(['/chat']);
   }
 }

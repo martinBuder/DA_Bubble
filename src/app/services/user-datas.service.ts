@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Auth, getAuth, onAuthStateChanged, signInWithCustomToken, signOut } from '@angular/fire/auth';
+import { Auth, getAuth, signOut } from '@angular/fire/auth';
 import { User } from '@firebase/auth';
 import { Router } from '@angular/router';
-import { initializeApp } from '@angular/fire/app';
-import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -11,54 +9,33 @@ import { environment } from 'src/environments/environment';
 })
 export class UserDatasService {
   
+  user: User | null = null;
   public loggedInUser: any = { }; 
   
-  
-  constructor(
+    constructor(
     private router: Router,
-    private auth: Auth,
+    public auth: Auth,
     ) {
-      // const firebaseConfig = environment.firebase;
+      this.checkFirebaseUser();
+    }
 
-      // // Initialisieren Sie Firebase
-      // const app = initializeApp(firebaseConfig);
-  
-      // Initialisieren Sie Firebase Authentication und erhalten Sie eine Auth-Instanz
-      
-
-
-    // const auth = getAuth();
-
-    this.getUserFromLocalStorage();
-    // this.reloadUser();
-    // console.log(this.loggedInUser.refresh)
-    
+  /**
+   * check is there a active firebase user and something is changed on it
+   * yes = make this user to loggeInUser
+   * no = do nothing for checkout
+   */
+  async checkFirebaseUser() {
+    const auth = getAuth();
+    auth.onAuthStateChanged((firebaseUser) => {
+      this.user = firebaseUser;
+      if (firebaseUser) {
+        this.setLoggedInUser(this.user)
+      }
+    });
   }
 
-
-  // async reloadUser() {
-  //   const auth = getAuth();
-
-  //   if (this.loggedInUser) {
-  //     // Verwenden Sie das Refresh-Token, um sich erneut bei Firebase anzumelden
-  //     await signInWithCustomToken(auth, this.loggedInUser.refresh.refreshToken)
-  //       .then((userCredential) => {
-  //         const user = userCredential.user;
-  //         console.log('Benutzer erfolgreich erneut angemeldet:', user);
-  //       })
-  //       .catch((error) => {
-  //         console.error('Fehler bei der erneuten Anmeldung:', error);
-  //       });
-  //   }
-  // }
-
-  //  isLoggedIn(): boolean {
-  //   return this.user !== null;
-  // }
-  
-  
   /**
-   * set the firebase user to my own user
+   * set the firebase user to my own user with just the datas I need
    * 
    * @param user firebase user
    */
@@ -67,79 +44,21 @@ export class UserDatasService {
       name: user.displayName,
       img: user.photoURL,
       email: user.email,
-      id: user.uid,
-      refresh: user.stsTokenManager 
+      id: user.uid
+    }
   }
 
-  console.log(this.loggedInUser);
-  
-  }
-  
-
+ /**
+  * user will be sign out and the browser navigate to checkIn site
+  */
   async logOut() {
-    console.log("Logout wird ausgeführt");
-    
     try {
       const auth = getAuth();
       await signOut(auth);
-   
-      // Weitere Aktionen nach der Abmeldung hier ausführen
     } catch (error) {
       console.error("Fehler beim Ausloggen:", error);
     }
-    this.deleteUserFromLocalStorage();
     this.router.navigate(['/']);
   }
-
-  // work with local storage
-
-  /**
-   * save user in local storage for refresh
-   * 
-   * @param user 
-   */
-  saveUserInLocalStorage(user : any) {
-    localStorage.setItem('loggedInUser', JSON.stringify(user));
-  }
-
-  /**
-   * get the saved user from local storage
-   */
-  getUserFromLocalStorage() {
-    const savedUser = localStorage.getItem('loggedInUser');
-    if (savedUser) {
-      this.loggedInUser = JSON.parse(savedUser);
-    }
-  }
-
-  /**
-   * delete User from local storage for log out
-   */
-  deleteUserFromLocalStorage() {
-   localStorage.removeItem('loggedInUser');
-  }
-
-
-
-  // checkIfUserIsActive() {
-  //   let lastActivityTime = Date.now();
-
-  //   // Überwachen Sie die Aktivität im Browser
-  //   document.addEventListener('mousemove', () => {
-  //     lastActivityTime = Date.now();
-  //   });
-
-  //   // Prüfen Sie regelmäßig, ob der Benutzer ausgeloggt werden sollte
-  //   setInterval(() => {
-  //     const currentTime = Date.now();
-  //     const inactivityDuration = currentTime - lastActivityTime;
-  //     const maxInactivityDuration = 10 * 60 * 1000; // 10 Minuten inaktiv
-
-  //     if (inactivityDuration >= maxInactivityDuration) {
-  //       // Der Benutzer war inaktiv. Führen Sie hier die Logout-Funktion aus.
-  //       // Beispiel: authService.logout();
-  //     }
-  //   }, 1000); // Überprüfen Sie alle 1 Sekunde auf Inaktivität
-  // }
 }
 

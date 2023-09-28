@@ -25,7 +25,7 @@
     <div class="user-header" (click)="navOpen = !navOpen">
       <p>{{ this.userDatasService.loggedInUser.name }}</p>
       <div class="person-img-wrapper">
-        <img src="{{ this.userDatasService.loggedInUser.img }}" alt="">
+        <img src= '{{ this.userDatasService.loggedInUser.img }}' alt="">
         <div class="status-point"></div>
       </div>
       <mat-icon>arrow_drop_down</mat-icon>
