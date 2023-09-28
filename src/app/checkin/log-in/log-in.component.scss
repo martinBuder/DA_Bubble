@@ -77,21 +77,15 @@
 	width: 100%;
 }
 
-.spinner-wrapper {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: rgba(0,0,0, 0.1);
+.fire-error-message {
+	color: var(--colorErrorRed);
+	font-size: 1.5rem;
+	padding: 15px 30px;
+	border-radius: 25px;
+	border: 2px solid var(--colorErrorRed);
+	background-color: var(--colorWhite);
 	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 10;
-
-	.mat-mdc-progress-spinner  {
-		--mdc-circular-progress-active-indicator-color: var(--colorPurple)
-	}
+	top: 50vh;
 }
 
 @media screen and (max-width: 600px) {

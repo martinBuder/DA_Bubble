@@ -51,6 +51,9 @@
 	<div class="spinner-wrapper" *ngIf="isLoggingIn">
 		<mat-spinner class="spinner"></mat-spinner>
 	</div>
+	<div *ngIf="errorMessage" class="fire-error-message">
+  {{ errorMessage }}
+</div>
 
 
 

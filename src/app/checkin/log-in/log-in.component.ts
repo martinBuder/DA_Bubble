@@ -18,6 +18,7 @@ export class LogInComponent {
 
   auth : any;
   isLoggingIn : boolean = false;
+  errorMessage: string | null = null
 
 
   /**
@@ -68,8 +69,20 @@ export class LogInComponent {
         })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
+        console.log(errorCode);
+       
+        if (errorCode === "auth/invalid-login-credentials") {
+          this.errorMessage = "E-Mail und/oder Passwort ist nicht bekannt.";
+        }else {
+          this.errorMessage = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.";
+        }
+
+        setTimeout(() => {
+          this.errorMessage = null;
+        }, 2000);
       })
+
+    
     this.isLoggingIn = false;
   }
 
