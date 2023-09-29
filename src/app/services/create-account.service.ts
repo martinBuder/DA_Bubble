@@ -52,7 +52,7 @@ export class CreateAccountService {
       // Profile-Daten aktualisieren
       await this.userDatasService.updateFireUser(auth, 'displayName', this.profileName);
       await this.userDatasService.updateFireUser(auth, 'photoURL', this.profileImg);
-      this.successfulMessage = 'Account erfolgreich erstellt.'
+      this.successfulMessage = 'Account erfolgreich erstellt.';
       setTimeout(() => {
         this.successfulMessage = null;
       }, 2000);
@@ -63,11 +63,13 @@ export class CreateAccountService {
         this.errorMessage = 'Dieser Benutzer hat bereits ein Konto.';
       } else {
         this.errorMessage = 'Dieser Benutzer hat bereits ein Konto.';
-        ;
       }
+      await this.userDatasService.logOut();
       setTimeout(() => {
         this.errorMessage = null;
       }, 2000);
+
     }
+   
   }
 }

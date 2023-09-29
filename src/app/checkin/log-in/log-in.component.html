@@ -3,7 +3,7 @@
 
 <p>Just for testing: {{ logInForm.value | json }}</p>
 
-<form [formGroup]="logInForm" (ngSubmit)="logIn()" class="check-in-form">
+<form [formGroup]="logInForm"  class="check-in-form">
 	<div class="inputfield-wrapper">
 		 <mat-icon>mail_outline</mat-icon>
 			<input formControlName="email" type="email" placeholder="beispielname@email.com">
@@ -37,8 +37,8 @@
 	<p>Anmelden mit Google</p>
 </button>
 <div class="btn-wrapper">
-	<button class="primary-btn" type="submit" [disabled]="!logInForm.valid" (click)="logIn()">Anmelden</button>
-	<button class="secondary-btn" type="submit" routerLink="chat">Gäste-Login</button>
+	<button class="primary-btn" type="submit" [disabled]="!logInForm.valid" (click)="logIn(this.logInForm.value.email, this.logInForm.value.password)">Anmelden</button>
+	<button class="secondary-btn" type="submit" routerLink="chat" (click)="logIn('gast@email.com','gast-Gast1')">Gäste-Login</button>
 	</div>
 	<div class="logIn-loader" *ngIf="isLoggingIn">
 		Hier kommt ein loader circle hin dieser zeigt das eingelogt wird.

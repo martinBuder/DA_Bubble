@@ -1,9 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { UserDatasService } from 'src/app/services/user-datas.service';
-import { Router } from '@angular/router';
-import { getAuth, signOut } from "firebase/auth";
-import { initializeApp } from 'firebase/app'; 
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-navigation',

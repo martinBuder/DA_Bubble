@@ -48,6 +48,16 @@ export class UserDatasService {
     }
   }
 
+
+  clearLoggedInUser() {
+    this.loggedInUser = {
+      name: 'Gast',
+      img: 'assets/img/avatars/person-0.png',
+      email: '',
+      id: '',
+    }
+  };
+
  /**
   * user will be sign out and the browser navigate to checkIn site
   */
@@ -55,11 +65,13 @@ export class UserDatasService {
     try {
       const auth = getAuth();
       await signOut(auth);
+      this.clearLoggedInUser();
+      console.log('user loged out');
     } catch (error) {
       console.error("Fehler beim Ausloggen:", error);
     }
     this.router.navigate(['/']);
-  }
+  };
 
   /**
    * change the firebase user datas

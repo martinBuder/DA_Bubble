@@ -59,9 +59,9 @@ export class LogInComponent {
   /**
    * normal log In with email and password and go to the next site-- we use firebase getAuth()
    */
-  async logIn() {
+  async logIn(email: string, password:string) {
     this.isLoggingIn = true; 
-    await signInWithEmailAndPassword(this.auth, this.logInForm.value.email, this.logInForm.value.password)
+    await signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         this.userDatasService.setLoggedInUser(user);
