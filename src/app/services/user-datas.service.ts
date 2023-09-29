@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, getAuth, signOut } from '@angular/fire/auth';
+import { Auth, getAuth, signOut, updateProfile } from '@angular/fire/auth';
 import { User } from '@firebase/auth';
 import { Router } from '@angular/router';
 
@@ -59,6 +59,19 @@ export class UserDatasService {
       console.error("Fehler beim Ausloggen:", error);
     }
     this.router.navigate(['/']);
+  }
+
+  async updateFireUser(auth:Auth, key: any, value : string) {
+    if (auth.currentUser) {
+      await updateProfile(auth.currentUser, {
+      displayName : value
+      }).then(() => {
+      // Profile updated!
+      }).catch((error) => {
+      // An error occurred
+      // ...
+      });
+    }
   }
 }
 

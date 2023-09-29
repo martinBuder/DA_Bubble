@@ -66,6 +66,8 @@ export class LogInComponent {
         const user = userCredential.user;
         this.userDatasService.setLoggedInUser(user);
         this.router.navigate(['/chat']);
+        console.log(user);
+        
         })
       .catch((error) => {
         const errorCode = error.code;
