@@ -20,11 +20,9 @@ export class ChooseAvatarComponent {
  
   async finishCreateAccount() {
     this.creatingAccount = true;
-    // ! hier kommt ein spinner
     await this.createAccountService.createAccount();
     this.creatingAccount = false;
     // ! Hier kommt eine Message
-    console.log('finish');
     this.checkInSiteServiceService.changeCheckInSite('logIn');
   }
 }
