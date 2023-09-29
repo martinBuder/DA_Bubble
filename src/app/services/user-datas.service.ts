@@ -61,10 +61,17 @@ export class UserDatasService {
     this.router.navigate(['/']);
   }
 
+  /**
+   * change the firebase user datas
+   * 
+   * @param auth 
+   * @param key firebase userJson key to change
+   * @param value firebase userJson value to this key
+   */
   async updateFireUser(auth:Auth, key: any, value : string) {
     if (auth.currentUser) {
       await updateProfile(auth.currentUser, {
-      displayName : value
+      [key] : value
       }).then(() => {
       // Profile updated!
       }).catch((error) => {

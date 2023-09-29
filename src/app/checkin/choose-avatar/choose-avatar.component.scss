@@ -4,13 +4,11 @@
 	align-items: center;
 	gap: 10px;
 
-	mat-icon {
-		background-color: var(--colorPurpleDark);
-		color: var(--colorBackground);
+	.profile-img-container {
 		border-radius: 50%;
-		width: 200px;
-		height: 200px;
-		font-size: 200px;
+		width: 100px;
+		height: 100px;
+		overflow: hidden;
 	}
 }
 

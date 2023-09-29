@@ -1,19 +1,21 @@
 <h1 class="check-in-headline"><div class="back-arrow text-btn" (click)="checkInSiteServiceService.changeCheckInSite('signIn')">&larr;</div>Konto erstellen</h1>
 <div class="person-wrapper">
-	<mat-icon>person</mat-icon>
-	<p>NAME</p>
+	<div class="profile-img-container">
+		<img src= '{{ this.createAccountService.profileImg }}' alt="">
+	</div>
+	<p>{{ this.createAccountService.profileName }}</p>
 </div>
 <p>Aus der Liste wählen</p>
 <div class="avatar-container">
-	<img src="assets/img/avatars/person-1.png" alt="">
-	<img src="assets/img/avatars/person-2.png" alt="">
-	<img src="assets/img/avatars/person-3.png" alt="">
-	<img src="assets/img/avatars/person-4.png" alt="">
-	<img src="assets/img/avatars/person-5.png" alt="">
-	<img src="assets/img/avatars/person-6.png" alt="">
+	<img src="assets/img/avatars/person-1.png" alt="" (click)='this.createAccountService.profileImg = "assets/img/avatars/person-1.png"'>
+	<img src="assets/img/avatars/person-2.png" alt="" (click)='this.createAccountService.profileImg = "assets/img/avatars/person-2.png"'>
+	<img src="assets/img/avatars/person-3.png" alt="" (click)='this.createAccountService.profileImg = "assets/img/avatars/person-3.png"'>
+	<img src="assets/img/avatars/person-4.png" alt="" (click)='this.createAccountService.profileImg = "assets/img/avatars/person-4.png"'>
+	<img src="assets/img/avatars/person-5.png" alt="" (click)='this.createAccountService.profileImg = "assets/img/avatars/person-5.png"'>
+	<img src="assets/img/avatars/person-6.png" alt="" (click)='this.createAccountService.profileImg = "assets/img/avatars/person-6.png"'>
 </div>
 <div class="own-img-container">
 	<p>eigenes Bild verwenden</p>
-	<button class="secondary-btn">Datei hochladen</button>
+	<button disabled class="secondary-btn">Datei hochladen</button>
 </div>
-<button class="primary-btn one-btn">Weiter</button>
+<button class="primary-btn one-btn" (click)="finishCreateAccount()">Weiter</button>

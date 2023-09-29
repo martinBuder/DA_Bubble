@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CheckInSiteServiceService } from 'src/app/services/check-in-site-service.service';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
-import { environment } from 'src/environments/environment';
-import { UserDatasService } from 'src/app/services/user-datas.service';
+import { CreateAccountService } from 'src/app/services/create-account.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -45,37 +42,23 @@ export class SignInComponent {
 
   constructor(
     public checkInSiteServiceService: CheckInSiteServiceService,
-    private userDatasService: UserDatasService
+    private createAccountService: CreateAccountService
   ) {}
 
-  firebaseApp = initializeApp(environment.firebase);
+  /**
+   * go to next step
+   */
+  goToChooseAvatar() {
+    this.saveNewUserInCreateAccount();
+    this.checkInSiteServiceService.changeCheckInSite('chooseAvatar');
+  }
 
   /**
-   * create account on firebase
+   * save datas in createAccountService 
    */
-  async createAccount() {
-    const auth = getAuth();
-    await createUserWithEmailAndPassword(
-      auth,
-      this.signInForm.value.email,
-      this.signInForm.value.password
-    )
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        this.userDatasService.updateFireUser(auth,
-          'displayName',
-          this.signInForm.value.name
-        );
-        console.log('we are gone');
-        
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
-
-    // this.checkInSiteServiceService.changeCheckInSite('chooseAvatar');
+  saveNewUserInCreateAccount() {
+    this.createAccountService.profileName = this.signInForm.value.name;
+    this.createAccountService.email = this.signInForm.value.email;
+    this.createAccountService.password = this.signInForm.value.password;
   }
 }
