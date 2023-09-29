@@ -17,7 +17,8 @@ export class CreateAccountService {
   email !: string;
   password !: string;
 
-  
+  errorMessage: string | null = null;
+  successfulMessage: string | null = null;
 
   constructor(
     public checkInSiteServiceService: CheckInSiteServiceService,
@@ -51,12 +52,22 @@ export class CreateAccountService {
       // Profile-Daten aktualisieren
       await this.userDatasService.updateFireUser(auth, 'displayName', this.profileName);
       await this.userDatasService.updateFireUser(auth, 'photoURL', this.profileImg);
-  
-      console.log('we are gone');
-    } catch (error) {
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
-      // Fehlerbehandlung hier
+      this.successfulMessage = 'Account erfolgreich erstellt.'
+      setTimeout(() => {
+        this.successfulMessage = null;
+      }, 2000);
+    } catch (error: any) {
+      const errorCode = error.code;
+      console.log(errorCode);
+      if (errorCode === 'auth/email-already-in-use') {
+        this.errorMessage = 'Dieser Benutzer hat bereits ein Konto.';
+      } else {
+        this.errorMessage = 'Dieser Benutzer hat bereits ein Konto.';
+        ;
+      }
+      setTimeout(() => {
+        this.errorMessage = null;
+      }, 2000);
     }
   }
 }

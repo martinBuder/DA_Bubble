@@ -23,7 +23,7 @@ export class SignInComponent {
     ),
     name: new FormControl(
       '',
-      [Validators.required, Validators.pattern(/^[a-zA-Z.-]+ [a-zA-Z0-9.-]+$/)],
+      [Validators.required, Validators.pattern(/^[a-zA-ZäöüÄÖÜß.-]+ [a-zA-Z0-9äöüÄÖÜß.-]+$/)],
       []
     ),
     password: new FormControl(

@@ -77,17 +77,6 @@
 	width: 100%;
 }
 
-.fire-error-message {
-	color: var(--colorErrorRed);
-	font-size: 1.5rem;
-	padding: 15px 30px;
-	border-radius: 25px;
-	border: 2px solid var(--colorErrorRed);
-	background-color: var(--colorWhite);
-	position: absolute;
-	top: 50vh;
-}
-
 @media screen and (max-width: 600px) {
 
 	.new-on-bubble {

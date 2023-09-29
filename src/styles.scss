@@ -187,6 +187,40 @@ button {
   }
 }
 
+.fire-error-message {
+	color: var(--colorErrorRed);
+	font-size: 1.5rem;
+	padding: 15px 30px;
+	border-radius: 25px;
+	border: 2px solid var(--colorErrorRed);
+	background-color: var(--colorWhite);
+	position: absolute;
+	top: 50vh;
+}
+
+.successful-message {
+	color: var(--colorWhite);
+	font-size: 2rem;
+	padding: 30px 60px;
+	border-radius: 25px;
+	background-color: var(--colorPurpleDark);
+	position: absolute;
+	bottom: 20vh;
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: slideIn 300ms ease-in-out forwards;
+}
+
+@keyframes slideIn {
+  
+  from {
+    bottom: -25vh;
+  }
+}
+
+
 .error {
   position: absolute;
   bottom: -16px;

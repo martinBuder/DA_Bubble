@@ -22,8 +22,10 @@ export class ChooseAvatarComponent {
     this.creatingAccount = true;
     await this.createAccountService.createAccount();
     this.creatingAccount = false;
-    // ! Hier kommt eine Message
-    this.checkInSiteServiceService.changeCheckInSite('logIn');
+    setTimeout(() => {
+      this.checkInSiteServiceService.changeCheckInSite('logIn');
+    }, 2000);
+    
   }
 }
 
