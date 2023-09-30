@@ -9,18 +9,35 @@ import { CheckInSiteServiceService } from 'src/app/services/check-in-site-servic
 })
 export class CheckInComponent {
   firstTime: boolean = true;
+  checkInSite !: string;
 
-  constructor(public checkInSiteServiceService: CheckInSiteServiceService){};
+
+  constructor(
+    public checkInSiteServiceService: CheckInSiteServiceService){};
   
 
   ngOnInit(): void {
     this.firstTimeToFalse();
+    this.comesFromResetPasswordMail();
   }
 
+  /**
+   * check if this the first time after reload that we gone to check in site
+   *  --> for start-animation start
+   */
   firstTimeToFalse() {
     setTimeout(() => {
       this.firstTime = false;
     }, 3800);
+  }
+
+  /**
+   * check if we comes from reset Password mail then go to the right form
+   */
+  comesFromResetPasswordMail() {
+    if (window.location.pathname === '/resetPassword') {
+      this.checkInSiteServiceService.checkInSite = 'resetPassword'
+    }
   }
 
 

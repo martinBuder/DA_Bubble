@@ -7,6 +7,7 @@ import { LegalNoticeComponent } from './others/legal-notice/legal-notice.compone
 
 const routes: Routes = [
   { path: '', component: CheckInComponent },
+  { path: 'resetPassword', component: CheckInComponent },
   { path: 'chat', component: ChatSiteComponent },
   { path: 'impressum', component: ImprintComponent },
   { path: 'datenschutz', component: LegalNoticeComponent },

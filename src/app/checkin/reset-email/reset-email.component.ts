@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { getAuth, sendPasswordResetEmail } from '@angular/fire/auth';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CheckInSiteServiceService } from 'src/app/services/check-in-site-service.service';
 
 @Component({
@@ -20,10 +22,31 @@ export class ResetEmailComponent {
     ], []),
    });
 
-   constructor(public checkInSiteServiceService: CheckInSiteServiceService){};
+   //router is just for testing
 
-   sendResetMail() {
+   constructor(
+    public checkInSiteServiceService: CheckInSiteServiceService,
+    private router: Router,
+    ){};
 
+   sendResetPasswordMail() {
+    const auth = getAuth();
+    // sendPasswordResetEmail(auth, this.resetMailForm.value.email)
+    this.nothing()
+    // .then(() => {
+    //   // Password reset email sen
+    //   this.router.navigate(['/?checkInSite=resetPassword'])
+    // })
+    // .catch((error) => {
+    //   const errorCode = error.code;
+    //   console.log(errorCode);
+      
+    // });
+
+   }
+
+   nothing() {
+    this.router.navigate(['/resetPassword'])
    }
 
 }
