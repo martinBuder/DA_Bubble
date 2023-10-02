@@ -45,6 +45,7 @@ import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { MessageWindowComponent } from './main/message-window/message-window.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
     ChannelAreaComponent,
     ChatDateComponent,
     ThreadMessageWrapperComponent,
+    MessageWindowComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
   selector: 'app-channel-area',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class ChannelAreaComponent {
   channelsOpen : boolean = true;
+
+  constructor(
+    public chatService: ChatService
+    ){};
+
 }

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class CheckInSiteServiceService {
   
-  checkInSite: string = 'resetEmail';
+  checkInSite: string = 'logIn';
 
   changeCheckInSite(newSite: string) {
     this.checkInSite = newSite;

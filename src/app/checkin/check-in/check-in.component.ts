@@ -12,8 +12,7 @@ export class CheckInComponent {
   checkInSite !: string;
 
 
-  constructor(
-    public checkInSiteServiceService: CheckInSiteServiceService){};
+  constructor(public checkInSiteServiceService: CheckInSiteServiceService){};
   
 
   ngOnInit(): void {

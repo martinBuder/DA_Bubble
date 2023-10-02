@@ -1,7 +1,7 @@
 <div class="sidebar-header">
 	<img src="assets/img/code-learning.png" alt="">
 	<p>Code learning</p>
-	<mat-icon>messenger_outline</mat-icon> 
+	<mat-icon class="pointer" (click)="this.chatService.chatOpen = false" >messenger_outline</mat-icon> 
 </div>
 <div class="sidebar-content scrollbar-none">
 	<app-channel-area></app-channel-area>

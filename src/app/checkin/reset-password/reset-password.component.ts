@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CheckInSiteServiceService } from 'src/app/services/check-in-site-service.service';
+import { getAuth, updatePassword } from "firebase/auth";
 import { matchpassword } from 'src/app/validators/matchpassword.validator';
+import { Auth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-reset-password',
@@ -9,7 +11,11 @@ import { matchpassword } from 'src/app/validators/matchpassword.validator';
   styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent {
-    /**
+
+  errorMessage: string | null = null;
+  successfulMessage: string | null = null;
+
+  /**
    * this is the validation for the input fields
    */
   public resetPasswordForm : FormGroup = new FormGroup({
@@ -27,16 +33,30 @@ export class ResetPasswordComponent {
       validators:matchpassword
     });
 
-    constructor(public checkInSiteServiceService: CheckInSiteServiceService) {}
+    constructor(
+      public checkInSiteServiceService: CheckInSiteServiceService,
+      private auth : Auth) {}
 
-   
-
-
-
-
-    resetPassword() {
-      alert('Now we can change the password.')
+    /**
+     * update the new password in firebase
+     */
+    async resetPassword() {
+      this.auth = getAuth();
+      const user = this.auth.currentUser;
+      const newPassword = this.resetPasswordForm.value.password;
+      if (user !== null) {
+        await updatePassword(user, newPassword).then(() => {
+          this.successfulMessage = 'Passwort erfolgreich geändert.';
+          setTimeout(() => {
+            this.successfulMessage = null;
+          }, 2000);
+        }).catch((error) => {
+          if(error)
+            this.errorMessage = 'Da ist leider etwas schief gegangen. Bitte versuche es noch mal.';
+            setTimeout(() => {
+              this.errorMessage = null;
+            }, 2000);
+        });
+      }
     }
-
-
   }

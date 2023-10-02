@@ -9,7 +9,7 @@
 		<mat-icon>add</mat-icon>
 	</div>
 	<ul class="channel-list scrollbar-none" *ngIf="channelsOpen">
-		<li><mat-icon>numbers</mat-icon><p>channel</p></li>
+		<li class="pointer" (click)="this.chatService.chatOpen = true"><mat-icon>numbers</mat-icon><p>channel</p></li>
 		<li><mat-icon>numbers</mat-icon><p>channel</p></li>
 		<li><mat-icon>numbers</mat-icon><p>channel</p></li>
 		<li><mat-icon>numbers</mat-icon><p>channel</p></li>

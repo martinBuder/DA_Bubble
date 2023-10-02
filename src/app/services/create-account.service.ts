@@ -34,11 +34,6 @@ export class CreateAccountService {
    */
   async createAccount() {
     const auth = getAuth();
-    // await createUserWithEmailAndPassword(
-    //   auth,
-    //   this.email,
-    //   this.password
-    // )
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,

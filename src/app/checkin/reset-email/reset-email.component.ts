@@ -42,7 +42,6 @@ export class ResetEmailComponent {
     //   console.log(errorCode);
       
     // });
-
    }
 
    nothing() {
