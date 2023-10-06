@@ -14,40 +14,53 @@ export class ChatService {
   // userChannels : any;
   channel !: ChannelConfig;
   userChannels : any = [];
-  fireUserChannels !: any ;
+  openAddChannel : boolean = false;
+  
 
   constructor(private firestore: Firestore) { 
     this.getChannelList()
-    
-   }
+  }
 
-  
+  /**
+   * add new channels in firebase channelList
+   */
   addChannel() {
-    this.createChannel();
+    this.createChannel(); //! this is just to test things
     addDoc(this.channelListCollection, this.channel) 
   }
 
+  /**
+   * filter the right channels for user from firebase with abo 
+   */
   async getChannelList() {
-    this.fireUserChannels = onSnapshot(query(this.channelListCollection, where('userIDs', 'array-contains', 'abc')),
+    onSnapshot(query(this.channelListCollection, where('userIDs', 'array-contains', 'abc')),
      (querySnapshot) => {
+      this.userChannels = [];
       querySnapshot.forEach((doc) => {
         const channelData = doc.data();
         channelData['id'] = doc.id
         this.userChannels.push(channelData);
-        console.log(this.userChannels); //! hier wird der channel ausgeloggt
       }); 
+      console.log(this.userChannels);
+      
     });
   }
 
+  
 
+  /**
+   * create a channel to add this on firestore
+   */
   createChannel() {
+    console.log('here');
+    
     this.channel = {
-      userIDs: ['abc', 'afg', 'usb', 'etc'],
+      userIDs: ['abc', 'etc'],
       userImages: ['assets/img/avatars/person-1.png', 'assets/img/avatars/person-2.png', 'assets/img/avatars/person-3.png'],
-      channelName: 'test channel',
+      channelName: 'test channel 5',
       description: 'a channel to test',
       usersAmount: 5,
-      admins: '',
+      admins: [],
       creator: 'mb', 
     }
 

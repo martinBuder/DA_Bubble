@@ -5,6 +5,6 @@ export interface ChannelConfig {
 	channelName: string;
 	description: string;
 	usersAmount: number;
-	admins: string;
+	admins: Array<string>;
 	creator: string; 
 }

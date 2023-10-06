@@ -1,1 +1,25 @@
-<p>add-channel works!</p>
+<div class="channel-wrapper">
+	<div class="form-container">
+		<div class="header-container">
+			<h3>Channel erstellen</h3>
+			<mat-icon (click)="this.chatService.openAddChannel = false" class="pointer">close</mat-icon>
+		</div>
+		<p>Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezogene sein #marketing zum Beispiel.</p>
+		<form [formGroup]="createChannelForm">
+			<h4>Channel-Name</h4>
+			<div class="inputfield-wrapper">
+				<mat-icon>numbers</mat-icon>
+				<input type="text" formControlName="channelHeader" placeholder="z.B. marketing">
+				<ng-container *ngIf="createChannelForm.controls['channelHeader'].touched">
+					<p class="error" *ngIf="createChannelForm.controls['channelHeader'].errors?.['required']"> *Dieses Feld ist ein Pflichtfeld.
+					</p>
+				</ng-container>
+			</div>
+			<h4 >Beschreibung <span class="first-word-header"> (optional)</span></h4>
+			<div class="inputfield-wrapper">
+				<input type="text" placeholder="Dein Text hier">
+			</div>
+		</form>
+		<button class="primary-btn" type="submit" [disabled]="!createChannelForm.valid" (click)="this.chatService.createChannel()">Erstellen</button>
+	</div>
+</div>

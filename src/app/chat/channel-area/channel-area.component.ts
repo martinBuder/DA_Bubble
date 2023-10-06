@@ -14,7 +14,7 @@ export class ChannelAreaComponent {
     ){};
 
   openChannel(channelId : string) {
-
+    
   }
 
 }
