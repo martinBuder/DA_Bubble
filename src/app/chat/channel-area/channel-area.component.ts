@@ -13,4 +13,8 @@ export class ChannelAreaComponent {
     public chatService: ChatService
     ){};
 
+  openChannel(channelId : string) {
+
+  }
+
 }

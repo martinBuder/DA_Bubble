@@ -8,8 +8,8 @@
 	<app-show-members></app-show-members>
 </div>
 
-<ul>
-	<li *ngFor="let channel of this.chatService.userChannels | async">
+<!-- <ul>
+	<li *ngFor="let channel of this.chatService.userChannels" (click)="openChannel(channel.id)">
 			{{ channel.channelName }} 
 	</li> 
-</ul>
+</ul> -->
