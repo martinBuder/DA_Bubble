@@ -17,9 +17,9 @@
 			</div>
 			<h4 >Beschreibung <span class="first-word-header"> (optional)</span></h4>
 			<div class="inputfield-wrapper">
-				<input type="text" placeholder="Dein Text hier">
+				<input type="text" placeholder="Dein Text hier" formControlName="channelDescription">
 			</div>
 		</form>
-		<button class="primary-btn" type="submit" [disabled]="!createChannelForm.valid" (click)="this.chatService.createChannel()">Erstellen</button>
+		<button class="primary-btn" type="submit" [disabled]="!createChannelForm.valid" (click)="this.chatService.createChannel(this.createChannelForm.value.channelHeader, this.createChannelForm.value.channelDescription)">Erstellen</button>
 	</div>
 </div>

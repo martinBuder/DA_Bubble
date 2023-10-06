@@ -48,7 +48,10 @@ export class UserDatasService {
     }
   }
 
-
+  /**
+   * logOut for user in firebase 
+   * !wahrscheinlich kann das weg
+   */
   clearLoggedInUser() {
     this.loggedInUser = {
       name: 'Gast',

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Firestore, collection, addDoc, collectionData, query, where, getDocs, collectionGroup, onSnapshot} from '@angular/fire/firestore';
 import { Observable, map } from 'rxjs';
 import { ChannelConfig } from '../interfaces/channel-config';
+import { UserDatasService } from './user-datas.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class ChatService {
   openAddChannel : boolean = false;
   
 
-  constructor(private firestore: Firestore) { 
+  constructor(private firestore: Firestore,
+    private userDatasService: UserDatasService,) { 
     this.getChannelList()
   }
 
@@ -25,7 +27,6 @@ export class ChatService {
    * add new channels in firebase channelList
    */
   addChannel() {
-    this.createChannel(); //! this is just to test things
     addDoc(this.channelListCollection, this.channel) 
   }
 
@@ -51,19 +52,21 @@ export class ChatService {
   /**
    * create a channel to add this on firestore
    */
-  createChannel() {
+  createChannel(channelHeader : string, channelDescription : string) {
     console.log('here');
     
     this.channel = {
-      userIDs: ['abc', 'etc'],
-      userImages: ['assets/img/avatars/person-1.png', 'assets/img/avatars/person-2.png', 'assets/img/avatars/person-3.png'],
-      channelName: 'test channel 5',
-      description: 'a channel to test',
-      usersAmount: 5,
-      admins: [],
-      creator: 'mb', 
+      userIDs: [this.userDatasService.loggedInUser.id],
+      userImages: [this.userDatasService.loggedInUser.img],
+      channelName: channelHeader,
+      description: channelDescription,
+      admins: [this.userDatasService.loggedInUser.name],
+      creator: this.userDatasService.loggedInUser.name, 
+      usersAmount: 1,
     }
 
+    this.addChannel()
+    this.openAddChannel = false;
     
   }
 

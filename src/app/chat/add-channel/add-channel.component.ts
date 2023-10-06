@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ChatService } from 'src/app/services/chat.service';
+import { UserDatasService } from 'src/app/services/user-datas.service';
 
 @Component({
   selector: 'app-add-channel',
@@ -14,11 +15,15 @@ export class AddChannelComponent {
     channelHeader: new FormControl ('', [
       Validators.required,
     ], []),
+    channelDescription: new FormControl ('', [], []),
 
   });
 
+  
+
   constructor(
     public chatService: ChatService,
+    private userDatasService: UserDatasService,
     ){ };
 
 }
