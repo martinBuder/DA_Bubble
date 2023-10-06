@@ -13,7 +13,8 @@ export class ChatSiteComponent {
 
   constructor(
     public threadOpenCloseService: ThreadOpenCloseService,
-    public chatService: ChatService
-    ){};
+    public chatService: ChatService,
+    ){
+    };
 
 }

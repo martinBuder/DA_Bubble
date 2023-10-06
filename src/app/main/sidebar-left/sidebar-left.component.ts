@@ -10,6 +10,8 @@ export class SidebarLeftComponent {
 
   constructor(
     public chatService: ChatService
-    ){};
+    ){
+     
+    };
 
 }
