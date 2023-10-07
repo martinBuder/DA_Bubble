@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ChatService } from './services/chat.service';
+import { ChatService } from './chat.service';
 
 @Injectable({
   providedIn: 'root'

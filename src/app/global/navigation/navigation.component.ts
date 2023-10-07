@@ -11,10 +11,6 @@ export class NavigationComponent {
 
   constructor(
     public userDatasService: UserDatasService,
-  ) {
-
-    this.navOpen = false;
-
-  }
+  ) {};
   
 }
