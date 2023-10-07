@@ -9,10 +9,10 @@
 		<mat-icon (click)="this.chatService.openAddChannel = true" >add</mat-icon>
 	</div>
 	<ul class="channel-list scrollbar-none" *ngIf="channelsOpen">
-		<ng-container *ngFor="let channel of this.chatService.userChannels">
-			<li class="pointer" (click)="this.chatService.chatOpen = true" (click)="openChannel(channel.id)"><mat-icon>numbers</mat-icon><p>{{ channel.channelName }}</p></li>
-		</ng-container>
-		<li><mat-icon>add_circle_outline</mat-icon><p>add channel</p></li>
+			<ng-container *ngFor="let channel of this.chatService.userChannels">
+				<li class="pointer" (click)="this.chatService.chatOpen = true" (click)="openChannel(channel.id)"><mat-icon>numbers</mat-icon><p>{{ channel.channelName }}</p></li>
+			</ng-container>
+		<li (click)="this.chatService.openAddChannel = true" class="pointer"><mat-icon>add_circle_outline</mat-icon><p>add channel</p></li>
 	</ul>
 </div>
 <app-add-channel *ngIf="this.chatService.openAddChannel"></app-add-channel>

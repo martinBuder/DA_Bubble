@@ -40,10 +40,6 @@
 	<button class="primary-btn" type="submit" [disabled]="!logInForm.valid" (click)="logIn(this.logInForm.value.email, this.logInForm.value.password)">Anmelden</button>
 	<button class="secondary-btn" type="submit" routerLink="chat" (click)="logIn('gast@email.com','gast-Gast1')">Gäste-Login</button>
 	</div>
-	<div class="logIn-loader" *ngIf="isLoggingIn">
-		Hier kommt ein loader circle hin dieser zeigt das eingelogt wird.
-	</div>
-
 	<div class="new-on-bubble">
 		<p>Neu bei DABubble?</p>
 		<div class="text-btn" (click)="checkInSiteServiceService.changeCheckInSite('signIn')">Konto erstellen</div>

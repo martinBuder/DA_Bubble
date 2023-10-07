@@ -1,5 +1,5 @@
-<div class="channel-wrapper">
-	<div class="form-container">
+<div class="channel-wrapper" (click)="this.chatService.openAddChannel = false">
+	<div class="form-container" (click)="$event.stopPropagation()">
 		<div class="header-container">
 			<h3>Channel erstellen</h3>
 			<mat-icon (click)="this.chatService.openAddChannel = false" class="pointer">close</mat-icon>

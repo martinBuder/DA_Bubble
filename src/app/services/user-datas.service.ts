@@ -10,13 +10,23 @@ import { Router } from '@angular/router';
 export class UserDatasService {
   
   user: User | null = null;
-  public loggedInUser: any = { }; 
+  public loggedInUser: any | null = null; 
   
     constructor(
     private router: Router,
     public auth: Auth,
     ) {
       this.checkFirebaseUser();
+    }
+
+    /**
+     * check if user filled
+     */
+    async waitForNotNullValue() {
+      while (this.loggedInUser === null) {
+        // Warten Sie auf eine kleine Zeitspanne, bevor Sie erneut überprüfen
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Zum Beispiel 1 Sekunde warten
+      }
     }
 
   /**
@@ -75,6 +85,8 @@ export class UserDatasService {
     }
     this.router.navigate(['/']);
   };
+
+
 
   /**
    * change the firebase user datas

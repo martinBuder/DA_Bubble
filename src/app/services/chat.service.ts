@@ -14,7 +14,7 @@ export class ChatService {
   channelListCollection = collection(this.firestore, 'channelList');
   // userChannels : any;
   channel !: ChannelConfig;
-  userChannels : any = [];
+  userChannels : any = [ ];
   openAddChannel : boolean = false;
   
 
@@ -34,20 +34,22 @@ export class ChatService {
    * filter the right channels for user from firebase with abo 
    */
   async getChannelList() {
-    onSnapshot(query(this.channelListCollection, where('userIDs', 'array-contains', 'abc')),
-     (querySnapshot) => {
-      this.userChannels = [];
-      querySnapshot.forEach((doc) => {
-        const channelData = doc.data();
-        channelData['id'] = doc.id
-        this.userChannels.push(channelData);
-      }); 
-      console.log(this.userChannels);
-      
-    });
+    await this.userDatasService.waitForNotNullValue();
+      onSnapshot(query(this.channelListCollection, where('userIDs', 'array-contains', this.userDatasService.loggedInUser.id)),
+      (querySnapshot) => {
+        this.userChannels = [];
+        querySnapshot.forEach((doc) => {
+          const channelData = doc.data();
+          channelData['id'] = doc.id
+          this.userChannels.push(channelData);
+        }); 
+        console.log(this.userChannels);
+      });
   }
 
   
+
+ 
 
   /**
    * create a channel to add this on firestore
