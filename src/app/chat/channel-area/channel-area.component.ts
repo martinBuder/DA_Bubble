@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OpenedChannelService } from 'src/app/opened-channel.service';
 import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
@@ -10,11 +11,8 @@ export class ChannelAreaComponent {
   channelsOpen : boolean = true;
 
   constructor(
-    public chatService: ChatService
-    ){};
-
-  openChannel(channelId : string) {
-    
-  }
+    public openedChannelService: OpenedChannelService,
+    public chatService: ChatService,
+  ) { };
 
 }

@@ -23,12 +23,17 @@ export class ChatService {
     this.getChannelList()
   }
 
+
   /**
-   * add new channels in firebase channelList
+   * add the collection to firebas
+   * 
+   * @param fireCollection 
+   * @param collectionItem the item we want to push to firebase
    */
-  addChannel() {
-    addDoc(this.channelListCollection, this.channel) 
+  addChannel(fireCollection : any, collectionItem : any) {
+    addDoc(fireCollection, collectionItem) 
   }
+
 
   /**
    * filter the right channels for user from firebase with abo 
@@ -46,17 +51,25 @@ export class ChatService {
         console.log(this.userChannels);
       });
   }
-
-  
-
  
 
   /**
    * create a channel to add this on firestore
    */
   createChannel(channelHeader : string, channelDescription : string) {
-    console.log('here');
-    
+    this.setChannelConfig(channelHeader, channelDescription)
+    this.addChannel(this.channelListCollection, this.channel)
+    this.openAddChannel = false;
+  }
+
+  
+  /**
+   * set the channel with all config informations
+   * 
+   * @param channelHeader 
+   * @param channelDescription 
+   */
+  setChannelConfig(channelHeader : string, channelDescription : string) {
     this.channel = {
       userIDs: [this.userDatasService.loggedInUser.id],
       userImages: [this.userDatasService.loggedInUser.img],
@@ -66,10 +79,8 @@ export class ChatService {
       creator: this.userDatasService.loggedInUser.name, 
       usersAmount: 1,
     }
-
-    this.addChannel()
-    this.openAddChannel = false;
-    
   }
 
 }
+
+
