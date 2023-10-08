@@ -57,6 +57,7 @@ li {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--bodyPadding);
 }
 
 
@@ -101,6 +102,15 @@ button {
     color: var(--colorWhite);
     background-color: var(--colorPurple);
   }
+}
+
+.purple-hover {
+	border-radius: 30px;
+
+ &:hover {
+  background-color: var(--colorBackground);
+  color: var(--colorPurple);
+ }
 }
 
 .person-img-wrapper {
@@ -249,7 +259,6 @@ button {
 	background-color: var(--colorWhite);
 	border-radius: 30px;
 	box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
-	max-width: calc(606px - var(--bodyPadding) - var(--bodyPadding));
 	display: flex;
 	gap: var(--bodyPadding);
 	flex-direction: column;

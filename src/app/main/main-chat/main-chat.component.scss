@@ -41,6 +41,13 @@
 	flex: 1;
 }
 
+.purple-hover {
+	display: flex;
+	gap: var(--chatGap);
+	align-items: center;
+	padding: 4px var(--chatGap);
+}
+
 app-chat-date {
 	margin: 22px 0 -22px 0;
 }

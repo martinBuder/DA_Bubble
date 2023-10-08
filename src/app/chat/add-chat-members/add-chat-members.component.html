@@ -1,0 +1,15 @@
+<div class="pop-up-background" (click)="this.openedChannelService.openAddChatMembers = false">
+	<div class="pop-up-container" (click)="$event.stopPropagation()">
+		<div class="space-between">
+			<h4>Mitglieder hinzufügen</h4>
+			<mat-icon (click)="this.openedChannelService.openAddChatMembers = false" class="pointer">close</mat-icon>
+		</div>
+		<p class="channel-name"><mat-icon>numbers</mat-icon>{{ this.openedChannelService.openedChannel.channelName }}</p>
+		<form [formGroup]="chatAddMemberForm">
+			<div class="inputfield-wrapper">
+				<input type="text" placeholder="Name eingeben" formControlName="member">
+			</div>
+		</form>
+		<button class="primary-btn one-btn" type="submit" [disabled]="!chatAddMemberForm.valid" (click)="this.addChatMember(this.chatAddMemberForm.value.member)">Erstellen</button>
+	</div>
+</div>

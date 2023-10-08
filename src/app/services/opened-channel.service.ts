@@ -8,6 +8,7 @@ export class OpenedChannelService {
 
   openedChannel : any | null = null;
   openChatMembers : boolean = false;
+  openAddChatMembers : boolean = false;
 
   constructor(
     public chatService: ChatService,

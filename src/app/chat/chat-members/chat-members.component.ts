@@ -10,6 +10,8 @@ export class ChatMembersComponent {
 
   constructor(
     public openedChannelService: OpenedChannelService,
-  ) {}
+  ) {
+    this.openedChannelService.openChatMembers = false
+  }
 
 }

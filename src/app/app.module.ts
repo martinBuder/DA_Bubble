@@ -28,7 +28,7 @@ import { ProfileViewComponent } from './others/profile-view/profile-view.compone
 import { AddChannelComponent } from './chat/add-channel/add-channel.component';
 import { EditChannelComponent } from './chat/edit-channel/edit-channel.component';
 import { ShowMembersComponent } from './chat/show-members/show-members.component';
-import { AddMembersComponent } from './chat/add-members/add-members.component';
+import { AddChatMembersComponent } from './chat/add-chat-members/add-chat-members.component';
 import { EditMessageComponent } from './chat/edit-message/edit-message.component';
 import { CheckInComponent } from './checkin/check-in/check-in.component';
 import { ReactiveFormsModule} from '@angular/forms';
@@ -47,6 +47,7 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { MessageWindowComponent } from './main/message-window/message-window.component';
 import { ChatMembersComponent } from './chat/chat-members/chat-members.component';
+import { AddContactComponent } from './chat/add-contact/add-contact.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,7 @@ import { ChatMembersComponent } from './chat/chat-members/chat-members.component
     AddChannelComponent,
     EditChannelComponent,
     ShowMembersComponent,
-    AddMembersComponent,
+    AddChatMembersComponent,
     EditMessageComponent,
     CheckInComponent,
     ChatSiteComponent,
@@ -83,6 +84,7 @@ import { ChatMembersComponent } from './chat/chat-members/chat-members.component
     ThreadMessageWrapperComponent,
     MessageWindowComponent,
     ChatMembersComponent,
+    AddContactComponent,
   ],
   imports: [
     BrowserModule,
