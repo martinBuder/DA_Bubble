@@ -72,15 +72,16 @@ export class ChatService {
   setChannelConfig(channelHeader : string, channelDescription : string) {
     this.channel = {
       userIDs: [this.userDatasService.loggedInUser.id],
-      userImages: [this.userDatasService.loggedInUser.img],
+      // userImages: [this.userDatasService.loggedInUser.img],
+      // userNames: [this.userDatasService.loggedInUser.name],
       channelName: channelHeader,
       description: channelDescription,
       admins: [this.userDatasService.loggedInUser.name],
       creator: this.userDatasService.loggedInUser.name, 
       usersAmount: 1,
+      members: [{userIDs: this.userDatasService.loggedInUser.id,	userImages: this.userDatasService.loggedInUser.img,	userNames: this.userDatasService.loggedInUser.name}]
     }
   }
 
 }
-
 

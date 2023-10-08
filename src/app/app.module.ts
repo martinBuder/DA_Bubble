@@ -46,6 +46,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { MessageWindowComponent } from './main/message-window/message-window.component';
+import { ChatMembersComponent } from './chat/chat-members/chat-members.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { MessageWindowComponent } from './main/message-window/message-window.com
     ChatDateComponent,
     ThreadMessageWrapperComponent,
     MessageWindowComponent,
+    ChatMembersComponent,
   ],
   imports: [
     BrowserModule,

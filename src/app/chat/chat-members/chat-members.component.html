@@ -1,0 +1,24 @@
+<div class="pop-up-background" (click)="this.openedChannelService.openChatMembers = false">
+	<div class="pop-up-container" (click)="$event.stopPropagation()">
+		<div class="space-between">
+			<h4>Mitglieder</h4>
+			<mat-icon (click)="this.openedChannelService.openChatMembers = false">close</mat-icon>
+		</div>
+	 <ul class="members-wrapper">
+			<ng-container *ngFor="let member of this.openedChannelService.openedChannel.members">
+				<li class="member-container">
+					<div class="person-img-wrapper">
+						<img src="{{ member.userImages }}" alt="">
+						<div class="status-point"></div>
+					</div>
+					<p>{{ member.userNames }}</p>
+				</li>
+			</ng-container>
+			<li class="member-container">
+				<mat-icon class="icon-background pointer">person_add_alt</mat-icon>
+				<div class="status-point"></div>
+				<p>Mitglieder hinzufügen</p>
+			</li>
+		</ul>
+	</div>
+</div>

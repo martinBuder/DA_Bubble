@@ -6,7 +6,8 @@ import { ChatService } from './chat.service';
 })
 export class OpenedChannelService {
 
-  openedChannel !: any;
+  openedChannel : any | null = null;
+  openChatMembers : boolean = false;
 
   constructor(
     public chatService: ChatService,
