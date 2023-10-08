@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Component } from '@angular/core';
-import { Firestore, collection, addDoc, collectionData, query, where, getDocs, collectionGroup, onSnapshot} from '@angular/fire/firestore';
-import { Observable, map } from 'rxjs';
+import { Firestore, collection, addDoc, query, where, onSnapshot} from '@angular/fire/firestore';
 import { ChannelConfig } from '../interfaces/channel-config';
 import { UserDatasService } from './user-datas.service';
 

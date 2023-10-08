@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Auth, getAuth, signOut, updateProfile } from '@angular/fire/auth';
 import { User } from '@firebase/auth';
 import { Router } from '@angular/router';
+import { UserProfilesService } from './user-profiles.service';
 
 
 @Injectable({
@@ -15,6 +16,7 @@ export class UserDatasService {
     constructor(
     private router: Router,
     public auth: Auth,
+    private userProfilesService: UserProfilesService,
     ) {
       this.checkFirebaseUser();
     }
@@ -39,7 +41,8 @@ export class UserDatasService {
     auth.onAuthStateChanged((firebaseUser) => {
       this.user = firebaseUser;
       if (firebaseUser) {
-        this.setLoggedInUser(this.user)
+        this.setLoggedInUser(this.user);
+        this.setLoggedInUserProfile(this.user);
       }
     });
   }
@@ -54,8 +57,17 @@ export class UserDatasService {
       name: user.displayName,
       img: user.photoURL,
       email: user.email,
-      id: user.uid
+      id: user.uid,
     }
+  }
+
+  setLoggedInUserProfile(user: any) {
+    this.userProfilesService.userProfile = {
+      userName: user.displayName,
+      userImg: user.photoURL,
+      userID: user.uid,
+      userOnline: true,
+    }  
   }
 
   /**
@@ -64,8 +76,8 @@ export class UserDatasService {
    */
   clearLoggedInUser() {
     this.loggedInUser = {
-      name: 'Gast',
-      img: 'assets/img/avatars/person-0.png',
+      name: '',
+      img: '',
       email: '',
       id: '',
     }
@@ -78,13 +90,19 @@ export class UserDatasService {
     try {
       const auth = getAuth();
       await signOut(auth);
+      this.changeOnlinestatus();
       this.clearLoggedInUser();
-      console.log('user loged out');
+      console.log(this.userProfilesService.userProfile);
+      
     } catch (error) {
       console.error("Fehler beim Ausloggen:", error);
     }
     this.router.navigate(['/']);
   };
+
+  changeOnlinestatus(){
+    this.userProfilesService.userProfile.userOnline = false;
+  }
 
 
 

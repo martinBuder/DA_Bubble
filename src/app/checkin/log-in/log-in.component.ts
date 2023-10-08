@@ -6,6 +6,7 @@ import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
 import { CheckInSiteServiceService } from 'src/app/services/check-in-site-service.service';
 import { UserDatasService } from 'src/app/services/user-datas.service';
+import { UserProfilesService } from 'src/app/services/user-profiles.service';
 
 
 
@@ -40,6 +41,7 @@ export class LogInComponent {
   constructor(
     public checkInSiteServiceService: CheckInSiteServiceService,
     private userDatasService: UserDatasService,
+    private userProfileService: UserProfilesService,
     private router: Router,
     ) { 
       this.getFirebaseAuth()
@@ -65,27 +67,31 @@ export class LogInComponent {
       .then((userCredential) => {
         const user = userCredential.user;
         this.userDatasService.setLoggedInUser(user);
-        this.router.navigate(['/chat']);
-        console.log(user);
-        
-        })
+        this.userDatasService.setLoggedInUserProfile(user);
+        this.userProfileService.addProfile();
+        this.goToNextPage();
+      })
       .catch((error) => {
         const errorCode = error.code;
-        console.log(errorCode);
-       
-        if (errorCode === "auth/invalid-login-credentials") {
-          this.errorMessage = "E-Mail und/oder Passwort ist nicht bekannt.";
-        }else {
-          this.errorMessage = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.";
-        }
-
-        setTimeout(() => {
-          this.errorMessage = null;
-        }, 2000);
+        this.createErrorMessages(errorCode);
       })
-
-    
     this.isLoggingIn = false;
+  }
+
+  /**
+   * create the error messages while log In
+   * 
+   * @param errorCode 
+   */
+  createErrorMessages(errorCode: string) {
+    if (errorCode === "auth/invalid-login-credentials") {
+      this.errorMessage = "E-Mail und/oder Passwort ist nicht bekannt.";
+    }else {
+      this.errorMessage = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.";
+    }
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 2000);
   }
 
   /**
@@ -101,21 +107,29 @@ export class LogInComponent {
         if (credential !== null) {
          const token = credential.accessToken;
         }
-        // The signed-in user info.
         const user = result.user;
         this.userDatasService.setLoggedInUser(user);
+        this.userDatasService.setLoggedInUserProfile(user);
+        this.userProfileService.addProfile();
         this.goToNextPage();
+    
       })
       .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
+        this.googleLogInErrorHandler(error);
       });
       this.isLoggingIn = false;
+  }
+
+  /**
+   * handle the google errors
+   * 
+   * @param error 
+   */
+  googleLogInErrorHandler(error: any){
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    const email = error.customData.email;
+    const credential = GoogleAuthProvider.credentialFromError(error);
   }
 
   /**
