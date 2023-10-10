@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ChatService } from './chat.service';
+import { ChatHeadDatasService } from './chat-head-datas.service';
+import ChatMessageService from './chat-message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,14 @@ export class OpenedChannelService {
   openAddChatMembers : boolean = false;
 
   constructor(
-    public chatService: ChatService,
+    public chatHeadDatasService: ChatHeadDatasService,
+    private chatMessageService: ChatMessageService
   ) { };
 
   openChannel(channelIndex : number) {
-    this.openedChannel = this.chatService.userChannels[channelIndex];
-    console.log(this.openedChannel);
+    this.openedChannel = this.chatHeadDatasService.userChannels[channelIndex];
+    this.chatMessageService.messageChannelId = this.openedChannel.id
+    this.chatMessageService.addFireMessage();
+    
   }
 }

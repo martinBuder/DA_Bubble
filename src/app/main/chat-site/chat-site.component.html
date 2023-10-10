@@ -1,7 +1,7 @@
 <div class="chat-site-wrapper">
 	<app-sidebar-left class="contact-site" *ngIf="sidebarOpen"></app-sidebar-left>
-	<app-main-chat class="main-chat" *ngIf="this.chatService.chatOpen"></app-main-chat>
-	<app-message-window class="main-chat" *ngIf="!this.chatService.chatOpen"></app-message-window>
+	<app-main-chat class="main-chat" *ngIf="this.chatHeadDatasService.chatOpen"></app-main-chat>
+	<app-message-window class="main-chat" *ngIf="!this.chatHeadDatasService.chatOpen"></app-message-window>
 	<app-thread-right class="thread-site" *ngIf="threadOpenCloseService.threadOpen"></app-thread-right>
 </div>	
 <div class="sidebar-close-area" (click)="sidebarOpen = !sidebarOpen">

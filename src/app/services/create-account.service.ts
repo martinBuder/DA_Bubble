@@ -39,8 +39,7 @@ export class CreateAccountService {
         auth,
         this.email,
         this.password
-      );
-  
+      );  
       // Signed in
       const user = userCredential.user;
       
@@ -53,11 +52,10 @@ export class CreateAccountService {
       }, 2000);
     } catch (error: any) {
       const errorCode = error.code;
-      console.log(errorCode);
       if (errorCode === 'auth/email-already-in-use') {
         this.errorMessage = 'Dieser Benutzer hat bereits ein Konto.';
       } else {
-        this.errorMessage = 'Dieser Benutzer hat bereits ein Konto.';
+        this.errorMessage = 'Da ist leider was schief gelaufen.';
       }
       await this.userDatasService.logOut();
       setTimeout(() => {

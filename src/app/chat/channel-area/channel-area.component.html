@@ -6,13 +6,13 @@
 			<img src="assets/img/no-mat-icons/channel-purple.svg" class="channel-img" alt="">
 			<p>Channel</p>
 		</h4>
-		<mat-icon (click)="this.chatService.openAddChannel = true">add</mat-icon>
+		<mat-icon (click)="this.chatHeadDatasService.openAddChannel = true">add</mat-icon>
 	</div>
 	<ul class="channel-list scrollbar-none" *ngIf="channelsOpen">
-			<ng-container *ngFor="let channel of this.chatService.userChannels; let i = index">
-				<li class="pointer" (click)="this.chatService.chatOpen = true" (click)="this.openedChannelService.openChannel(i)"><mat-icon>numbers</mat-icon><p>{{ channel.channelName }}</p></li>
+			<ng-container *ngFor="let channel of this.chatHeadDatasService.userChannels; let i = index">
+				<li class="pointer" (click)="this.chatHeadDatasService.chatOpen = true" (click)="this.openedChannelService.openChannel(i)"><mat-icon>numbers</mat-icon><p>{{ channel.channelName }}</p></li>
 			</ng-container>
-		<li (click)="this.chatService.openAddChannel = true" class="pointer"><mat-icon>add_circle_outline</mat-icon><p>add channel</p></li>
+		<li (click)="this.chatHeadDatasService.openAddChannel = true" class="pointer"><mat-icon>add_circle_outline</mat-icon><p>add channel</p></li>
 	</ul>
 </div>
-<app-add-channel *ngIf="this.chatService.openAddChannel" class="pop-up-wrapper" ></app-add-channel>
+<app-add-channel *ngIf="this.chatHeadDatasService.openAddChannel" class="pop-up-wrapper" ></app-add-channel>

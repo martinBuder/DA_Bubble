@@ -1,11 +1,12 @@
 import { Time } from "@angular/common";
 
 export interface Message {
-	date: Date;
-	time: Time;
+	timestamp: any;
+	date: any;
+	time: any;
+	year: any;
 	writerName: string;
 	writerImg: string;
 	reactions: string;
-	messageToken: string;
 	text: string;
 }

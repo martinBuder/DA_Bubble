@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ChatService } from 'src/app/services/chat.service';
+import { ChatHeadDatasService } from 'src/app/services/chat-head-datas.service';
 
 @Component({
   selector: 'app-sidebar-left',
@@ -9,7 +9,7 @@ import { ChatService } from 'src/app/services/chat.service';
 export class SidebarLeftComponent {
 
   constructor(
-    public chatService: ChatService
+    public chatHeadDatasService: ChatHeadDatasService
     ){
      
     };

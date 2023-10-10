@@ -7,7 +7,7 @@ import { UserDatasService } from './user-datas.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ChatService {
+export class ChatHeadDatasService {
 
   chatOpen : boolean = false;
   channelListCollection = collection(this.firestore, 'channelList');

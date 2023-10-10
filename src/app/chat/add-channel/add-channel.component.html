@@ -1,8 +1,8 @@
-<div class="pop-up-background" (click)="this.chatService.openAddChannel = false">
+<div class="pop-up-background" (click)="this.chatHeadDatasService.openAddChannel = false">
 	<div class="pop-up-container" (click)="$event.stopPropagation()">
 		<div class="header-container">
 			<h3>Channel erstellen</h3>
-			<mat-icon (click)="this.chatService.openAddChannel = false" class="pointer">close</mat-icon>
+			<mat-icon (click)="this.chatHeadDatasService.openAddChannel = false" class="pointer">close</mat-icon>
 		</div>
 		<p>Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezogene sein #marketing zum Beispiel.</p>
 		<form [formGroup]="createChannelForm">
@@ -20,6 +20,6 @@
 				<input type="text" placeholder="Dein Text hier" formControlName="channelDescription">
 			</div>
 		</form>
-		<button class="primary-btn one-btn" type="submit" [disabled]="!createChannelForm.valid" (click)="this.chatService.createChannel(this.createChannelForm.value.channelHeader, this.createChannelForm.value.channelDescription)">Erstellen</button>
+		<button class="primary-btn one-btn" type="submit" [disabled]="!createChannelForm.valid" (click)="this.chatHeadDatasService.createChannel(this.createChannelForm.value.channelHeader, this.createChannelForm.value.channelDescription)">Erstellen</button>
 	</div>
 </div>

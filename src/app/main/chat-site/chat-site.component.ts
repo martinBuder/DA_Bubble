@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ChatService } from 'src/app/services/chat.service';
+import { ChatHeadDatasService } from 'src/app/services/chat-head-datas.service';
 import { ThreadOpenCloseService } from 'src/app/services/thread-open-close.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class ChatSiteComponent {
 
   constructor(
     public threadOpenCloseService: ThreadOpenCloseService,
-    public chatService: ChatService,
+    public chatHeadDatasService: ChatHeadDatasService,
     ){
     };
 

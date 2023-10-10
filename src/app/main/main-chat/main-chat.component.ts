@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { OpenedChannelService } from 'src/app/services/opened-channel.service';
-import { ChatService } from 'src/app/services/chat.service';
+import { ChatHeadDatasService } from 'src/app/services/chat-head-datas.service';
+import ChatMessageService from 'src/app/services/chat-message.service';
 
 @Component({
   selector: 'app-main-chat',
@@ -10,8 +11,9 @@ import { ChatService } from 'src/app/services/chat.service';
 export class MainChatComponent {
 
   constructor(
-    public chatService: ChatService,
+    public chatHeadDatasService: ChatHeadDatasService,
     public openedChannelService: OpenedChannelService,
+    public chatMessageService: ChatMessageService,
     ) { }
 
   
