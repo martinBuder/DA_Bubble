@@ -35,10 +35,13 @@ export default class ChatMessageService {
       writerName: this.userDatasService.loggedInUser.name,
       writerImg: this.userDatasService.loggedInUser.img,
       reactions: `test`,
-      text: 'heute ist ein toller Tag',
+      text: 'ja so ist das',
     }
   }
 
+  /**
+   * add messeage to firebase 
+   */
   async addFireMessage() {
     this.getTime();
     this.setMessageDatas();
@@ -46,6 +49,7 @@ export default class ChatMessageService {
     await addDoc(this.chatMessagesListCollection, this.messageDatas ) 
   }
 
+  /** get the time in all variants i need for message */
   getTime() {
     const dateOptions = { weekday: 'long', day: 'numeric', month: 'long'};
     this.timestamp = new Date();

@@ -1,0 +1,58 @@
+.textfield-backdrop {
+	background: var(--colorWhite);
+	box-shadow: 6px -5px 12px 6px rgba(255, 255, 255, 0.4);
+	padding-top: var(--chatGap);
+
+}
+
+.textfield-wrapper {
+	border-radius: 25px;
+	border: solid 1px #000;
+	display: flex;
+	flex-direction: column;
+	padding: var(--chatGap);
+	gap: var(--chatGap);
+	margin-top: 10px;
+
+
+	&:focus-within { //with '-within' we can style the parent of focused elements
+		border: 1px solid var(--colorPurple);
+	}
+
+	textarea {
+		border: none;
+		width: 100%;
+
+		&:focus {
+				outline: none;
+		}
+	}
+}
+
+.textfield-bottom {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.icon-container {
+	display: flex;
+	align-items: center;
+	min-height: min-content;
+	gap: var(--chatGap);
+
+	mat-icon {
+		color: var(--colorTextGrey);
+		font-size: 1.4rem;
+		cursor: pointer;
+
+		&:first-child {
+			border-right: 2px solid var(--colorTextGrey);
+		}
+
+		&:hover {
+			color: var(--colorPurple);
+		}
+	}
+}
+

@@ -16,6 +16,11 @@ export class OpenedChannelService {
     private chatMessageService: ChatMessageService
   ) { };
 
+  /**
+   * open channel and fill the informations
+   * 
+   * @param channelIndex 
+   */
   openChannel(channelIndex : number) {
     this.openedChannel = this.chatHeadDatasService.userChannels[channelIndex];
     this.chatMessageService.messageChannelId = this.openedChannel.id

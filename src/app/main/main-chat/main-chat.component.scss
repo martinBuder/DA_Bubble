@@ -34,11 +34,13 @@
 
 .chat-container {
 	padding: var(--bodyPadding);
+	padding-bottom: 0;
 	margin-bottom: var(--chatGap);
 	display: flex;
 	flex-direction: column;
 	gap: var(--bodyPadding);
 	flex: 1;
+	position: relative;
 }
 
 .purple-hover {
