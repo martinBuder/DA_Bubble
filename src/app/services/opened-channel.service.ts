@@ -21,10 +21,9 @@ export class OpenedChannelService {
    * 
    * @param channelIndex 
    */
-  openChannel(channelIndex : number) {
+  async openChannel(channelIndex : number) {
     this.openedChannel = this.chatHeadDatasService.userChannels[channelIndex];
     this.chatMessageService.messageChannelId = this.openedChannel.id
-    this.chatMessageService.addFireMessage();
-    
+    await this.chatMessageService.getChannelMessagesList();
   }
 }

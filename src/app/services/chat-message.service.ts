@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, onSnapshot, query, where } from '@angular/fire/firestore';
 import { Message } from '../interfaces/message';
 import { UserDatasService } from './user-datas.service';
 import { Time } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +14,17 @@ export default class ChatMessageService {
   date !: Date;
   time !: any;
   year !: any;
+  messageText !: string
   messageDatas !: Message;
   messageChannelId : string = 'empty';
   chatMessagesListCollection !: any;
+  channelMessagesList$ !: Observable<any>;
+  channelMessages !: any;
 
   constructor(
     private firestore: Firestore,
     private userDatasService: UserDatasService
   ) {
-
     this.getTime()
   }
 
@@ -35,7 +38,7 @@ export default class ChatMessageService {
       writerName: this.userDatasService.loggedInUser.name,
       writerImg: this.userDatasService.loggedInUser.img,
       reactions: `test`,
-      text: 'ja so ist das',
+      text: this.messageText,
     }
   }
 
@@ -61,6 +64,23 @@ export default class ChatMessageService {
     }
     this.time = this.time.hour + ':' + this.time.minute
   };
+
+  /**
+   * get the messeages from this channel
+   */
+  getChannelMessagesList() {
+    const channelMessagesListCollection = collection(this.firestore, this.messageChannelId);
+    onSnapshot(query(channelMessagesListCollection),
+    (querySnapshot) => {
+      this.channelMessages = [];
+      querySnapshot.forEach((doc) => {
+        const messageData = doc.data();
+        messageData['id'] = doc.id;
+        this.channelMessages.push(messageData);
+      }); 
+      console.log(this.channelMessages);
+    });
+  }
 
 
 }

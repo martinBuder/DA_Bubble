@@ -21,6 +21,9 @@
 	</ng-container>
 </div>
 <div class="chat-container scrollbar-none">
+	<ng-container *ngFor="let message of this.chatMessageService.channelMessages">
+		{{ message.text }}
+	</ng-container>
 	<app-chat-date></app-chat-date>
 	<app-message-wrapper></app-message-wrapper>
 	<app-message-wrapper></app-message-wrapper>

@@ -1,6 +1,6 @@
 <div class="textfield-backdrop">
-	<form class="textfield-wrapper">
-		<textarea name="" id="" rows="3" placeholder="Aa"></textarea>
+	<form class="textfield-wrapper" [formGroup]="textfieldForm">
+		<textarea name="" id="" rows="3" placeholder="Aa" formControlName="textarea"></textarea>
 			<div class="textfield-bottom">
 				<div class="icon-container">
 					<mat-icon>add</mat-icon>
@@ -8,7 +8,7 @@
 					<mat-icon>alternate_email</mat-icon>
 				</div>
 				<div class="send-btn pointer">
-					<mat-icon>send</mat-icon>
+					<mat-icon (click)="sendMessage(this.textfieldForm.value.textarea)">send</mat-icon>
 				</div>
 			</div>
 	</form>
