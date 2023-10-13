@@ -1,31 +1,31 @@
-<div class="message-wrapper">
-	<img src="assets/img/avatars/person-3.png" alt="">
-	<div class="message-container">
-		<div class="first-line">
-			<h6>Name Familienname</h6><p class="time text-light">15:25 Uhr</p>
-		</div>
-		<div class="message">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium impedit aperiam unde distinctio, id temporibus ipsum harum fuga dolores. 
-		</div>
-		<div class="answer-container">
-				<div class="answer-amount">2 Anworten</div>
-				<div class="last-answer-time text-light">Letzte Antwort 14:56</div>
+<ng-container *ngIf="message.writerName != 'null'">
+	<div class="message-wrapper" [ngClass]="{'user-message-wrapper': message.writerName === this.userDatasService.loggedInUser.name}">
+		<img src="{{ message.writerImg }}" alt="">
+		<div class="message-container">
+			<div class="first-line">
+				<h6>{{ message.writerName }}</h6><p class="time text-light">{{ message.time }}</p>
 			</div>
-		<div class="smilies-wrapper">
-			<div class="smilie-container">
-				<div class="smilie">:-*</div>
-				<div class="smilie-amount">1</div>
+			<div class="message">{{ message.text }}</div>
+			<div class="answer-container">
+				<!-- !hier fehlen noch daten -->
+					<div class="answer-amount">2 Anworten</div>
+					<div class="last-answer-time text-light">Letzte Antwort 14:56</div>
+				</div>
+			<div class="smilies-wrapper">
+				<div class="smilie-container">
+					<div class="smilie">:-*</div>
+					<div class="smilie-amount">1</div>
+				</div>
+				<div class="smilie-container">
+					<div class="smilie">:-/</div>
+					<div class="smilie-amount">1</div>
+				</div>
+				<div class="smilie-container">
+					<div class="smilie">:-|</div>
+					<div class="smilie-amount">1</div>
+				</div>
+				<mat-icon>add_reaction_outline</mat-icon>
 			</div>
-			<div class="smilie-container">
-				<div class="smilie">:-/</div>
-				<div class="smilie-amount">1</div>
-			</div>
-			<div class="smilie-container">
-				<div class="smilie">:-|</div>
-				<div class="smilie-amount">1</div>
-			</div>
-			<mat-icon>add_reaction_outline</mat-icon>
 		</div>
 	</div>
-</div>
-
+</ng-container>

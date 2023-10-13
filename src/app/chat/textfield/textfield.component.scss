@@ -1,8 +1,7 @@
 .textfield-backdrop {
 	background: var(--colorWhite);
 	box-shadow: 6px -5px 12px 6px rgba(255, 255, 255, 0.4);
-	padding-top: var(--chatGap);
-
+	padding: var(--bodyPadding);
 }
 
 .textfield-wrapper {
@@ -12,7 +11,6 @@
 	flex-direction: column;
 	padding: var(--chatGap);
 	gap: var(--chatGap);
-	margin-top: 10px;
 
 
 	&:focus-within { //with '-within' we can style the parent of focused elements

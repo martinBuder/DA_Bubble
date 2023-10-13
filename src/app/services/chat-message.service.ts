@@ -59,8 +59,8 @@ export default class ChatMessageService {
     this.date = this.timestamp.toLocaleDateString('de-DE', dateOptions);
     this.year = this.timestamp.toLocaleDateString('de-DE', {year: 'numeric'})
     this.time = {
-      hour: this.timestamp.getHours(),
-      minute: this.timestamp.getMinutes(),
+      hour: this.timestamp.getHours().toString().padStart(2, '0'),
+      minute: this.timestamp.getMinutes().toString().padStart(2, '0'),
     }
     this.time = this.time.hour + ':' + this.time.minute
   };
@@ -78,9 +78,14 @@ export default class ChatMessageService {
         messageData['id'] = doc.id;
         this.channelMessages.push(messageData);
       }); 
-      console.log(this.channelMessages);
+      this.channelMessages.sort((a:any, b:any) => b.timestamp - a.timestamp); // sort the array by time backwards
     });
   }
+
+  checkMessageDate() {
+
+  }
+
 
 
 }

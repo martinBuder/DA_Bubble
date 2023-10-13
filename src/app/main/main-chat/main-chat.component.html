@@ -20,18 +20,14 @@
 		<app-add-chat-members *ngIf="this.openedChannelService.openAddChatMembers" class="pop-up-wrapper"></app-add-chat-members>
 	</ng-container>
 </div>
-<div class="chat-container scrollbar-none">
-	<ng-container *ngFor="let message of this.chatMessageService.channelMessages">
-		{{ message.text }}
-	</ng-container>
-	<app-chat-date></app-chat-date>
-	<app-message-wrapper></app-message-wrapper>
-	<app-message-wrapper></app-message-wrapper>
-	<app-chat-date></app-chat-date>
-	<app-message-wrapper></app-message-wrapper>
-	<app-chat-date></app-chat-date>
-	<app-message-wrapper></app-message-wrapper>
-	<app-chat-date></app-chat-date>
-	<app-message-wrapper></app-message-wrapper>
+<div class="chat-wrapper">
+	<div class="chat-container scrollbar-none">
+		<ng-container *ngFor="let message of this.chatMessageService.channelMessages; let i = index">
+			<ng-container *ngIf="i === 0 || message.date !== this.chatMessageService.channelMessages[i - 1].date">
+				<app-chat-date [date]="message.date"></app-chat-date>
+			</ng-container>
+			<app-message-wrapper [message]="message"></app-message-wrapper>
+		</ng-container>
+	</div>
 	<app-textfield class="posFix"></app-textfield>
 </div>
