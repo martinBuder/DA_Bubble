@@ -22,7 +22,7 @@
       <input type="text" placeholder="Code learning durchsuchen">
       <mat-icon>search</mat-icon>
     </div>
-    <div class="user-header" (click)="navOpen = !navOpen">
+    <div class="user-header" (click)="this.openerService.navOpen = true">
       <ng-container *ngIf="this.userDatasService.loggedInUser">
         <p>{{ this.userDatasService.loggedInUser.name }}</p>
         <div class="person-img-wrapper">
@@ -30,8 +30,8 @@
           <div class="status-point"></div>
         </div>
         <mat-icon>arrow_drop_down</mat-icon>
-        <app-navigation *ngIf="navOpen" ></app-navigation>
       </ng-container>
     </div>
+    <app-navigation *ngIf="this.openerService.navOpen"></app-navigation>
   </div>
 </ng-container>

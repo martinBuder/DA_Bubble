@@ -1,4 +1,4 @@
-<div class="nav-background-site" (click)="navOpen = !navOpen">
+<div class="nav-background-site" (click)="this.openerService.navOpen = false">
 	<div class="nav" (click)="$event.stopPropagation()">
 		<div class="link">Profil</div>
 		<div class="link" (click)="this.userDatasService.logOut()">Log out</div>

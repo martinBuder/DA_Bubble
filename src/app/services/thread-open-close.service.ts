@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class ThreadOpenCloseService {
 
   threadOpen : boolean = true;
+  navOpen : boolean = false;
 
   constructor() { }
 }

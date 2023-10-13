@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserDatasService } from 'src/app/services/user-datas.service';
 import { User } from '@firebase/auth';
+import { ThreadOpenCloseService } from 'src/app/services/thread-open-close.service';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class HeaderComponent {
   constructor(
     public router: Router,
     public userDatasService: UserDatasService,
+    public openerService: ThreadOpenCloseService,
     ) { 
     }
 
