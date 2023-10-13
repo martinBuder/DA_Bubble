@@ -55,7 +55,7 @@ export class LogInComponent {
    */
   getFirebaseAuth() {
     this.auth = getAuth();
-    setPersistence(this.auth, browserLocalPersistence);
+    // setPersistence(this.auth, browserLocalPersistence);
   }
 
   /**
