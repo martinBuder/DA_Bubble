@@ -16,8 +16,9 @@ export class MessageWrapperComponent {
     year: 'null',
     writerName: 'null',
     writerImg: 'null',
+    writerId: 'null',
     reactions: 'null',
-    text: 'null'
+    text: 'null',
   }
 
   constructor(

@@ -1,5 +1,5 @@
 <ng-container *ngIf="message.writerName != 'null'">
-	<div class="message-wrapper" [ngClass]="{'user-message-wrapper': message.writerName === this.userDatasService.loggedInUser.name}">
+	<div class="message-wrapper" [ngClass]="{'user-message-wrapper': message.writerId === this.userDatasService.loggedInUser.id}">
 		<img src="{{ message.writerImg }}" alt="">
 		<div class="message-container">
 			<div class="first-line">

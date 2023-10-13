@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Firestore, addDoc, collection, collectionData, onSnapshot, query, where } from '@angular/fire/firestore';
 import { Message } from '../interfaces/message';
 import { UserDatasService } from './user-datas.service';
-import { Time } from '@angular/common';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -37,6 +36,7 @@ export default class ChatMessageService {
       year: this.year,
       writerName: this.userDatasService.loggedInUser.name,
       writerImg: this.userDatasService.loggedInUser.img,
+      writerId: this.userDatasService.loggedInUser.id,
       reactions: `test`,
       text: this.messageText,
     }
@@ -79,6 +79,8 @@ export default class ChatMessageService {
         this.channelMessages.push(messageData);
       }); 
       this.channelMessages.sort((a:any, b:any) => b.timestamp - a.timestamp); // sort the array by time backwards
+      console.log(this.channelMessages);
+      
     });
   }
 

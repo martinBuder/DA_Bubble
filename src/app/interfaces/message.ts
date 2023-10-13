@@ -7,6 +7,9 @@ export interface Message {
 	year: any;
 	writerName: string;
 	writerImg: string;
+	writerId: string;
 	reactions: string;
 	text: string;
+	answerAmount?: number;
+	lastAnswerTime?: string;
 }
