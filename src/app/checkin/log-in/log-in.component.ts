@@ -41,7 +41,7 @@ export class LogInComponent {
   constructor(
     public checkInSiteServiceService: CheckInSiteServiceService,
     private userDatasService: UserDatasService,
-    private userProfileService: UserProfilesService,
+    private userProfilesService: UserProfilesService,
     private router: Router,
     ) { 
       this.getFirebaseAuth()
@@ -67,8 +67,7 @@ export class LogInComponent {
       .then((userCredential) => {
         const user = userCredential.user;
         this.userDatasService.setLoggedInUser(user);
-        this.userDatasService.setLoggedInUserProfile(user);
-        this.userProfileService.addProfile();
+        this.userProfilesService.handleProfileData(user);
         this.goToNextPage();
       })
       .catch((error) => {
@@ -78,22 +77,7 @@ export class LogInComponent {
     this.isLoggingIn = false;
   }
 
-  /**
-   * create the error messages while log In
-   * 
-   * @param errorCode 
-   */
-  createErrorMessages(errorCode: string) {
-    if (errorCode === "auth/invalid-login-credentials") {
-      this.errorMessage = "E-Mail und/oder Passwort ist nicht bekannt.";
-    }else {
-      this.errorMessage = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.";
-    }
-    setTimeout(() => {
-      this.errorMessage = null;
-    }, 2000);
-  }
-
+ 
   /**
    * log in with google sign in and go to the next site -- we use firebase getAuth()
    */
@@ -109,8 +93,7 @@ export class LogInComponent {
         }
         const user = result.user;
         this.userDatasService.setLoggedInUser(user);
-        this.userDatasService.setLoggedInUserProfile(user);
-        this.userProfileService.addProfile();
+        this.userProfilesService.handleProfileData(user);
         this.goToNextPage();
     
       })
@@ -138,4 +121,21 @@ export class LogInComponent {
   goToNextPage() {
     this.router.navigate(['/chat']);
   }
+
+   /**
+   * create the error messages while log In
+   * 
+   * @param errorCode 
+   */
+   createErrorMessages(errorCode: string) {
+    if (errorCode === "auth/invalid-login-credentials") {
+      this.errorMessage = "E-Mail und/oder Passwort ist nicht bekannt.";
+    }else {
+      this.errorMessage = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.";
+    }
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 2000);
+  }
+
 }

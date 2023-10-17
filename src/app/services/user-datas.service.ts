@@ -37,12 +37,12 @@ export class UserDatasService {
    * no = do nothing for checkout
    */
   async checkFirebaseUser() {
-    const auth = getAuth();
-    auth.onAuthStateChanged((firebaseUser) => {
+    this.auth = getAuth();
+    this.auth.onAuthStateChanged((firebaseUser) => {
       this.user = firebaseUser;
-      if (firebaseUser) {
+        if (firebaseUser) {
         this.setLoggedInUser(this.user);
-        this.setLoggedInUserProfile(this.user);
+        
       }
     });
   }
@@ -59,15 +59,6 @@ export class UserDatasService {
       email: user.email,
       id: user.uid,
     }
-  }
-
-  setLoggedInUserProfile(user: any) {
-    this.userProfilesService.userProfile = {
-      userName: user.displayName,
-      userImg: user.photoURL,
-      userID: user.uid,
-      userOnline: true,
-    }  
   }
 
   /**
@@ -88,23 +79,18 @@ export class UserDatasService {
   */
   async logOut() {
     try {
-      const auth = getAuth();
-      await signOut(auth);
-      this.changeOnlinestatus();
-      this.clearLoggedInUser();
-      console.log(this.userProfilesService.userProfile);
-      
+      const online = false;
+      this.userProfilesService.setUserProfile(this.user, online);  
+      if(this.user) {
+        await this.userProfilesService.updateProfile(this.user.uid); 
+      }
+      this.clearLoggedInUser();  
+      await signOut(this.auth);
     } catch (error) {
       console.error("Fehler beim Ausloggen:", error);
     }
     this.router.navigate(['/']);
   };
-
-  changeOnlinestatus(){
-    this.userProfilesService.userProfile.userOnline = false;
-  }
-
-
 
   /**
    * change the firebase user datas

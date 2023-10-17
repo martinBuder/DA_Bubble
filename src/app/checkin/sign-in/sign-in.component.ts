@@ -60,5 +60,8 @@ export class SignInComponent {
     this.createAccountService.profileName = this.signInForm.value.name;
     this.createAccountService.email = this.signInForm.value.email;
     this.createAccountService.password = this.signInForm.value.password;
-  }
+  } 
+  //the create Account happens in chooseAvatar
 }
+
+

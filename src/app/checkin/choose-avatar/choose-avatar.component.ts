@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CheckInSiteServiceService } from 'src/app/services/check-in-site-service.service';
 import { CreateAccountService } from 'src/app/services/create-account.service';
+import { UserProfilesService } from 'src/app/services/user-profiles.service';
 
 
 @Component({
@@ -14,7 +15,8 @@ export class ChooseAvatarComponent {
 
   constructor(
     public checkInSiteServiceService: CheckInSiteServiceService,
-    public createAccountService: CreateAccountService
+    public createAccountService: CreateAccountService,
+    private userProfileService: UserProfilesService,
   ) {  }
 
  
@@ -25,8 +27,9 @@ export class ChooseAvatarComponent {
     setTimeout(() => {
       this.checkInSiteServiceService.changeCheckInSite('logIn');
     }, 2000);
-    
+    this.userProfileService.addProfile();
   }
+
 }
 
 

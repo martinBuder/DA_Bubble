@@ -6,8 +6,8 @@
 			<mat-icon>arrow_drop_down</mat-icon>
 		</div>
 		<div class="chat-persons">
-			<div class="purple-hover">
-				<div class="person-images pointer" *ngFor="let member of this.openedChannelService.openedChannel.members" (click)="this.openedChannelService.openChatMembers = true" >
+			<div class="purple-hover" (click)="this.openedChannelService.openChatMembers = true">
+				<div class="person-images pointer" *ngFor="let member of this.openedChannelService.openedChannel.members">
 					<img src="{{ member.userImages }}" alt="">
 				</div>
 				<p class="person-amounts">
@@ -16,10 +16,10 @@
 		</div>
 			<mat-icon class="icon-background pointer" (click)="this.openedChannelService.openAddChatMembers = true">person_add_alt</mat-icon>
 		</div>
-		<app-chat-members *ngIf="this.openedChannelService.openChatMembers" class="pop-up-wrapper"></app-chat-members>
-		<app-add-chat-members *ngIf="this.openedChannelService.openAddChatMembers" class="pop-up-wrapper"></app-add-chat-members>
 	</ng-container>
 </div>
+	<app-chat-members class="pop-up-wrapper" *ngIf="this.openedChannelService.openChatMembers"></app-chat-members>
+<app-add-chat-members *ngIf="this.openedChannelService.openAddChatMembers" class="pop-up-wrapper"></app-add-chat-members>
 <div class="chat-wrapper">
 	<div class="chat-container scrollbar-none">
 		<ng-container *ngFor="let message of this.chatMessageService.channelMessages; let i = index">
