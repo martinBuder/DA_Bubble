@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ChatHeadDatasService } from 'src/app/services/chat-head-datas.service';
 import { OpenedChannelService } from 'src/app/services/opened-channel.service';
 import { UserProfilesService } from 'src/app/services/user-profiles.service';
 
@@ -19,7 +20,9 @@ export class AddChatMembersComponent {
 
   constructor(
     public openedChannelService: OpenedChannelService,
-    public userProfilesService: UserProfilesService
+    private userProfilesService: UserProfilesService,
+    private chatHeadDatasService: ChatHeadDatasService,
+
   ) {
     this.chatAddMemberForm.valueChanges.subscribe(
       this.searchChatMember.bind(this)
@@ -68,7 +71,10 @@ export class AddChatMembersComponent {
    *
    * @param member
    */
-  addChatMember() {}
+  addChatMember() {
+    this.chatHeadDatasService.changeChannelMembers(this.selectedProfiles)
+    this.selectedProfiles = [];
+  }
 
   /**
    * search for members in allAppUsers
@@ -81,11 +87,18 @@ export class AddChatMembersComponent {
       this.foundMembers = this.userProfilesService.allAppUsers.filter(
         (profile) => profile.userName.toLowerCase().includes(member)
       );
-      if (this.foundMembers.length > 0) {
+      console.log(this.foundMembers);
+      
+      // const uniqueFoundMembers = this.foundMembers.filter(foundMember => {
+      //   return !this.chatHeadDatasService.channel.members.some(channelMember => channelMember.id === foundMember.id);
+      // });
+      // this.foundMembers = uniqueFoundMembers;
+      if (this.foundMembers.length > 0 && this.foundMembers) {
         this.searchingUser = true;
-      } else {
-        this.searchingUser = true;
-      }
+      } 
+    } else {
+      this.searchingUser = false;
+      this.selectedProfiles = [];
     }
   }
 

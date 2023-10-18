@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Firestore, collection, addDoc, query, where, onSnapshot} from '@angular/fire/firestore';
 import { ChannelConfig } from '../interfaces/channel-config';
 import { UserDatasService } from './user-datas.service';
+import { UserProfilesService } from './user-profiles.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,10 @@ export class ChatHeadDatasService {
   openAddChannel : boolean = false;
   
 
-  constructor(private firestore: Firestore,
-    private userDatasService: UserDatasService,) { 
+  constructor(
+    private firestore: Firestore,
+    private userDatasService: UserDatasService,
+    private userProfilesService: UserProfilesService ) { 
     this.getChannelList()
   }
 
@@ -39,16 +42,26 @@ export class ChatHeadDatasService {
    */
   async getChannelList() {
     await this.userDatasService.waitForNotNullValue();
-      onSnapshot(query(this.channelListCollection, where('userIDs', 'array-contains', this.userDatasService.loggedInUser.id)),
+      onSnapshot(query(this.channelListCollection, where('members', 'array-contains', this.userDatasService.loggedInUser.id)),
       (querySnapshot) => {
         this.userChannels = [];
         querySnapshot.forEach((doc) => {
           const channelData = doc.data();
           channelData['id'] = doc.id
+          channelData['members'] = [this.fillMembersDataInChannel( channelData)];
           this.userChannels.push(channelData);
         }); 
-        console.log(this.userChannels);
       });
+  }
+
+  /**
+   * search for the member informations in all appUsers 
+   * 
+   * @param channel 
+   * @returns 
+   */
+  fillMembersDataInChannel(channel : any){
+    return this.userProfilesService.allAppUsers.find(profile => channel.members.includes(profile.id));
   }
  
 
@@ -70,17 +83,26 @@ export class ChatHeadDatasService {
    */
   setChannelConfig(channelHeader : string, channelDescription : string) {
     this.channel = {
-      userIDs: [this.userDatasService.loggedInUser.id],
-      // userImages: [this.userDatasService.loggedInUser.img],
-      // userNames: [this.userDatasService.loggedInUser.name],
       channelName: channelHeader,
       description: channelDescription,
       admins: [this.userDatasService.loggedInUser.name],
       creator: this.userDatasService.loggedInUser.name, 
       usersAmount: 1,
-      members: [{userIDs: this.userDatasService.loggedInUser.id,	userImages: this.userDatasService.loggedInUser.img,	userNames: this.userDatasService.loggedInUser.name}]
+      members: [this.userDatasService.loggedInUser.id]
     }
   }
+
+  /**
+   * push the members.id to the channels
+   * concat is to include just the content, not the full array
+   * 
+   * @param newProfiles 
+   */
+  changeChannelMembers(newProfiles: Array<string>) {
+    this.channel.members = this.channel.members.concat(newProfiles);
+  }
+
+  
 
 }
 

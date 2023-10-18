@@ -8,7 +8,7 @@
 		<div class="chat-persons">
 			<div class="purple-hover" (click)="this.openedChannelService.openChatMembers = true">
 				<div class="person-images pointer" *ngFor="let member of this.openedChannelService.openedChannel.members">
-					<img src="{{ member.userImages }}" alt="">
+					<img src="{{ member.userImg }}" alt="">
 				</div>
 				<p class="person-amounts">
 					{{ this.openedChannelService.openedChannel.usersAmount }}
