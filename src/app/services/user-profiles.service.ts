@@ -8,7 +8,7 @@ import { UserProfile } from '../interfaces/user-profile';
 export class UserProfilesService {
 
   userProfileListCollection = collection(this.firestore, 'usersProfileList');
-  allAppUsers !: Array<any>;
+  allAppUsers : Array<any> = [];
   userProfile !: UserProfile;
 
   constructor(private firestore: Firestore,) {
@@ -16,6 +16,9 @@ export class UserProfilesService {
     this.getProfilesList()
    }
 
+   /**
+    * get a list from firebase with all users from this app
+    */
    getProfilesList() {
       onSnapshot(query(this.userProfileListCollection),
       (querySnapshot) => {

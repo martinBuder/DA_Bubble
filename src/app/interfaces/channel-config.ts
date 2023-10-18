@@ -5,5 +5,5 @@ export interface ChannelConfig {
 	usersAmount: number;
 	admins: Array<string>;
 	creator: string; 
-	members: Array<{userIDs: string,	userImages: string,	userNames: string}>;
+	members: Array<{string}>;
 }

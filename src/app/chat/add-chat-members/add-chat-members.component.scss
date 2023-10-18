@@ -9,3 +9,15 @@
 		font-size: 1.4rem;
 	}
 }
+
+.member-container {
+	display: flex;
+	gap: var(--chatGap);
+	align-items: center;
+	padding: var(--chatGap);
+}
+
+.select-profile {
+	background-color: var(--colorPurple);
+	color: var(--colorWhite);
+}
