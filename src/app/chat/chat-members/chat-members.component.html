@@ -8,10 +8,10 @@
 			<ng-container *ngFor="let member of this.openedChannelService.openedChannel.members">
 				<li class="member-container">
 					<div class="person-img-wrapper">
-						<img src="{{ member.userImages }}" alt="">
+						<img src="{{ member.userImg }}" alt="">
 						<div class="status-point"></div>
 					</div>
-					<p>{{ member.userNames }}</p>
+					<p>{{ member.userName }}</p>
 				</li>
 			</ng-container>
 			<li class="member-container purple-hover" (click)="this.openedChannelService.openAddChatMembers = true">
