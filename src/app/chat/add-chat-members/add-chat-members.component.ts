@@ -21,8 +21,7 @@ export class AddChatMembersComponent {
   constructor(
     public openedChannelService: OpenedChannelService,
     private userProfilesService: UserProfilesService,
-    private chatHeadDatasService: ChatHeadDatasService,
-
+    private chatHeadDatasService: ChatHeadDatasService
   ) {
     this.chatAddMemberForm.valueChanges.subscribe(
       this.searchChatMember.bind(this)
@@ -70,10 +69,13 @@ export class AddChatMembersComponent {
    *
    * @param member
    */
-  async addChatMember() {
+  async addChatMember(channelId: string) {
     this.chatHeadDatasService.changeChannelMembers(this.selectedProfiles);
     await this.chatHeadDatasService.updateChannel();
-    await this.chatHeadDatasService.getChannelList();
+    const updatedChannelIndex =
+      this.chatHeadDatasService.findUpdatedChannel(channelId);
+    this.openedChannelService.openChannel(updatedChannelIndex);
+    this.searchingUser = false;
     this.selectedProfiles = [];
   }
 
@@ -88,15 +90,9 @@ export class AddChatMembersComponent {
       this.foundMembers = this.userProfilesService.allAppUsers.filter(
         (profile) => profile.userName.toLowerCase().includes(member)
       );
-      console.log(this.foundMembers);
-      
-      // const uniqueFoundMembers = this.foundMembers.filter(foundMember => {
-      //   return !this.chatHeadDatasService.channel.members.some(channelMember => channelMember.id === foundMember.id);
-      // });
-      // this.foundMembers = uniqueFoundMembers;
       if (this.foundMembers.length > 0 && this.foundMembers) {
         this.searchingUser = true;
-      } 
+      }
     } else {
       this.searchingUser = false;
       this.selectedProfiles = [];

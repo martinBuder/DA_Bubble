@@ -93,7 +93,8 @@ export class ChatHeadDatasService {
       admins: [this.userDatasService.loggedInUser.name],
       creator: this.userDatasService.loggedInUser.name, 
       usersAmount: 1,
-      members: [this.userDatasService.loggedInUser.id]
+      members: [this.userDatasService.loggedInUser.id],
+      membersId: [this.userDatasService.loggedInUser.id],
     }
   }
 
@@ -113,9 +114,10 @@ export class ChatHeadDatasService {
     
   }
 
+  /**
+   * update the chanelConfig in firebase
+   */
   async updateChannel() {
-    console.log(this.channel);
-    console.log(this.channel.id);
     let membersAmount
     if(this.channel.membersId)
     membersAmount = this.channel.membersId.length
@@ -131,6 +133,16 @@ export class ChatHeadDatasService {
         console.error('Ungültiger channelId in this.channel');
     }
 }
+
+  /**
+   * search for the index from the updated channel
+   * 
+   * @param channelId 
+   * @returns 
+   */
+  findUpdatedChannel(channelId: string) {
+    return this.userChannels.findIndex((channel: { id: string; }) => channel.id === channelId);
+  }
   
   
 

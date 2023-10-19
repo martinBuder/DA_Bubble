@@ -20,6 +20,6 @@
 				</ng-container>
 			</div>
 		</ng-container>
-		<button class="primary-btn one-btn" type="submit" [disabled]="isAddedButtonDisabled()" (click)="this.addChatMember()">Hinzufügen</button>
+		<button class="primary-btn one-btn" type="submit" [disabled]="isAddedButtonDisabled()" (click)="this.addChatMember(this.openedChannelService.openedChannel.id)">Hinzufügen</button>
 	</div>
 </div>

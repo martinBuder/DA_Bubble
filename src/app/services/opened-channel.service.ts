@@ -24,9 +24,11 @@ export class OpenedChannelService {
   openChannel(channelIndex : number) {
     this.openedChannel = this.chatHeadDatasService.userChannels[channelIndex];
     this.chatHeadDatasService.channel = this.openedChannel;
-    console.log(this.chatHeadDatasService.channel);
-    
     this.chatMessageService.messageChannelId = this.openedChannel.id
     this.chatMessageService.getChannelMessagesList();
   }
+
+
+
+ 
 }
