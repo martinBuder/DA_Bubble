@@ -5,6 +5,6 @@ export interface UserProfile {
 		id: string;
 		userOnline: boolean;
 		dataKey?: string;
+		userMail?: string;
 	[key: string]: any;
-
 }

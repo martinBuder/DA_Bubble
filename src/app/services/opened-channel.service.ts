@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ChatHeadDatasService } from './chat-head-datas.service';
+import { ChatHeadDatasService } from './channel-head-datas.service';
 import ChatMessageService from './chat-message.service';
 
 @Injectable({

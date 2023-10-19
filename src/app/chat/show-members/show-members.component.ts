@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class ShowMembersComponent {
   contactsOpen : boolean = true;
+
+  contacts : Array<any> = [];
+
+  openContactChat(i: number) {
+
+  }
 }

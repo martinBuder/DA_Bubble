@@ -8,15 +8,14 @@
 		</h4>
 	</div>
 	<ul class="contact-list scrollbar-none" *ngIf="contactsOpen">
-		<li class="person-img-wrapper"><img src="assets/img/avatars/person-2.png" alt=""><div class="status-point"></div><p>Name Familienname</p></li>
-		<li class="person-img-wrapper"><img src="assets/img/avatars/person-3.png" alt=""><div class="status-point"></div><p>Name Familienname</p></li>
-		<li class="person-img-wrapper"><img src="assets/img/avatars/person-4.png" alt=""><div class="status-point"></div><p>Name Familienname</p></li>
-		<li class="person-img-wrapper"><img src="assets/img/avatars/person-5.png" alt=""><div class="status-point"></div><p>Name Familienname</p></li>
-		<li class="person-img-wrapper"><img src="assets/img/avatars/person-6.png" alt=""><div class="status-point"></div><p>Name Familienname</p></li>
-		<li class="person-img-wrapper"><img src="assets/img/avatars/person-2.png" alt=""><div class="status-point"></div><p>Name Familienname</p></li>
-		<li class="person-img-wrapper"><img src="assets/img/avatars/person-3.png" alt=""><div class="status-point"></div><p>Name Familienname</p></li>
-		<li class="person-img-wrapper"><img src="assets/img/avatars/person-4.png" alt=""><div class="status-point"></div><p>Name Familienname</p></li>
-		<li class="person-img-wrapper"><img src="assets/img/avatars/person-5.png" alt=""><div class="status-point"></div><p>Name Familienname</p></li>
-		<li class="person-img-wrapper"><img src="assets/img/avatars/person-6.png" alt=""><div class="status-point"></div><p>Name Familienname</p></li>
+		<ng-container *ngFor="let contact of contacts; let i = index">
+			<li class="member-container pointer" (click)="this.openContactChat(i)">
+				<div class="person-img-wrapper">
+					<img src="{{ contact.userImg }}" alt="">
+					<div class="status-point" [ngClass]="{'online-point': contact.userOnline, 'offline-point': !contact.userOnline}"></div>
+				</div>
+				<p>{{ contact.userName }}</p>
+			</li>
+		</ng-container>
 	</ul>
 </div>

@@ -10,3 +10,5 @@
 	<p *ngIf="!sidebarOpen" class="closed-sidebar">Workspace-Menü öffnen</p>
 	<img *ngIf="!sidebarOpen" class="closed-sidebar" src="assets/img/no-mat-icons/sidebar-open.svg" alt="">
 </div>
+<app-profile *ngIf="this.userProfilesService.openProfile" class="pop-up-wrapper"
+ ></app-profile>

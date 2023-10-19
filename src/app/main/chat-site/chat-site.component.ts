@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { ChatHeadDatasService } from 'src/app/services/chat-head-datas.service';
+import { ChatHeadDatasService } from 'src/app/services/channel-head-datas.service';
 import { ThreadOpenCloseService } from 'src/app/services/thread-open-close.service';
+import { UserProfilesService } from 'src/app/services/user-profiles.service';
 
 @Component({
   selector: 'app-chat-site',
@@ -14,6 +15,7 @@ export class ChatSiteComponent {
   constructor(
     public threadOpenCloseService: ThreadOpenCloseService,
     public chatHeadDatasService: ChatHeadDatasService,
+    public userProfilesService: UserProfilesService
     ){
     };
 

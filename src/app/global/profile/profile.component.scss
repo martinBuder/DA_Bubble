@@ -1,0 +1,49 @@
+.person-img-wrapper {
+	width: 100%;
+	padding: var(--bodyPadding) calc(var(--bodyPadding)*2);
+	display: flex;
+	justify-content: center;
+	
+		img {
+			width: 150px;
+		}
+}
+
+.mail-container {
+	display: flex;
+	gap: var(--chatGap);
+	align-items: center;
+
+		mat-icon {
+			width: 30px;
+		}
+}
+
+.status-point {
+	position: inherit;
+}
+
+.status-container {
+	display: flex;
+	align-items: center;
+	gap: var(--bodyPadding);
+
+	p {
+		font-weight: 200;
+	}
+}
+
+.onText {
+	color: green;
+}
+
+.offText {
+	color: red;
+}
+
+.primary-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--chatGap);
+}

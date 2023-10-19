@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ChatHeadDatasService } from 'src/app/services/chat-head-datas.service';
+import { ChatHeadDatasService } from 'src/app/services/channel-head-datas.service';
 import { UserDatasService } from 'src/app/services/user-datas.service';
 
 @Component({

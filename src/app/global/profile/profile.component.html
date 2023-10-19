@@ -1,1 +1,33 @@
-<p>profile works!</p>
+<div class="pop-up-background" (click)="this.userProfilesService.openProfile = false">
+	<div class="pop-up-container" (click)="$event.stopPropagation()">
+		<div class="space-between">
+			<h3>Profil</h3>
+			<mat-icon (click)="this.userProfilesService.openProfile = false" class="pointer">close</mat-icon>
+		</div>
+	 			<div class="person-img-wrapper">
+						<img src="{{ this.userProfilesService.contactProfile.userImg }}" alt="">
+					</div>
+					<h2>{{ this.userProfilesService.contactProfile.userName }}</h2>
+					<ng-container *ngIf="this.userProfilesService.contactProfile.userOnline">
+					<div class="status-container">
+						<div class="status-point online-point"></div>
+						<p class="onText">Online</p>
+					</div>
+					</ng-container>
+					<ng-container *ngIf="!this.userProfilesService.contactProfile.userOnline">
+					<div class="status-container">
+						<div class="status-point offline-point"></div>
+						<p class="offText">Offline</p>
+					</div>	
+					</ng-container>
+					<div class="mail-container">
+						<mat-icon>mail_outline</mat-icon>
+						<h4>E-Mail-Adresse</h4>
+					</div>
+					<div class="mail-container">
+						<mat-icon></mat-icon>
+						<a href='mailto: {{ this.userProfilesService.contactProfile.userMail }}' target="_blank">{{ this.userProfilesService.contactProfile.userMail }}</a>
+					</div>
+					<button class="primary-btn"><mat-icon (click)="writeMessage(this.userProfilesService.contactProfile)">messenger_outline</mat-icon >Nachricht</button>
+	</div>
+</div>

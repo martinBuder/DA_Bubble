@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { OpenedChannelService } from 'src/app/services/opened-channel.service';
-import { ChatHeadDatasService } from 'src/app/services/chat-head-datas.service';
+import { ChatHeadDatasService } from 'src/app/services/channel-head-datas.service';
 
 @Component({
   selector: 'app-channel-area',

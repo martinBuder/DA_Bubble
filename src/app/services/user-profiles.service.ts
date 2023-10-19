@@ -10,6 +10,8 @@ export class UserProfilesService {
   userProfileListCollection = collection(this.firestore, 'usersProfileList');
   allAppUsers : Array<any> = [];
   userProfile !: UserProfile;
+  contactProfile !: UserProfile;
+  openProfile : boolean = false;
 
   constructor(private firestore: Firestore,) {
 
@@ -89,6 +91,7 @@ export class UserProfilesService {
         userImg: user.photoURL,
         id: user.uid,
         userOnline: online,
+        userMail: user.email,
       }  
     }
 

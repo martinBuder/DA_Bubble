@@ -1,1 +1,11 @@
-<p>message-window works!</p>
+<div class="message-window-header">
+	<h3>Neue Nachricht</h3>
+	<form [formGroup]="channelFinderForm">
+		<div class="inputfield-wrapper">
+			<input type="text" placeholder="An: #channel, oder @jemand oder E-Mail-Adresse" formControlName="recipient">
+		</div>
+	</form>
+</div>
+<div class="message-window-body">
+	<app-textfield class="posFix"></app-textfield>
+</div>

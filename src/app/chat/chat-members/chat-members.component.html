@@ -6,17 +6,16 @@
 		</div>
 	 <ul class="members-wrapper">
 			<ng-container *ngFor="let member of this.openedChannelService.openedChannel.members">
-				<li class="member-container">
+				<li class="member-container purple-hover pointer" (click)="openMemberProfile(member)">
 					<div class="person-img-wrapper">
 						<img src="{{ member.userImg }}" alt="">
-						<div class="status-point"></div>
+						<div class="status-point" [ngClass]="{'online-point': member.userOnline, 'offline-point': !member.userOnline}"></div>
 					</div>
 					<p>{{ member.userName }}</p>
 				</li>
 			</ng-container>
-			<li class="member-container purple-hover" (click)="this.openedChannelService.openAddChatMembers = true">
-				<mat-icon class="icon-background pointer">person_add_alt</mat-icon>
-				<div class="status-point"></div>
+			<li class="member-container purple-hover pointer" (click)="this.openedChannelService.openAddChatMembers = true">
+				<mat-icon class="icon-background">person_add_alt</mat-icon>
 				<p>Mitglieder hinzufügen</p>
 			</li>
 		</ul>

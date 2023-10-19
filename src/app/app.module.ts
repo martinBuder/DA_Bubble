@@ -24,7 +24,6 @@ import { TextfieldComponent } from './chat/textfield/textfield.component';
 import { MessageWrapperComponent } from './chat/message-wrapper/message-wrapper.component';
 import { ImprintComponent } from './others/imprint/imprint.component';
 import { LegalNoticeComponent } from './others/legal-notice/legal-notice.component';
-import { ProfileViewComponent } from './others/profile-view/profile-view.component';
 import { AddChannelComponent } from './chat/add-channel/add-channel.component';
 import { EditChannelComponent } from './chat/edit-channel/edit-channel.component';
 import { ShowMembersComponent } from './chat/show-members/show-members.component';
@@ -71,7 +70,6 @@ import { AddContactComponent } from './chat/add-contact/add-contact.component';
     MessageWrapperComponent,
     ImprintComponent,
     LegalNoticeComponent,
-    ProfileViewComponent,
     AddChannelComponent,
     EditChannelComponent,
     ShowMembersComponent,

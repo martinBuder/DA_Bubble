@@ -1,0 +1,24 @@
+.message-window-header {
+	padding: var(--bodyPadding);
+	
+	h3 {
+		margin-bottom: var(--chatGap);
+	}
+}
+
+.inputfield-wrapper {
+	background-color: var(--colorWhite);
+	border: 1px solid var(--colorPurple);
+
+	input{
+		background-color: var(--colorWhite);
+	}
+}
+
+.message-window-body {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	position: relative;
+	flex: 1;
+}
