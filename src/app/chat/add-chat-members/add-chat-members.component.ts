@@ -63,7 +63,6 @@ export class AddChatMembersComponent {
     const index = this.selectedProfiles.indexOf(userId);
     if (index === -1) this.selectedProfiles.push(userId);
     else this.selectedProfiles.splice(index, 1);
-    console.log(this.selectedProfiles);
   }
 
   /**
@@ -71,8 +70,10 @@ export class AddChatMembersComponent {
    *
    * @param member
    */
-  addChatMember() {
-    this.chatHeadDatasService.changeChannelMembers(this.selectedProfiles)
+  async addChatMember() {
+    this.chatHeadDatasService.changeChannelMembers(this.selectedProfiles);
+    await this.chatHeadDatasService.updateChannel();
+    await this.chatHeadDatasService.getChannelList();
     this.selectedProfiles = [];
   }
 

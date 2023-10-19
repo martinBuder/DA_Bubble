@@ -4,5 +4,7 @@ export interface ChannelConfig {
 	usersAmount: number;
 	admins: Array<string>;
 	creator: string; 
-	members: Array<string>;
+	members: Array<any>;
+	id ?: any;
+	membersId ?: Array<any>
 }

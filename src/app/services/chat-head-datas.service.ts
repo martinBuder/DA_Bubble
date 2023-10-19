@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Component } from '@angular/core';
-import { Firestore, collection, addDoc, query, where, onSnapshot} from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, query, where, onSnapshot, doc, updateDoc} from '@angular/fire/firestore';
 import { ChannelConfig } from '../interfaces/channel-config';
 import { UserDatasService } from './user-datas.service';
 import { UserProfilesService } from './user-profiles.service';
@@ -15,13 +15,14 @@ export class ChatHeadDatasService {
   // userChannels : any;
   channel !: ChannelConfig;
   userChannels : any = [ ];
+  fireChannelMembers : Array<any> =  []
   openAddChannel : boolean = false;
   
 
   constructor(
     private firestore: Firestore,
     private userDatasService: UserDatasService,
-    private userProfilesService: UserProfilesService ) { 
+    private userProfilesService: UserProfilesService) { 
     this.getChannelList()
   }
 
@@ -42,14 +43,18 @@ export class ChatHeadDatasService {
    */
   async getChannelList() {
     await this.userDatasService.waitForNotNullValue();
-      onSnapshot(query(this.channelListCollection, where('members', 'array-contains', this.userDatasService.loggedInUser.id)),
+      onSnapshot(query(this.channelListCollection, where('membersId', 'array-contains', this.userDatasService.loggedInUser.id)),
       (querySnapshot) => {
         this.userChannels = [];
         querySnapshot.forEach((doc) => {
           const channelData = doc.data();
           channelData['id'] = doc.id
-          channelData['members'] = [this.fillMembersDataInChannel( channelData)];
+          channelData['members'] = this.fillMembersDataInChannel( channelData);
+          console.log(this.fillMembersDataInChannel( channelData));
+          
           this.userChannels.push(channelData);
+          console.log(this.userChannels);
+          
         }); 
       });
   }
@@ -61,7 +66,7 @@ export class ChatHeadDatasService {
    * @returns 
    */
   fillMembersDataInChannel(channel : any){
-    return this.userProfilesService.allAppUsers.find(profile => channel.members.includes(profile.id));
+    return this.userProfilesService.allAppUsers.filter(profile => channel.membersId.includes(profile.id));
   }
  
 
@@ -69,7 +74,7 @@ export class ChatHeadDatasService {
    * create a channel to add this on firestore
    */
   createChannel(channelHeader : string, channelDescription : string) {
-    this.setChannelConfig(channelHeader, channelDescription)
+    this.setChannelConfig(channelHeader, channelDescription);
     this.addChannel(this.channelListCollection, this.channel)
     this.openAddChannel = false;
   }
@@ -99,9 +104,34 @@ export class ChatHeadDatasService {
    * @param newProfiles 
    */
   changeChannelMembers(newProfiles: Array<string>) {
-    this.channel.members = this.channel.members.concat(newProfiles);
+    this.channel.members.forEach(member => {
+     this.fireChannelMembers.push(member.id);  
+    });
+    this.fireChannelMembers = this.fireChannelMembers.concat(newProfiles);
+    this.channel.membersId = this.fireChannelMembers;
+    console.log(this.channel.membersId);
+    
   }
 
+  async updateChannel() {
+    console.log(this.channel);
+    console.log(this.channel.id);
+    let membersAmount
+    if(this.channel.membersId)
+    membersAmount = this.channel.membersId.length
+    
+    if (this.channel.id) { // Überprüfen, ob channelId vorhanden ist
+        const channelId = this.channel.id;
+        const channelRef = doc(this.channelListCollection, channelId);
+        await updateDoc(channelRef, {
+            membersId: this.channel.membersId,
+            usersAmount: membersAmount 
+        });
+    } else {
+        console.error('Ungültiger channelId in this.channel');
+    }
+}
+  
   
 
 }
