@@ -53,6 +53,8 @@ export class UserDatasService {
    * @param user firebase user
    */
   setLoggedInUser(user: any) {
+    console.log(user);
+    
     this.loggedInUser = {
       name: user.displayName,
       img: user.photoURL,

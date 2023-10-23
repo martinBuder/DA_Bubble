@@ -86,7 +86,6 @@ export class LogInComponent {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(this.auth, provider)
           .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         if (credential !== null) {
          const token = credential.accessToken;
@@ -99,6 +98,8 @@ export class LogInComponent {
       })
       .catch((error) => {
         this.googleLogInErrorHandler(error);
+       
+        
       });
       this.isLoggingIn = false;
   }
