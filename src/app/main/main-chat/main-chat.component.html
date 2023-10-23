@@ -16,10 +16,32 @@
 		</div>
 			<mat-icon class="icon-background pointer" (click)="this.openedChannelService.openAddChatMembers = true">person_add_alt</mat-icon>
 		</div>
-	</ng-container>
-</div>
 	<app-chat-members class="pop-up-wrapper" *ngIf="this.openedChannelService.openChatMembers"></app-chat-members>
 <app-add-chat-members *ngIf="this.openedChannelService.openAddChatMembers" class="pop-up-wrapper"></app-add-chat-members>
+</ng-container>
+<!-- !beginn chat -->
+<ng-container *ngIf="this.openedChannelService.openedChannel">
+	<div class="chat-name">
+		<mat-icon>numbers</mat-icon>
+		<h3>{{ this.openedChannelService.openedChannel.channelName }}</h3>
+		<mat-icon>arrow_drop_down</mat-icon>
+	</div>
+	<div class="chat-persons">
+		<div class="purple-hover" (click)="this.openedChannelService.openChatMembers = true">
+			<div class="person-images pointer">
+				<img src="{{ member.userImg }}" alt=""  *ngFor="let member of this.openedChannelService.openedChannel.members">
+			</div>
+			<p class="person-amounts">
+				{{ this.openedChannelService.openedChannel.usersAmount }}
+			</p>
+	</div>
+		<mat-icon class="icon-background pointer" (click)="this.openedChannelService.openAddChatMembers = true">person_add_alt</mat-icon>
+	</div>
+<app-chat-members class="pop-up-wrapper" *ngIf="this.openedChannelService.openChatMembers"></app-chat-members>
+<app-add-chat-members *ngIf="this.openedChannelService.openAddChatMembers" class="pop-up-wrapper"></app-add-chat-members>
+</ng-container>
+</div>
+
 <div class="chat-wrapper">
 	<div class="chat-container scrollbar-none">
 		<ng-container *ngFor="let message of this.chatMessageService.channelMessages; let i = index">

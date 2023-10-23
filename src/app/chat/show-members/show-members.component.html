@@ -8,13 +8,13 @@
 		</h4>
 	</div>
 	<ul class="contact-list scrollbar-none" *ngIf="contactsOpen">
-		<ng-container *ngFor="let contact of contacts; let i = index">
-			<li class="member-container pointer" (click)="this.openContactChat(i)">
+		<ng-container *ngFor="let chat of this.contactService.contactChats; let i = index">
+			<li class="member-container pointer" (click)="this.openContactChat(chat.id)">
 				<div class="person-img-wrapper">
-					<img src="{{ contact.userImg }}" alt="">
-					<div class="status-point" [ngClass]="{'online-point': contact.userOnline, 'offline-point': !contact.userOnline}"></div>
+					<img src="{{ chat.contact.userImg }}" alt="">
+					<div class="status-point" [ngClass]="{'online-point': chat.contact.userOnline, 'offline-point': !chat.contact.userOnline}"></div>
 				</div>
-				<p>{{ contact.userName }}</p>
+				<p>{{ chat.contact.userName }}</p>
 			</li>
 		</ng-container>
 	</ul>

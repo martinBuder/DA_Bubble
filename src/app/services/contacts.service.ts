@@ -9,7 +9,11 @@ import { UserProfilesService } from './user-profiles.service';
 })
 export class ContactsService {
 
-  chatData !: ChatConfig;
+  chatData : ChatConfig = {
+    contactId: ['', ''],
+
+  }
+  ;
   contactChats : Array<any> = [];
   contactsListCollection = collection(this.firestore, 'contactsList');
 
@@ -18,17 +22,19 @@ export class ContactsService {
     private userDatasService: UserDatasService,
     private userProfilesService: UserProfilesService
   ) { 
-    this.setContact();
+    this.getChannelList()
   }
 
   setContact() {
-    this.setChatConfig();
-    this.addContact();
+      this.setChatConfig();
+      this.addContact();    
   }
 
   setChatConfig() {
-    this.chatData = {
-    	contactId: ['2WWmAZfqH7gCxt6Lr9cyv1GlRQ33', this.userDatasService.loggedInUser.id],
+    if(this.userDatasService.loggedInUser.id !== null) {
+      this.chatData = {
+        contactId: ['2WWmAZfqH7gCxt6Lr9cyv1GlRQ33', this.userDatasService.loggedInUser.id],
+      }
     }
   }
 
@@ -40,16 +46,18 @@ export class ContactsService {
    * filter the right contacts for user from firebase with abo 
    */
   async getChannelList() {
+    await this.userDatasService.waitForNotNullValue();
       onSnapshot(query(this.contactsListCollection, where('contactId', 'array-contains', this.userDatasService.loggedInUser.id)),
       (querySnapshot) => {
         this.contactChats = [];
         querySnapshot.forEach((doc) => {
           const chat = doc.data();
           chat['id'] = doc.id
-          chat['contact'] = this.fillMembersDataInChannel(chat);  
+          chat['contact'] = this.fillContactDataInChannel(chat); 
+          console.log(chat['contact']);
+           
           this.contactChats.push(chat);
           console.log(this.contactChats);
-          
         }); 
       });
   }
@@ -60,9 +68,9 @@ export class ContactsService {
    * @param channel 
    * @returns 
    */
-    fillMembersDataInChannel(chat : any){
-     const userContactId = chat.contactId.filter((id: any) => id !== this.userDatasService.loggedInUser.id); 
-     return this.userProfilesService.allAppUsers.filter(profile => profile.id === userContactId);
+    fillContactDataInChannel(chat : any){
+     const userContactId = chat.contactId.filter((id: any) => id !== this.userDatasService.loggedInUser.id).toString();  
+     return this.userProfilesService.allAppUsers.find(profile => profile.id == userContactId);
     }
 
 }

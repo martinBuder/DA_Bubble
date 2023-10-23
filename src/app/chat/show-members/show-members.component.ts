@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ContactsService } from 'src/app/services/contacts.service';
 
 @Component({
   selector: 'app-show-members',
@@ -8,7 +9,9 @@ import { Component } from '@angular/core';
 export class ShowMembersComponent {
   contactsOpen : boolean = true;
 
-  contacts : Array<any> = [];
+  constructor(
+    public contactService: ContactsService,
+  ) {}
 
   openContactChat(i: number) {
 
