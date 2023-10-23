@@ -1,15 +1,9 @@
 <div class="sidebar-header">
 	<img src="assets/img/code-learning.png" alt="">
 	<p>Code learning</p>
-	<mat-icon class="pointer" (click)="this.chatHeadDatasService.chatOpen = false" >messenger_outline</mat-icon> 
+	<mat-icon class="pointer" (click)="openStartHeader()">messenger_outline</mat-icon> 
 </div>
 <div class="sidebar-content scrollbar-none">
 	<app-channel-area></app-channel-area>
 	<app-show-members></app-show-members>
 </div>
-
-<!-- <ul>
-	<li *ngFor="let channel of this.chatService.userChannels" (click)="openChannel(channel.id)">
-			{{ channel.channelName }} 
-	</li> 
-</ul> -->

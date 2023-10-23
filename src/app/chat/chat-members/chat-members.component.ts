@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OpenCloseService } from 'src/app/services/open-close.service';
 import { OpenedChannelService } from 'src/app/services/opened-channel.service';
 import { UserProfilesService } from 'src/app/services/user-profiles.service';
 
@@ -10,11 +11,10 @@ import { UserProfilesService } from 'src/app/services/user-profiles.service';
 export class ChatMembersComponent {
 
   constructor(
+    public openCloseService: OpenCloseService,
     public openedChannelService: OpenedChannelService,
     private userProfilesService: UserProfilesService 
-  ) {
-    this.openedChannelService.openChatMembers = false
-  }
+  ) { }
 
   openMemberProfile(member:any){
     console.log(member);

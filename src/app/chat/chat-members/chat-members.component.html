@@ -1,8 +1,8 @@
-<div class="pop-up-background" (click)="this.openedChannelService.openChatMembers = false">
+<div class="pop-up-background" (click)="this.openCloseService.channelMembersOpen = false">
 	<div class="pop-up-container" (click)="$event.stopPropagation()">
 		<div class="space-between">
 			<h4>{{ this.openedChannelService.openedChannel.channelName }}-Channel-Mitglieder</h4>
-			<mat-icon (click)="this.openedChannelService.openChatMembers = false" class="pointer">close</mat-icon>
+			<mat-icon (click)="this.openCloseService.channelMembersOpen = false" class="pointer">close</mat-icon>
 		</div>
 	 <ul class="members-wrapper">
 			<ng-container *ngFor="let member of this.openedChannelService.openedChannel.members">
@@ -14,7 +14,7 @@
 					<p>{{ member.userName }}</p>
 				</li>
 			</ng-container>
-			<li class="member-container purple-hover pointer" (click)="this.openedChannelService.openAddChatMembers = true">
+			<li class="member-container purple-hover pointer" (click)="this.openCloseService.openAddChannelMembers = true">
 				<mat-icon class="icon-background">person_add_alt</mat-icon>
 				<p>Mitglieder hinzufügen</p>
 			</li>

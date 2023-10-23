@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ChatHeadDatasService } from 'src/app/services/channel-head-datas.service';
+import { OpenCloseService } from 'src/app/services/open-close.service';
 import { OpenedChannelService } from 'src/app/services/opened-channel.service';
 import { UserProfilesService } from 'src/app/services/user-profiles.service';
 
@@ -19,6 +20,7 @@ export class AddChatMembersComponent {
   });
 
   constructor(
+    public openCloseService: OpenCloseService,
     public openedChannelService: OpenedChannelService,
     private userProfilesService: UserProfilesService,
     private chatHeadDatasService: ChatHeadDatasService

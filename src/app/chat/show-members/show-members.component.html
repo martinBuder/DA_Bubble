@@ -9,7 +9,7 @@
 	</div>
 	<ul class="contact-list scrollbar-none" *ngIf="contactsOpen">
 		<ng-container *ngFor="let chat of this.contactService.contactChats; let i = index">
-			<li class="member-container pointer" (click)="this.openContactChat(chat.id)">
+			<li class="member-container pointer" (click)="this.openContactChat(this.chat)">
 				<div class="person-img-wrapper">
 					<img src="{{ chat.contact.userImg }}" alt="">
 					<div class="status-point" [ngClass]="{'online-point': chat.contact.userOnline, 'offline-point': !chat.contact.userOnline}"></div>

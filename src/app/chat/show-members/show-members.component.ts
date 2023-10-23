@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ContactsService } from 'src/app/services/contacts.service';
+import { OpenCloseService } from 'src/app/services/open-close.service';
 
 @Component({
   selector: 'app-show-members',
@@ -11,9 +12,11 @@ export class ShowMembersComponent {
 
   constructor(
     public contactService: ContactsService,
+    private openCloseService: OpenCloseService,
   ) {}
 
-  openContactChat(i: number) {
-
+  openContactChat(chat: any) {
+    this.contactService.openChatData = chat;
+    this.openCloseService.chatHeader = 'contactHeader'
   }
 }

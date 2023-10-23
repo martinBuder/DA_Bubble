@@ -9,11 +9,12 @@ import { UserProfilesService } from './user-profiles.service';
 })
 export class ContactsService {
 
+  openChatData !: ChatConfig;
+
   chatData : ChatConfig = {
     contactId: ['', ''],
+  };
 
-  }
-  ;
   contactChats : Array<any> = [];
   contactsListCollection = collection(this.firestore, 'contactsList');
 

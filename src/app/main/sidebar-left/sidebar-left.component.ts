@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ChatHeadDatasService } from 'src/app/services/channel-head-datas.service';
+import { OpenCloseService } from 'src/app/services/open-close.service';
 
 @Component({
   selector: 'app-sidebar-left',
@@ -9,9 +10,12 @@ import { ChatHeadDatasService } from 'src/app/services/channel-head-datas.servic
 export class SidebarLeftComponent {
 
   constructor(
-    public chatHeadDatasService: ChatHeadDatasService
-    ){
-     
-    };
+    public chatHeadDatasService: ChatHeadDatasService,
+    public openCloseService: OpenCloseService
+    ){ };
+
+    openStartHeader(){
+      this.openCloseService.chatHeader = 'startHeader';
+    }
 
 }
