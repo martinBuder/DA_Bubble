@@ -4,6 +4,8 @@ import { Firestore, collection, addDoc, query, where, onSnapshot, doc, updateDoc
 import { ChannelConfig } from '../../interfaces/channel-config';
 import { UserDatasService } from '../userDatas/user-datas.service';
 import { UserProfilesService } from '../userDatas/user-profiles.service';
+import { FireDatabaseService } from '../firebase/fire-database.service';
+import { FireAuthService } from '../firebase/fire-auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +23,8 @@ export class ChatHeadDatasService {
 
   constructor(
     private firestore: Firestore,
+    private fireAuthService: FireAuthService,
+    private fireDatabaseService: FireDatabaseService,
     private userDatasService: UserDatasService,
     private userProfilesService: UserProfilesService) { 
     this.getChannelList()
@@ -34,7 +38,7 @@ export class ChatHeadDatasService {
    * @param collectionItem the item we want to push to firebase
    */
   addChannel(fireCollection : any, collectionItem : any) {
-    addDoc(fireCollection, collectionItem) 
+    this.fireDatabaseService.addItemToFirebase(fireCollection, collectionItem)
   }
 
 
@@ -43,20 +47,14 @@ export class ChatHeadDatasService {
    */
   async getChannelList() {
     await this.userDatasService.waitForNotNullValue();
-      onSnapshot(query(this.channelListCollection, where('membersId', 'array-contains', this.userDatasService.loggedInUser.id)),
-      (querySnapshot) => {
-        this.userChannels = [];
-        querySnapshot.forEach((doc) => {
-          const channelData = doc.data();
-          channelData['id'] = doc.id
-          channelData['members'] = this.fillMembersDataInChannel( channelData);
-          console.log(this.fillMembersDataInChannel( channelData));
-          
-          this.userChannels.push(channelData);
-          console.log(this.userChannels);
-          
-        }); 
-      });
+    console.log(this.fireAuthService.fireUser)
+    this.fireDatabaseService.getListFromFirebase(
+      
+      
+      (this.channelListCollection, where('membersId', 'array-contains', this.fireAuthService.fireUser.uid)), this.userChannels);
+
+    
+     
   }
 
   /**
@@ -66,7 +64,7 @@ export class ChatHeadDatasService {
    * @returns 
    */
   fillMembersDataInChannel(channel : any){
-    return this.userProfilesService.allAppUsers.filter(profile => channel.membersId.includes(profile.id));
+        return this.userProfilesService.allAppUsers.filter(profile => channel.membersId.includes(profile.id));
   }
  
 

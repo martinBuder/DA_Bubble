@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, onSnapshot, query, where } from '@angular/fire/firestore';
+import { Firestore, collection} from '@angular/fire/firestore';
 import { Message } from '../../interfaces/message';
 import { UserDatasService } from '../userDatas/user-datas.service';
-import { Observable } from 'rxjs';
+import { FireDatabaseService } from '../firebase/fire-database.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +17,12 @@ export default class ChatMessageService {
   messageDatas !: Message;
   messageChannelId : string = 'empty';
   chatMessagesListCollection !: any;
-  channelMessagesList$ !: Observable<any>;
   channelMessages !: any;
 
   constructor(
     private firestore: Firestore,
-    private userDatasService: UserDatasService
+    private fireDatabaseService: FireDatabaseService,
+    private userDatasService: UserDatasService,
   ) {
     this.getTime()
   }
@@ -49,7 +49,7 @@ export default class ChatMessageService {
     this.getTime();
     this.setMessageDatas();
     this.chatMessagesListCollection = collection(this.firestore, this.messageChannelId);
-    await addDoc(this.chatMessagesListCollection, this.messageDatas ) 
+    await this.fireDatabaseService.addItemToFirebase(this.chatMessagesListCollection, this.messageDatas) 
   }
 
   /** get the time in all variants i need for message */
@@ -66,22 +66,12 @@ export default class ChatMessageService {
   };
 
   /**
-   * get the messeages from this channel
+   * get the messages from this channel
    */
-  getChannelMessagesList() {
+   getChannelMessagesList() {
     const channelMessagesListCollection = collection(this.firestore, this.messageChannelId);
-    onSnapshot(query(channelMessagesListCollection),
-    (querySnapshot) => {
-      this.channelMessages = [];
-      querySnapshot.forEach((doc) => {
-        const messageData = doc.data();
-        messageData['id'] = doc.id;
-        this.channelMessages.push(messageData);
-      }); 
-      this.channelMessages.sort((a:any, b:any) => b.timestamp - a.timestamp); // sort the array by time backwards
-      console.log(this.channelMessages);
-      
-    });
+    this.fireDatabaseService.getListFromFirebase(channelMessagesListCollection, this.channelMessages);
+    this.channelMessages.sort((a:any, b:any) => b.timestamp - a.timestamp); // sort the array by time backwards
   }
 
   checkMessageDate() {

@@ -172,7 +172,7 @@ export class FireAuthService {
         const online = false;
         this.userProfilesService.setUserProfile(this.fireUser, online);  
         if(this.fireUser) {
-          await this.userProfilesService.updateProfile(this.fireUser.uid); 
+          await this.userProfilesService.updateOnlinestatusToProfile(this.fireUser.uid); 
         }  
         await signOut(this.auth);
       } catch (error) {

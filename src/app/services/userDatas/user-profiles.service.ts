@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, doc, onSnapshot, query, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, onSnapshot, query, setDoc, updateDoc } from '@angular/fire/firestore';
 import { UserProfile } from '../../interfaces/user-profile';
+import { FireDatabaseService } from '../firebase/fire-database.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,33 +14,24 @@ export class UserProfilesService {
   contactProfile !: UserProfile;
   openProfile : boolean = false;
 
-  constructor(private firestore: Firestore,) {
+  constructor(
+    private firestore: Firestore,
+    private fireDatabaseService: FireDatabaseService
+  ) {
 
-    this.getProfilesList()
+    this.getProfilesList();
    }
 
-   /**
-    * get a list from firebase with all users from this app
-    */
    getProfilesList() {
-      onSnapshot(query(this.userProfileListCollection),
-      (querySnapshot) => {
-        this.allAppUsers = [];
-        querySnapshot.forEach((doc) => {
-          const profileData = doc.data();
-          profileData['id'] = doc.id;
-          this.allAppUsers.push(profileData);
-        }); 
-        // this.allAppUsers.sort((a.names:any, b:any) => a - b); // sort the array by time backwards       
-      });
-    }
-
+    this.fireDatabaseService.getListFromFirebase(this.userProfileListCollection, this.allAppUsers);
+    console.log(this.allAppUsers);
+   }
 
     /**
      * add the userProfile to firebase user collection
      */
     async addProfile() {
-      await setDoc(doc(this.firestore, 'usersProfileList', this.userProfile.id), this.userProfile)
+      await this.fireDatabaseService.setItemToFirebase('usersProfileList', this.userProfile.id, this.userProfile); 
     }
 
     /**
@@ -52,21 +44,22 @@ export class UserProfilesService {
       const online = true
       this.setUserProfile(user, online);
       if (profileExist) {
-       await this.updateProfile(this.userProfile.id);
+       await this.fireDatabaseService.updateItem(this.userProfileListCollection, this.userProfile.id, this.userProfile);
       }
       else
        this.addProfile();
     }
 
     /**
-     * update the profile in firebase
+     * change th onlineStatus by checkOut
      * 
-     * @param id profile-id
+     * @param id from profile 
      */
-    async updateProfile(id: string) {
-      const profileRef = doc(this.userProfileListCollection, id)
-      await updateDoc(profileRef, this.userProfile);
+    async updateOnlinestatusToProfile(id: any){
+      await this.fireDatabaseService.updateItem(this.userProfileListCollection, id, this.userProfile);
     }
+
+   
 
     /**
      * search for profil in all profiles
