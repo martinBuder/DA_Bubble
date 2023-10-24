@@ -23,7 +23,7 @@ export class ContactsService {
     private userDatasService: UserDatasService,
     private userProfilesService: UserProfilesService
   ) { 
-    this.getChannelList()
+    // this.getChannelList()
   }
 
   setContact() {
@@ -43,25 +43,25 @@ export class ContactsService {
     addDoc(this.contactsListCollection, this.chatData) 
   }
 
-  /**
-   * filter the right contacts for user from firebase with abo 
-   */
-  async getChannelList() {
-    await this.userDatasService.waitForNotNullValue();
-      onSnapshot(query(this.contactsListCollection, where('contactId', 'array-contains', this.userDatasService.loggedInUser.id)),
-      (querySnapshot) => {
-        this.contactChats = [];
-        querySnapshot.forEach((doc) => {
-          const chat = doc.data();
-          chat['id'] = doc.id
-          chat['contact'] = this.fillContactDataInChannel(chat); 
-          console.log(chat['contact']);
+  // /**
+  //  * filter the right contacts for user from firebase with abo 
+  //  */
+  // async getChannelList() {
+  //   await this.userDatasService.waitForNotNullValue();
+  //     onSnapshot(query(this.contactsListCollection, where('contactId', 'array-contains', this.userDatasService.loggedInUser.id)),
+  //     (querySnapshot) => {
+  //       this.contactChats = [];
+  //       querySnapshot.forEach((doc) => {
+  //         const chat = doc.data();
+  //         chat['id'] = doc.id
+  //         chat['contact'] = this.fillContactDataInChannel(chat); 
+  //         console.log(chat['contact']);
            
-          this.contactChats.push(chat);
-          console.log(this.contactChats);
-        }); 
-      });
-  }
+  //         this.contactChats.push(chat);
+  //         console.log(this.contactChats);
+  //       }); 
+  //     });
+  // }
 
     /**
    * search for the member informations in all appUsers 

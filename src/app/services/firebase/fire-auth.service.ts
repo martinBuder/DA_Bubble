@@ -9,7 +9,7 @@ import { UserProfilesService } from '../userDatas/user-profiles.service';
 })
 export class FireAuthService {
 
-  fireUser : any = '';
+  fireUser : any | null = null;
 
   errorMessage: string | null = null;
   successfulMessage: string | null = null;
@@ -138,7 +138,9 @@ export class FireAuthService {
    */
     async checkFirebaseUser() {
       this.auth.onAuthStateChanged((firebaseUser) => {
-        this.fireUser = firebaseUser;        
+        this.fireUser = firebaseUser;       
+        console.log(this.fireUser);
+         
       });
     }
 
@@ -183,4 +185,16 @@ export class FireAuthService {
       
   
     }  
+
+     /**
+     * check if user filled
+     */
+     async waitForNotNullValue() {
+      while (this.fireUser === null) {
+        await new Promise(resolve => setTimeout(resolve, 1000)); 
+      }
+      console.log(this.fireUser);
+      
+    }
+
 }

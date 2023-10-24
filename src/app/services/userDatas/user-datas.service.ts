@@ -22,16 +22,7 @@ export class UserDatasService {
 
     }
 
-    /**
-     * check if user filled
-     */
-    async waitForNotNullValue() {
-      while (this.loggedInUser === null) {
-        // Warten Sie auf eine kleine Zeitspanne, bevor Sie erneut überprüfen
-        await new Promise(resolve => setTimeout(resolve, 1000)); // Zum Beispiel 1 Sekunde warten
-      }
-    }
-
+   
 
  
 

@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { Firestore, addDoc, doc, onSnapshot, query, setDoc, updateDoc } from '@angular/fire/firestore';
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +9,9 @@ export class FireDatabaseService {
 
   fireCollection !: any;  
 
-
-  constructor(private firestore: Firestore,
-   ) { }
+  constructor(
+    private firestore: Firestore,
+  ) { }
 
     /**
      * get List from Firebase
@@ -25,14 +26,31 @@ export class FireDatabaseService {
         querySnapshot.forEach((doc) => {
           const itemJson: any = doc.data();
           itemJson['id'] = doc.id;
-          if(itemJson['members']){
-            itemJson['members'] = this.chatHeadDatasService.fillMembersDataInChannel(itemJson);
-          }
           projectArray.push(itemJson);
         });   
 
       });
     }
+
+     /**
+     * get List from Firebase with an query
+     * 
+     * @param fireCollection, that we use
+     * @param projectArray, that we need for *ngFor 
+     */   
+     getQueryListFromFirebase(fireCollection: any, fireQuery: any, projectArray: Array<any>) {
+      onSnapshot(query(fireCollection,fireQuery),
+      (querySnapshot) => {
+        // projectArray = [];
+        querySnapshot.forEach((doc) => {
+          const itemJson: any = doc.data();
+          itemJson['id'] = doc.id;
+          projectArray.push(itemJson);
+        });   
+
+      });
+    }
+   
 
     /**
      * set the item to the right item with the id

@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Component } from '@angular/core';
-import { Firestore, collection, addDoc, query, where, onSnapshot, doc, updateDoc} from '@angular/fire/firestore';
+import { Firestore, collection, where, doc, updateDoc} from '@angular/fire/firestore';
 import { ChannelConfig } from '../../interfaces/channel-config';
 import { UserDatasService } from '../userDatas/user-datas.service';
 import { UserProfilesService } from '../userDatas/user-profiles.service';
@@ -12,6 +12,9 @@ import { FireAuthService } from '../firebase/fire-auth.service';
 })
 export class ChatHeadDatasService {
 
+
+
+
   chatOpen : boolean = false;
   channelListCollection = collection(this.firestore, 'channelList');
   // userChannels : any;
@@ -19,6 +22,10 @@ export class ChatHeadDatasService {
   userChannels : any = [ ];
   fireChannelMembers : Array<any> =  []
   openAddChannel : boolean = false;
+
+  // private fillMembersDataCallback = (itemJson: any) => {
+  //   itemJson['members'] = this.fillMembersDataInChannel(itemJson);
+  // };
   
 
   constructor(
@@ -26,8 +33,10 @@ export class ChatHeadDatasService {
     private fireAuthService: FireAuthService,
     private fireDatabaseService: FireDatabaseService,
     private userDatasService: UserDatasService,
-    private userProfilesService: UserProfilesService) { 
-    this.getChannelList()
+    private userProfilesService: UserProfilesService
+  ) { 
+    this.getChannelList();
+    this.fillMembersDataInChannel();
   }
 
 
@@ -46,15 +55,12 @@ export class ChatHeadDatasService {
    * filter the right channels for user from firebase with abo 
    */
   async getChannelList() {
-    await this.userDatasService.waitForNotNullValue();
-    console.log(this.fireAuthService.fireUser)
-    this.fireDatabaseService.getListFromFirebase(
-      
-      
-      (this.channelListCollection, where('membersId', 'array-contains', this.fireAuthService.fireUser.uid)), this.userChannels);
-
+    await this.fireAuthService.waitForNotNullValue();
+    console.log(this.fireAuthService.fireUser.uid)
+    this.fireDatabaseService.getQueryListFromFirebase(      
+      this.channelListCollection, where('membersId', 'array-contains', this.fireAuthService.fireUser.uid), this.userChannels);
+  
     
-     
   }
 
   /**
@@ -63,8 +69,20 @@ export class ChatHeadDatasService {
    * @param channel 
    * @returns 
    */
-  fillMembersDataInChannel(channel : any){
-        return this.userProfilesService.allAppUsers.filter(profile => channel.membersId.includes(profile.id));
+  async fillMembersDataInChannel(){
+    await this.waitForNotNullValue();
+    this.userChannels.forEach((channel: any) => {
+      channel['members'] = this.userProfilesService.allAppUsers.filter(profile => channel['membersId'].includes(profile.id))
+    });         
+  }
+
+  /**
+   * wait that userChannels is filled
+   */
+  async waitForNotNullValue() {
+    while (this.userChannels.length === 0) {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
   }
  
 
@@ -141,8 +159,5 @@ export class ChatHeadDatasService {
   findUpdatedChannel(channelId: string) {
     return this.userChannels.findIndex((channel: { id: string; }) => channel.id === channelId);
   }
-  
-  
-
 }
 
