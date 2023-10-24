@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserDatasService } from 'src/app/services/user-datas.service';
+import { UserDatasService } from 'src/app/services/userDatas/user-datas.service';
 import { User } from '@firebase/auth';
-import { OpenCloseService } from 'src/app/services/open-close.service';
+import { OpenCloseService } from 'src/app/services/generally/open-close.service';
 
 
 @Component({

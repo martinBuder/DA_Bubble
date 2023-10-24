@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CheckInSiteServiceService } from 'src/app/services/check-in-site-service.service';
+import { CheckInSiteServiceService } from 'src/app/services/generally/check-in-site-service.service';
 import { getAuth, updatePassword } from "firebase/auth";
 import { matchpassword } from 'src/app/validators/matchpassword.validator';
 import { Auth } from '@angular/fire/auth';

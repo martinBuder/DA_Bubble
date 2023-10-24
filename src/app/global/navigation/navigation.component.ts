@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { OpenCloseService } from 'src/app/services/open-close.service';
-import { UserDatasService } from 'src/app/services/user-datas.service';
+import { OpenCloseService } from 'src/app/services/generally/open-close.service';
+import { UserDatasService } from 'src/app/services/userDatas/user-datas.service';
 
 @Component({
   selector: 'app-navigation',

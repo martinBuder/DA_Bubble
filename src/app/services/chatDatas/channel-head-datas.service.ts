@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Component } from '@angular/core';
 import { Firestore, collection, addDoc, query, where, onSnapshot, doc, updateDoc} from '@angular/fire/firestore';
-import { ChannelConfig } from '../interfaces/channel-config';
-import { UserDatasService } from './user-datas.service';
-import { UserProfilesService } from './user-profiles.service';
+import { ChannelConfig } from '../../interfaces/channel-config';
+import { UserDatasService } from '../userDatas/user-datas.service';
+import { UserProfilesService } from '../userDatas/user-profiles.service';
 
 @Injectable({
   providedIn: 'root'

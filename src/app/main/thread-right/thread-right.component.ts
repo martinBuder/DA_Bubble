@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { OpenCloseService } from 'src/app/services/open-close.service';
+import { OpenCloseService } from 'src/app/services/generally/open-close.service';
 
 @Component({
   selector: 'app-thread-right',

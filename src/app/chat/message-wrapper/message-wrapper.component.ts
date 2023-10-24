@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Message } from 'src/app/interfaces/message';
-import { UserDatasService } from 'src/app/services/user-datas.service';
+import { UserDatasService } from 'src/app/services/userDatas/user-datas.service';
 
 @Component({
   selector: 'app-message-wrapper',

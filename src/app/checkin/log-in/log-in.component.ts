@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { getAuth, setPersistence, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, browserLocalPersistence } from "firebase/auth";
 import { initializeApp } from 'firebase/app'; 
 import { environment } from 'src/environments/environment';
-import { CheckInSiteServiceService } from 'src/app/services/check-in-site-service.service';
-import { UserDatasService } from 'src/app/services/user-datas.service';
-import { UserProfilesService } from 'src/app/services/user-profiles.service';
+import { CheckInSiteServiceService } from 'src/app/services/generally/check-in-site-service.service';
+import { UserDatasService } from 'src/app/services/userDatas/user-datas.service';
+import { UserProfilesService } from 'src/app/services/userDatas/user-profiles.service';
 
 
 
@@ -91,6 +91,8 @@ export class LogInComponent {
          const token = credential.accessToken;
         }
         const user = result.user;
+        console.log(user);
+        
         this.userDatasService.setLoggedInUser(user);
         this.userProfilesService.handleProfileData(user);
         this.goToNextPage();
@@ -112,6 +114,8 @@ export class LogInComponent {
   googleLogInErrorHandler(error: any){
     const errorCode = error.code;
     const errorMessage = error.message;
+    console.log(errorMessage);
+    
     const email = error.customData.email;
     const credential = GoogleAuthProvider.credentialFromError(error);
   }

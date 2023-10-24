@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ChatHeadDatasService } from './channel-head-datas.service';
-import ChatMessageService from './chat-message.service';
-import { OpenCloseService } from './open-close.service';
+import ChatMessageService from '../chatDatas/chat-message.service';
+import { OpenCloseService } from '../generally/open-close.service';
 
 @Injectable({
   providedIn: 'root'

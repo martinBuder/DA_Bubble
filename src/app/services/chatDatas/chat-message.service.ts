@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore, addDoc, collection, collectionData, onSnapshot, query, where } from '@angular/fire/firestore';
-import { Message } from '../interfaces/message';
-import { UserDatasService } from './user-datas.service';
+import { Message } from '../../interfaces/message';
+import { UserDatasService } from '../userDatas/user-datas.service';
 import { Observable } from 'rxjs';
 
 @Injectable({

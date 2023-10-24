@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { CheckInSiteServiceService } from 'src/app/services/check-in-site-service.service';
-import { CreateAccountService } from 'src/app/services/create-account.service';
-import { UserProfilesService } from 'src/app/services/user-profiles.service';
+import { CheckInSiteServiceService } from 'src/app/services/generally/check-in-site-service.service';
+import { CreateAccountService } from 'src/app/services/userDatas/create-account.service';
+import { UserProfilesService } from 'src/app/services/userDatas/user-profiles.service';
 
 
 @Component({

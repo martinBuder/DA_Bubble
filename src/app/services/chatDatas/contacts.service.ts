@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ChatConfig } from '../interfaces/chat-config';
+import { ChatConfig } from '../../interfaces/chat-config';
 import { Firestore, addDoc, collection, onSnapshot, query, where } from '@angular/fire/firestore';
-import { UserDatasService } from './user-datas.service';
-import { UserProfilesService } from './user-profiles.service';
+import { UserDatasService } from '../userDatas/user-datas.service';
+import { UserProfilesService } from '../userDatas/user-profiles.service';
 
 @Injectable({
   providedIn: 'root'

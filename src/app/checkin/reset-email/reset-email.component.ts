@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { getAuth, sendPasswordResetEmail } from '@angular/fire/auth';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CheckInSiteServiceService } from 'src/app/services/check-in-site-service.service';
+import { CheckInSiteServiceService } from 'src/app/services/generally/check-in-site-service.service';
 
 @Component({
   selector: 'app-reset-email',

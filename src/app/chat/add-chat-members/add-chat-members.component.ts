@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ChatHeadDatasService } from 'src/app/services/channel-head-datas.service';
-import { OpenCloseService } from 'src/app/services/open-close.service';
-import { OpenedChannelService } from 'src/app/services/opened-channel.service';
-import { UserProfilesService } from 'src/app/services/user-profiles.service';
+import { ChatHeadDatasService } from 'src/app/services/chatDatas/channel-head-datas.service';
+import { OpenCloseService } from 'src/app/services/generally/open-close.service';
+import { OpenedChannelService } from 'src/app/services/chatDatas/opened-channel.service';
+import { UserProfilesService } from 'src/app/services/userDatas/user-profiles.service';
 
 @Component({
   selector: 'app-add-chat-members',

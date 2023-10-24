@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { OpenCloseService } from 'src/app/services/open-close.service';
-import { OpenedChannelService } from 'src/app/services/opened-channel.service';
-import { UserProfilesService } from 'src/app/services/user-profiles.service';
+import { OpenCloseService } from 'src/app/services/generally/open-close.service';
+import { OpenedChannelService } from 'src/app/services/chatDatas/opened-channel.service';
+import { UserProfilesService } from 'src/app/services/userDatas/user-profiles.service';
 
 @Component({
   selector: 'app-chat-members',

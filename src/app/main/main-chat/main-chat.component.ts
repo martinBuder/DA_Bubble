@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { OpenedChannelService } from 'src/app/services/opened-channel.service';
-import { ChatHeadDatasService } from 'src/app/services/channel-head-datas.service';
-import ChatMessageService from 'src/app/services/chat-message.service';
-import { ContactsService } from 'src/app/services/contacts.service';
-import { OpenCloseService } from 'src/app/services/open-close.service';
+import { OpenedChannelService } from 'src/app/services/chatDatas/opened-channel.service';
+import { ChatHeadDatasService } from 'src/app/services/chatDatas/channel-head-datas.service';
+import ChatMessageService from 'src/app/services/chatDatas/chat-message.service';
+import { ContactsService } from 'src/app/services/chatDatas/contacts.service';
+import { OpenCloseService } from 'src/app/services/generally/open-close.service';
 
 @Component({
   selector: 'app-main-chat',

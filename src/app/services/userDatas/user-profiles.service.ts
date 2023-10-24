@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore, addDoc, collection, collectionData, doc, onSnapshot, query, setDoc, updateDoc } from '@angular/fire/firestore';
-import { UserProfile } from '../interfaces/user-profile';
+import { UserProfile } from '../../interfaces/user-profile';
 
 @Injectable({
   providedIn: 'root'
