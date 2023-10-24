@@ -23,10 +23,10 @@
       <mat-icon>search</mat-icon>
     </div>
     <div class="user-header" (click)="this.openCloseService.navOpen = true">
-      <ng-container *ngIf="this.userDatasService.loggedInUser">
-        <p>{{ this.userDatasService.loggedInUser.name }}</p>
+      <ng-container *ngIf="this.fireAuthService.fireUser !== ''">
+        <p>{{ this.fireAuthService.fireUser.displayName  }}</p>
         <div class="person-img-wrapper">
-          <img src= '{{ this.userDatasService.loggedInUser.img }}' alt="">
+          <img src= '{{ this.fireAuthService.fireUser.photoURL }}' alt="">
           <div class="status-point online-point"></div>
         </div>
         <mat-icon>arrow_drop_down</mat-icon>

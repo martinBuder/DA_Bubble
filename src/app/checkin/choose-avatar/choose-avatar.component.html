@@ -23,10 +23,10 @@
 <div class="spinner-wrapper" *ngIf="creatingAccount">
 	<mat-spinner class="spinner"></mat-spinner>
 </div>
-<div *ngIf="this.createAccountService.errorMessage" class="fire-error-message">
-	{{ this.createAccountService.errorMessage }}
+<div *ngIf="this.fireAuthService.errorMessage" class="fire-error-message">
+	{{ this.fireAuthService.errorMessage }}
 </div>
 
-<div *ngIf="this.createAccountService.successfulMessage" class="successful-message">
-	{{ this.createAccountService.successfulMessage }}
+<div *ngIf="this.fireAuthService.successfulMessage" class="successful-message">
+	{{ this.fireAuthService.successfulMessage }}
 </div>

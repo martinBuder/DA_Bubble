@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FireAuthService } from 'src/app/services/firebase/fire-auth.service';
 import { CheckInSiteServiceService } from 'src/app/services/generally/check-in-site-service.service';
 import { CreateAccountService } from 'src/app/services/userDatas/create-account.service';
 import { UserProfilesService } from 'src/app/services/userDatas/user-profiles.service';
@@ -14,6 +15,7 @@ export class ChooseAvatarComponent {
   creatingAccount : boolean = false;
 
   constructor(
+    public fireAuthService: FireAuthService,
     public checkInSiteServiceService: CheckInSiteServiceService,
     public createAccountService: CreateAccountService,
     private userProfileService: UserProfilesService,

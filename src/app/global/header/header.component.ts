@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserDatasService } from 'src/app/services/userDatas/user-datas.service';
-import { User } from '@firebase/auth';
 import { OpenCloseService } from 'src/app/services/generally/open-close.service';
+import { FireAuthService } from 'src/app/services/firebase/fire-auth.service';
 
 
 @Component({
@@ -16,9 +16,11 @@ export class HeaderComponent {
   navOpen : boolean = true;
 
   constructor(
+    public openCloseService: OpenCloseService,
+    public fireAuthService: FireAuthService,
     public router: Router,
     public userDatasService: UserDatasService,
-    public openCloseService: OpenCloseService,
+   
     ) { 
     }
 

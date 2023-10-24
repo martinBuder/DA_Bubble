@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { CheckInSiteServiceService } from 'src/app/services/generally/check-in-site-service.service';
 import { UserDatasService } from 'src/app/services/userDatas/user-datas.service';
 import { UserProfilesService } from 'src/app/services/userDatas/user-profiles.service';
+import { FireAuthService } from 'src/app/services/firebase/fire-auth.service';
 
 
 
@@ -17,7 +18,6 @@ import { UserProfilesService } from 'src/app/services/userDatas/user-profiles.se
 })
 export class LogInComponent {
 
-  auth : any;
   isLoggingIn : boolean = false;
   errorMessage: string | null = null
 
@@ -39,86 +39,51 @@ export class LogInComponent {
  
 
   constructor(
+    private fireAuthService: FireAuthService,
     public checkInSiteServiceService: CheckInSiteServiceService,
-    private userDatasService: UserDatasService,
-    private userProfilesService: UserProfilesService,
     private router: Router,
-    ) { 
-      this.getFirebaseAuth()
-     }
+    ) { }
 
-  firebaseApp = initializeApp(environment.firebase);
 
-  /**
-   * get the firebase authentification and changed the persistence - so we must  * check out the user -> when you reload the page the user isn't loged out - 
-   * without local storage from us.
-   */
-  getFirebaseAuth() {
-    this.auth = getAuth();
-    // setPersistence(this.auth, browserLocalPersistence);
-  }
-
-  /**
-   * normal log In with email and password and go to the next site-- we use firebase getAuth()
-   */
-  async logIn(email: string, password:string) {
+   async logIn(email: string, password: string) {
     this.isLoggingIn = true; 
-    await signInWithEmailAndPassword(this.auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        this.userDatasService.setLoggedInUser(user);
-        this.userProfilesService.handleProfileData(user);
-        this.goToNextPage();
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        this.createErrorMessages(errorCode);
-      })
-    this.isLoggingIn = false;
+    await this.fireAuthService.fireLogIn(email, password);
+    this.goToNextPage();
+    this.isLoggingIn = false; 
+
   }
+
+  // /**
+  //  * normal log In with email and password and go to the next site-- we use firebase getAuth()
+  //  */
+  // async logIn(email: string, password:string) {
+  //   this.isLoggingIn = true; 
+  //   await signInWithEmailAndPassword(this.auth, email, password)
+  //     .then((userCredential) => {
+  //       const user = userCredential.user;
+  //       this.userDatasService.setLoggedInUser(user);
+  //       this.userProfilesService.handleProfileData(user);
+  //       this.goToNextPage();
+  //     })
+  //     .catch((error) => {
+  //       const errorCode = error.code;
+  //       this.createErrorMessages(errorCode);
+  //     })
+  //   this.isLoggingIn = false;
+  // }
 
  
   /**
-   * log in with google sign in and go to the next site -- we use firebase getAuth()
+   * log in with google 
    */
   async googleLogIn() {
     this.isLoggingIn = true; 
-    const provider = new GoogleAuthProvider();
-    await signInWithPopup(this.auth, provider)
-          .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        if (credential !== null) {
-         const token = credential.accessToken;
-        }
-        const user = result.user;
-        console.log(user);
-        
-        this.userDatasService.setLoggedInUser(user);
-        this.userProfilesService.handleProfileData(user);
-        this.goToNextPage();
-    
-      })
-      .catch((error) => {
-        this.googleLogInErrorHandler(error);
-       
-        
-      });
-      this.isLoggingIn = false;
+    await this.fireAuthService.googleFireLogIn();
+    this.goToNextPage();
+    this.isLoggingIn = false;
   }
 
-  /**
-   * handle the google errors
-   * 
-   * @param error 
-   */
-  googleLogInErrorHandler(error: any){
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorMessage);
-    
-    const email = error.customData.email;
-    const credential = GoogleAuthProvider.credentialFromError(error);
-  }
+  
 
   /**
    * go to the chatpage
@@ -127,20 +92,6 @@ export class LogInComponent {
     this.router.navigate(['/chat']);
   }
 
-   /**
-   * create the error messages while log In
-   * 
-   * @param errorCode 
-   */
-   createErrorMessages(errorCode: string) {
-    if (errorCode === "auth/invalid-login-credentials") {
-      this.errorMessage = "E-Mail und/oder Passwort ist nicht bekannt.";
-    }else {
-      this.errorMessage = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.";
-    }
-    setTimeout(() => {
-      this.errorMessage = null;
-    }, 2000);
-  }
+   
 
 }
