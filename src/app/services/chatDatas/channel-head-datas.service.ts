@@ -2,7 +2,6 @@ import { Injectable, Injector } from '@angular/core';
 import { Component } from '@angular/core';
 import { Firestore, collection, where, doc, updateDoc} from '@angular/fire/firestore';
 import { ChannelConfig } from '../../interfaces/channel-config';
-import { UserDatasService } from '../userDatas/user-datas.service';
 import { UserProfilesService } from '../userDatas/user-profiles.service';
 import { FireDatabaseService } from '../firebase/fire-database.service';
 import { FireAuthService } from '../firebase/fire-auth.service';
@@ -32,7 +31,6 @@ export class ChatHeadDatasService {
     private firestore: Firestore,
     private fireAuthService: FireAuthService,
     private fireDatabaseService: FireDatabaseService,
-    private userDatasService: UserDatasService,
     private userProfilesService: UserProfilesService
   ) { 
     this.getChannelList();
@@ -59,8 +57,6 @@ export class ChatHeadDatasService {
     console.log(this.fireAuthService.fireUser.uid)
     this.fireDatabaseService.getQueryListFromFirebase(      
       this.channelListCollection, where('membersId', 'array-contains', this.fireAuthService.fireUser.uid), this.userChannels);
-  
-    
   }
 
   /**
@@ -106,11 +102,11 @@ export class ChatHeadDatasService {
     this.channel = {
       channelName: channelHeader,
       description: channelDescription,
-      admins: [this.userDatasService.loggedInUser.name],
-      creator: this.userDatasService.loggedInUser.name, 
+      admins: [this.fireAuthService.fireUser.displayName],
+      creator: this.fireAuthService.fireUser.displayName, 
       usersAmount: 1,
-      members: [this.userDatasService.loggedInUser.id],
-      membersId: [this.userDatasService.loggedInUser.id],
+      members: [this.fireAuthService.fireUser.uid],
+      membersId: [this.fireAuthService.fireUser.uid],
     }
   }
 
@@ -137,14 +133,11 @@ export class ChatHeadDatasService {
     let membersAmount
     if(this.channel.membersId)
     membersAmount = this.channel.membersId.length
-    
     if (this.channel.id) { // Überprüfen, ob channelId vorhanden ist
-        const channelId = this.channel.id;
-        const channelRef = doc(this.channelListCollection, channelId);
-        await updateDoc(channelRef, {
-            membersId: this.channel.membersId,
-            usersAmount: membersAmount 
-        });
+      await this.fireDatabaseService.updateFireItem(this.channelListCollection, this.channel.id, {
+          membersId: this.channel.membersId,
+          usersAmount: membersAmount 
+      });
     } else {
         console.error('Ungültiger channelId in this.channel');
     }

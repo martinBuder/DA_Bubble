@@ -3,6 +3,7 @@ import { initializeApp } from '@angular/fire/app';
 import { Auth, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { UserProfilesService } from '../userDatas/user-profiles.service';
+import { OpenCloseService } from '../generally/open-close.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,7 @@ export class FireAuthService {
   successfulMessage: string | null = null;
 
   constructor(
-    private auth: Auth,
-    private userProfilesService: UserProfilesService,
+    private auth: Auth,    private userProfilesService: UserProfilesService,
 
   ) { 
     this.getFirebaseAuth();
@@ -27,7 +27,6 @@ export class FireAuthService {
 
   getFirebaseAuth() {
     this.auth = getAuth();
-    // setPersistence(this.auth, browserLocalPersistence);
   }
 
   // *create Account
@@ -193,8 +192,6 @@ export class FireAuthService {
       while (this.fireUser === null) {
         await new Promise(resolve => setTimeout(resolve, 1000)); 
       }
-      console.log(this.fireUser);
-      
     }
 
 }

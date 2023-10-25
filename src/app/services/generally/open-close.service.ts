@@ -12,4 +12,13 @@ export class OpenCloseService {
   openAddChannelMembers: boolean = false;
   
   constructor() { }
+
+    /**
+     * check if item is filled
+     */
+    async waitForNotNullValue(itemToFill: any,) {
+      while (itemToFill=== null) {
+        await new Promise(resolve => setTimeout(resolve, 1000)); 
+      }      
+    }
 }

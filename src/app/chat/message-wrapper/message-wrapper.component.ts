@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Message } from 'src/app/interfaces/message';
-import { UserDatasService } from 'src/app/services/userDatas/user-datas.service';
+import { FireAuthService } from 'src/app/services/firebase/fire-auth.service';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -22,7 +22,7 @@ export class MessageWrapperComponent {
   }
 
   constructor(
-    public userDatasService: UserDatasService,
+    public fireAuthService: FireAuthService,
     ) { }
 
 }

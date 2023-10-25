@@ -19,15 +19,19 @@ export class FireDatabaseService {
      * @param fireCollection, that we use
      * @param projectArray, that we need for *ngFor 
      */   
-    getListFromFirebase(fireCollection: any, projectArray: Array<any>) {
+    getListFromFirebase(fireCollection: any, projectArray: any) {
+      console.log('in get fire List');
+      
       onSnapshot(query(fireCollection),
       (querySnapshot) => {
-        // projectArray = [];
+        projectArray = [];
         querySnapshot.forEach((doc) => {
           const itemJson: any = doc.data();
-          itemJson['id'] = doc.id;
-          projectArray.push(itemJson);
+          itemJson['id'] = doc.id;          
+          projectArray.push(itemJson);     
         });   
+        if(projectArray[0].timestamp)
+        console.log('time comes');
 
       });
     }
@@ -47,7 +51,8 @@ export class FireDatabaseService {
           itemJson['id'] = doc.id;
           projectArray.push(itemJson);
         });   
-
+ 
+          
       });
     }
    
@@ -73,7 +78,7 @@ export class FireDatabaseService {
      * 
      * @param id profile-id
      */
-     async updateItem(fireCollection: any, id: string, item: any) {
+     async updateFireItem(fireCollection: any, id: string, item: any) {
       const itemRef = doc(fireCollection, id)
       await updateDoc(itemRef, item);
     }

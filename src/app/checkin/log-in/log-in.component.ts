@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { getAuth, setPersistence, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, browserLocalPersistence } from "firebase/auth";
-import { initializeApp } from 'firebase/app'; 
-import { environment } from 'src/environments/environment';
+
 import { CheckInSiteServiceService } from 'src/app/services/generally/check-in-site-service.service';
-import { UserDatasService } from 'src/app/services/userDatas/user-datas.service';
-import { UserProfilesService } from 'src/app/services/userDatas/user-profiles.service';
+
 import { FireAuthService } from 'src/app/services/firebase/fire-auth.service';
 
 

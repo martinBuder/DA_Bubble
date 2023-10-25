@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ChatConfig } from '../../interfaces/chat-config';
 import { Firestore, addDoc, collection, onSnapshot, query, where } from '@angular/fire/firestore';
-import { UserDatasService } from '../userDatas/user-datas.service';
+
 import { UserProfilesService } from '../userDatas/user-profiles.service';
+import { FireAuthService } from '../firebase/fire-auth.service';
+import { FireDatabaseService } from '../firebase/fire-database.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +22,9 @@ export class ContactsService {
 
   constructor(
     private firestore: Firestore,
-    private userDatasService: UserDatasService,
-    private userProfilesService: UserProfilesService
+    private fireAuthService: FireAuthService,
+    private fireDatabaseService:FireDatabaseService,
+    private userProfilesService: UserProfilesService,
   ) { 
     // this.getChannelList()
   }
@@ -32,15 +35,15 @@ export class ContactsService {
   }
 
   setChatConfig() {
-    if(this.userDatasService.loggedInUser.id !== null) {
+    if(this.fireAuthService.fireUser !== null) {
       this.chatData = {
-        contactId: ['2WWmAZfqH7gCxt6Lr9cyv1GlRQ33', this.userDatasService.loggedInUser.id],
+        contactId: ['2WWmAZfqH7gCxt6Lr9cyv1GlRQ33', this.fireAuthService.fireUser.uid],
       }
     }
   }
 
   addContact() {
-    addDoc(this.contactsListCollection, this.chatData) 
+    this.fireDatabaseService.addItemToFirebase(this.contactsListCollection, this.chatData);
   }
 
   // /**
@@ -70,7 +73,7 @@ export class ContactsService {
    * @returns 
    */
     fillContactDataInChannel(chat : any){
-     const userContactId = chat.contactId.filter((id: any) => id !== this.userDatasService.loggedInUser.id).toString();  
+     const userContactId = chat.contactId.filter((id: any) => id !== this.fireAuthService.fireUser.uid).toString();  
      return this.userProfilesService.allAppUsers.find(profile => profile.id == userContactId);
     }
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Firestore, addDoc, collection, doc, onSnapshot, query, setDoc, updateDoc } from '@angular/fire/firestore';
 import { UserProfile } from '../../interfaces/user-profile';
 import { FireDatabaseService } from '../firebase/fire-database.service';
+import { FireAuthService } from '../firebase/fire-auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class UserProfilesService {
 
   constructor(
     private firestore: Firestore,
-    private fireDatabaseService: FireDatabaseService
+    private fireDatabaseService: FireDatabaseService,
   ) {
 
     this.getProfilesList();
@@ -24,6 +25,7 @@ export class UserProfilesService {
 
    getProfilesList() {
     this.fireDatabaseService.getListFromFirebase(this.userProfileListCollection, this.allAppUsers);
+    // ~log muss weg
     console.log(this.allAppUsers);
    }
 
@@ -44,7 +46,7 @@ export class UserProfilesService {
       const online = true
       this.setUserProfile(user, online);
       if (profileExist) {
-       await this.fireDatabaseService.updateItem(this.userProfileListCollection, this.userProfile.id, this.userProfile);
+       await this.fireDatabaseService.updateFireItem(this.userProfileListCollection, this.userProfile.id, this.userProfile);
       }
       else
        this.addProfile();
@@ -56,7 +58,7 @@ export class UserProfilesService {
      * @param id from profile 
      */
     async updateOnlinestatusToProfile(id: any){
-      await this.fireDatabaseService.updateItem(this.userProfileListCollection, id, this.userProfile);
+      await this.fireDatabaseService.updateFireItem(this.userProfileListCollection, id, this.userProfile);
     }
 
    

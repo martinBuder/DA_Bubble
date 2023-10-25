@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection} from '@angular/fire/firestore';
+import { Firestore, collection, onSnapshot, query} from '@angular/fire/firestore';
 import { Message } from '../../interfaces/message';
-import { UserDatasService } from '../userDatas/user-datas.service';
 import { FireDatabaseService } from '../firebase/fire-database.service';
+import { FireAuthService } from '../firebase/fire-auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +17,15 @@ export default class ChatMessageService {
   messageDatas !: Message;
   messageChannelId : string = 'empty';
   chatMessagesListCollection !: any;
-  channelMessages !: any;
+  channelMessages : any | null = null;
 
   constructor(
     private firestore: Firestore,
+    private fireAuthService: FireAuthService,
     private fireDatabaseService: FireDatabaseService,
-    private userDatasService: UserDatasService,
   ) {
-    this.getTime()
+    this.getTime();
+    // this.sortChannelMessages();
   }
 
 
@@ -34,9 +35,9 @@ export default class ChatMessageService {
       date: this.date,
       time: this.time,
       year: this.year,
-      writerName: this.userDatasService.loggedInUser.name,
-      writerImg: this.userDatasService.loggedInUser.img,
-      writerId: this.userDatasService.loggedInUser.id,
+      writerName: this.fireAuthService.fireUser.displayName,
+      writerImg: this.fireAuthService.fireUser.photoURL,
+      writerId: this.fireAuthService.fireUser.uid,
       reactions: `test`,
       text: this.messageText,
     }
@@ -68,16 +69,50 @@ export default class ChatMessageService {
   /**
    * get the messages from this channel
    */
-   getChannelMessagesList() {
+   getChannelMessagesList() {  
     const channelMessagesListCollection = collection(this.firestore, this.messageChannelId);
+
     this.fireDatabaseService.getListFromFirebase(channelMessagesListCollection, this.channelMessages);
+}
+
+  async sortChannelMessages() {
+   
+    
+    await this.waitForNotNullValue();  
+
     this.channelMessages.sort((a:any, b:any) => b.timestamp - a.timestamp); // sort the array by time backwards
+    console.log(this.channelMessages);
   }
+
+// getChannelMessagesList() {
+//   const channelMessagesListCollection = collection(this.firestore, this.messageChannelId);
+//   onSnapshot(query(channelMessagesListCollection),
+//   (querySnapshot) => {
+//     this.channelMessages = [];
+//     querySnapshot.forEach((doc) => {
+//       const messageData = doc.data();
+//       messageData['id'] = doc.id;
+//       this.channelMessages.push(messageData);
+//     }); 
+    
+//     this.channelMessages.sort((a:any, b:any) => b.timestamp - a.timestamp); // sort the array by time backwards
+//     console.log(this.channelMessages);
+    
+//   });
+// }
 
   checkMessageDate() {
 
   }
 
+/**
+     * check if item is filled
+     */
+     async waitForNotNullValue() {
+      while (this.channelMessages === null) {
+        await new Promise(resolve => setTimeout(resolve, 1000)); 
+      }      
+    }
 
 
 }

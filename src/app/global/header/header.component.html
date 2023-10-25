@@ -23,7 +23,7 @@
       <mat-icon>search</mat-icon>
     </div>
     <div class="user-header" (click)="this.openCloseService.navOpen = true">
-      <ng-container *ngIf="this.fireAuthService.fireUser !== ''">
+      <ng-container *ngIf="this.fireAuthService.fireUser !== null">
         <p>{{ this.fireAuthService.fireUser.displayName  }}</p>
         <div class="person-img-wrapper">
           <img src= '{{ this.fireAuthService.fireUser.photoURL }}' alt="">
