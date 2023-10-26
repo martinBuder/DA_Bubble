@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CheckInSiteServiceService } from 'src/app/services/generally/check-in-site-service.service';
-import { getAuth, updatePassword } from "firebase/auth";
 import { matchpassword } from 'src/app/validators/matchpassword.validator';
-import { Auth } from '@angular/fire/auth';
+import { FireAuthService } from 'src/app/services/firebase/fire-auth.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -35,28 +34,13 @@ export class ResetPasswordComponent {
 
     constructor(
       public checkInSiteServiceService: CheckInSiteServiceService,
-      private auth : Auth) {}
+      private fireAuthService: FireAuthService
+    ) {}
 
     /**
      * update the new password in firebase
      */
     async resetPassword() {
-      this.auth = getAuth();
-      const user = this.auth.currentUser;
-      const newPassword = this.resetPasswordForm.value.password;
-      if (user !== null) {
-        await updatePassword(user, newPassword).then(() => {
-          this.successfulMessage = 'Passwort erfolgreich geändert.';
-          setTimeout(() => {
-            this.successfulMessage = null;
-          }, 2000);
-        }).catch((error) => {
-          if(error)
-            this.errorMessage = 'Da ist leider etwas schief gegangen. Bitte versuche es noch mal.';
-            setTimeout(() => {
-              this.errorMessage = null;
-            }, 2000);
-        });
-      }
+     await this.fireAuthService.resetFireAuth(this.resetPasswordForm.value.password)
     }
   }

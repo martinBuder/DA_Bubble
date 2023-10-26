@@ -1,32 +1,54 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from '@angular/fire/app';
-import { Auth, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from '@angular/fire/auth';
+import {
+  Auth,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  getAuth,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  updatePassword,
+  updateProfile,
+} from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { UserProfilesService } from '../userDatas/user-profiles.service';
 import { OpenCloseService } from '../generally/open-close.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FireAuthService {
-
-  fireUser : any | null = null;
+  fireUser: any | null = null;
 
   errorMessage: string | null = null;
   successfulMessage: string | null = null;
 
   constructor(
-    private auth: Auth,    private userProfilesService: UserProfilesService,
-
-  ) { 
+    private auth: Auth,
+    private userProfilesService: UserProfilesService
+  ) {
     this.getFirebaseAuth();
     this.checkFirebaseUser();
   }
 
   firebaseApp = initializeApp(environment.firebase);
 
+  /**
+   * get fireAuth
+   */
   getFirebaseAuth() {
     this.auth = getAuth();
+  }
+
+  /**
+   * wait that userChannels is filled
+   */
+  async waitForNotNullValue() {
+    while (this.fireUser === null) {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
   }
 
   // *create Account
@@ -36,17 +58,16 @@ export class FireAuthService {
         this.auth,
         email,
         password
-      );  
+      );
       this.fireUser = userCredential.user;
-     
     } catch (error: any) {
-        const errorCode = error.code;
-        if (errorCode === 'this.auth/email-already-in-use') {
-          this.errorMessage = 'Dieser Benutzer hat bereits ein Konto.';
-        } else {
-          this.errorMessage = 'Da ist leider was schief gelaufen.';
-        }
-     
+      const errorCode = error.code;
+      if (errorCode === 'this.auth/email-already-in-use') {
+        this.errorMessage = 'Dieser Benutzer hat bereits ein Konto.';
+      } else {
+        this.errorMessage = 'Da ist leider was schief gelaufen.';
+      }
+
       setTimeout(() => {
         this.errorMessage = null;
       }, 2000);
@@ -64,7 +85,7 @@ export class FireAuthService {
   /**
    * normal log In with email and password and go to the next site-- we use firebase getAuth()
    */
-  async fireLogIn(email: string, password:string) {
+  async fireLogIn(email: string, password: string) {
     await signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -74,19 +95,20 @@ export class FireAuthService {
       .catch((error) => {
         const errorCode = error.code;
         this.createErrorMessages(errorCode);
-      })
+      });
   }
 
   /**
    * create the error messages while log In
-   * 
-   * @param errorCode 
+   *
+   * @param errorCode
    */
-   createErrorMessages(errorCode: string) {
-    if (errorCode === "auth/invalid-login-credentials") {
-      this.errorMessage = "E-Mail und/oder Passwort ist nicht bekannt.";
-    }else {
-      this.errorMessage = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.";
+  createErrorMessages(errorCode: string) {
+    if (errorCode === 'auth/invalid-login-credentials') {
+      this.errorMessage = 'E-Mail und/oder Passwort ist nicht bekannt.';
+    } else {
+      this.errorMessage =
+        'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.';
     }
     setTimeout(() => {
       this.errorMessage = null;
@@ -101,12 +123,12 @@ export class FireAuthService {
   async googleFireLogIn() {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(this.auth, provider)
-          .then((result) => {
+      .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         if (credential !== null) {
-         const token = credential.accessToken;
+          const token = credential.accessToken;
         }
-        const user = result.user        
+        const user = result.user;
         // this.userDatasService.setLoggedInUser(user);
         this.userProfilesService.handleProfileData(user);
       })
@@ -117,10 +139,10 @@ export class FireAuthService {
 
   /**
    * handle the google errors
-   * 
-   * @param error 
+   *
+   * @param error
    */
-  googleLogInErrorHandler(error: any){
+  googleLogInErrorHandler(error: any) {
     const errorCode = error.code;
     const errorMessage = error.message;
     console.log(errorMessage);
@@ -130,68 +152,90 @@ export class FireAuthService {
 
   //* check the fire Account
 
-    /**
+  /**
    * check is there a active firebase user and something is changed on it
    * yes = make this user to loggeInUser
    * no = do nothing for checkout
    */
-    async checkFirebaseUser() {
-      this.auth.onAuthStateChanged((firebaseUser) => {
-        this.fireUser = firebaseUser;       
-        console.log(this.fireUser);
-         
-      });
-    }
+  async checkFirebaseUser() {
+    this.auth.onAuthStateChanged((firebaseUser) => {
+      this.fireUser = firebaseUser;
+      console.log(this.fireUser);
+    });
+  }
 
-  
   // * log out fire Account
   /**
    * change the firebase user datas
-   * 
-   * @param auth 
+   *
+   * @param auth
    * @param key firebase userJson key to change
    * @param value firebase userJson value to this key
    */
-  async updateFireUser(key: any, value : string) {
+  async updateFireUser(key: any, value: string) {
     if (this.auth.currentUser) {
       await updateProfile(this.auth.currentUser, {
-      [key] : value
-      }).then(() => {
-      // Profile updated!
-      }).catch((error) => {
-      // An error occurred
-      // ...
-      });
+        [key]: value,
+      })
+        .then(() => {
+          // Profile updated!
+        })
+        .catch((error) => {
+          // An error occurred
+          // ...
+        });
     }
   }
-  
-    /**
-  * user will be sign out and the browser navigate to checkIn site
-  */
-    async fireLogOut() {
-      try {
-        const online = false;
-        this.userProfilesService.setUserProfile(this.fireUser, online);  
-        if(this.fireUser) {
-          await this.userProfilesService.updateOnlinestatusToProfile(this.fireUser.uid); 
-        }  
-        await signOut(this.auth);
-      } catch (error) {
-        console.error("Fehler beim Ausloggen:", error);
-      }
-   
-      console.log(this.fireUser);
-      
-  
-    }  
 
-     /**
-     * check if user filled
-     */
-     async waitForNotNullValue() {
-      while (this.fireUser === null) {
-        await new Promise(resolve => setTimeout(resolve, 1000)); 
+  /**
+   * user will be sign out and the browser navigate to checkIn site
+   */
+  async fireLogOut() {
+    try {
+      const online = false;
+      this.userProfilesService.setUserProfile(this.fireUser, online);
+      if (this.fireUser) {
+        await this.userProfilesService.updateOnlinestatusToProfile(
+          this.fireUser.uid
+        );
       }
+      await signOut(this.auth);
+    } catch (error) {}
+  }
+
+  /**
+   * send the fireAuth reset Mail
+   *
+   * @param email
+   */
+  async sendFireResetMail(email: string) {
+    sendPasswordResetEmail(this.auth, email);
+  }
+
+  /**
+   * change the fire Password
+   *
+   * @param newResetPassword
+   */
+  async resetFireAuth(newResetPassword: string) {
+    const user = this.auth.currentUser;
+    const newPassword = newResetPassword;
+    if (user !== null) {
+      await updatePassword(user, newPassword)
+        .then(() => {
+          this.successfulMessage = 'Passwort erfolgreich geändert.';
+          setTimeout(() => {
+            this.successfulMessage = null;
+          }, 2000);
+        })
+        .catch((error) => {
+          if (error)
+            this.errorMessage =
+              'Da ist leider etwas schief gegangen. Bitte versuche es noch mal.';
+          setTimeout(() => {
+            this.errorMessage = null;
+          }, 2000);
+        });
     }
-
+  }
 }

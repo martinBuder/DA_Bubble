@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { OpenCloseService } from 'src/app/services/generally/open-close.service';
 import { FireAuthService } from 'src/app/services/firebase/fire-auth.service';
@@ -18,7 +18,6 @@ export class HeaderComponent {
     public openCloseService: OpenCloseService,
     public fireAuthService: FireAuthService,
     public router: Router,
-   
     ) { 
     }
 

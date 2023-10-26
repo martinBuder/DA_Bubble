@@ -1,6 +1,6 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Component } from '@angular/core';
-import { Firestore, collection, where, doc, updateDoc} from '@angular/fire/firestore';
+import { Firestore, collection, where} from '@angular/fire/firestore';
 import { ChannelConfig } from '../../interfaces/channel-config';
 import { UserProfilesService } from '../userDatas/user-profiles.service';
 import { FireDatabaseService } from '../firebase/fire-database.service';
@@ -16,17 +16,12 @@ export class ChatHeadDatasService {
 
   chatOpen : boolean = false;
   channelListCollection = collection(this.firestore, 'channelList');
-  // userChannels : any;
   channel !: ChannelConfig;
   userChannels : any = [ ];
   fireChannelMembers : Array<any> =  []
   openAddChannel : boolean = false;
 
-  // private fillMembersDataCallback = (itemJson: any) => {
-  //   itemJson['members'] = this.fillMembersDataInChannel(itemJson);
-  // };
-  
-
+ 
   constructor(
     private firestore: Firestore,
     private fireAuthService: FireAuthService,
@@ -54,9 +49,10 @@ export class ChatHeadDatasService {
    */
   async getChannelList() {
     await this.fireAuthService.waitForNotNullValue();
-    console.log(this.fireAuthService.fireUser.uid)
     this.fireDatabaseService.getQueryListFromFirebase(      
-      this.channelListCollection, where('membersId', 'array-contains', this.fireAuthService.fireUser.uid), this.userChannels);
+      this.channelListCollection,
+      where('membersId', 'array-contains', this.fireAuthService.fireUser.uid),
+      this.userChannels);
   }
 
   /**

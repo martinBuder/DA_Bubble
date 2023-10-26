@@ -1,0 +1,32 @@
+<div class="members-wrapper">
+  <div class="members-header">
+    <h4 class="members-text">
+      <mat-icon>people_outline</mat-icon>
+      <p>Direktnachrichten</p>
+    </h4>
+  </div>
+  <ul class="contact-list scrollbar-none">
+    <ng-container
+      *ngFor="let chat of this.contactService.contactChats; let i = index"
+    >
+      <ng-container *ngIf="chat.contact">
+        <li
+          class="member-container pointer"
+          (click)="this.openContactChat(this.chat)"
+        >
+          <div class="person-img-wrapper">
+            <img src="{{ chat.contact.userImg }}" alt="" />
+            <div
+              class="status-point"
+              [ngClass]="{
+                'online-point': chat.contact.userOnline,
+                'offline-point': !chat.contact.userOnline
+              }"
+            ></div>
+          </div>
+          <p>{{ chat.contact.userName }}</p>
+        </li>
+      </ng-container>
+    </ng-container>
+  </ul>
+</div>

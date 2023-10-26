@@ -26,7 +26,8 @@ export class ContactsService {
     private fireDatabaseService:FireDatabaseService,
     private userProfilesService: UserProfilesService,
   ) { 
-    // this.getChannelList()
+    this.getChannelList();
+    this.fillContactDataInChannel();
   }
 
   setContact() {
@@ -46,25 +47,17 @@ export class ContactsService {
     this.fireDatabaseService.addItemToFirebase(this.contactsListCollection, this.chatData);
   }
 
-  // /**
-  //  * filter the right contacts for user from firebase with abo 
-  //  */
-  // async getChannelList() {
-  //   await this.userDatasService.waitForNotNullValue();
-  //     onSnapshot(query(this.contactsListCollection, where('contactId', 'array-contains', this.userDatasService.loggedInUser.id)),
-  //     (querySnapshot) => {
-  //       this.contactChats = [];
-  //       querySnapshot.forEach((doc) => {
-  //         const chat = doc.data();
-  //         chat['id'] = doc.id
-  //         chat['contact'] = this.fillContactDataInChannel(chat); 
-  //         console.log(chat['contact']);
-           
-  //         this.contactChats.push(chat);
-  //         console.log(this.contactChats);
-  //       }); 
-  //     });
-  // }
+  /**
+   * filter the right contacts for user from firebase with abo 
+   */
+  async getChannelList() {
+    await this.fireAuthService.waitForNotNullValue();
+    this.fireDatabaseService.getQueryListFromFirebase(
+      this.contactsListCollection,
+      where('contactId', 'array-contains', this.fireAuthService.fireUser.uid),
+      this.contactChats,
+    )
+  }
 
     /**
    * search for the member informations in all appUsers 
@@ -72,10 +65,22 @@ export class ContactsService {
    * @param channel 
    * @returns 
    */
-    fillContactDataInChannel(chat : any){
-     const userContactId = chat.contactId.filter((id: any) => id !== this.fireAuthService.fireUser.uid).toString();  
-     return this.userProfilesService.allAppUsers.find(profile => profile.id == userContactId);
+    async fillContactDataInChannel(){
+      await this.waitForNotNullValue();
+      this.contactChats.forEach((chat: any) => {
+        const searchId = chat.contactId.filter((id: any) => id !== this.fireAuthService.fireUser.uid).toString()
+        chat.contact = this.userProfilesService.allAppUsers.find(profile => profile.id == searchId);
+      })
     }
+
+  /**
+   * wait that contactChats is filled
+   */
+  async waitForNotNullValue() {
+    while (this.contactChats.length === 0) {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+  }
 
 }
 

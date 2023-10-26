@@ -11,8 +11,7 @@ export class ProfileComponent {
   
   constructor(
     public userProfilesService: UserProfilesService
-    ){
-    };
+    ){ }
 
   writeMessage(contactProfile : any) {
 

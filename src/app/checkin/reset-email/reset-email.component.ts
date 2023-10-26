@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { getAuth, sendPasswordResetEmail } from '@angular/fire/auth';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FireAuthService } from 'src/app/services/firebase/fire-auth.service';
 import { CheckInSiteServiceService } from 'src/app/services/generally/check-in-site-service.service';
 
 @Component({
@@ -25,27 +25,20 @@ export class ResetEmailComponent {
    //router is just for testing
 
    constructor(
+    private fireAuthService: FireAuthService,
     public checkInSiteServiceService: CheckInSiteServiceService,
     private router: Router,
     ){};
 
-   sendResetPasswordMail() {
-    const auth = getAuth();
-    // sendPasswordResetEmail(auth, this.resetMailForm.value.email)
-    this.nothing()
-    // .then(() => {
-    //   // Password reset email sen
-    //   this.router.navigate(['/?checkInSite=resetPassword'])
-    // })
-    // .catch((error) => {
-    //   const errorCode = error.code;
-    //   console.log(errorCode);
-      
-    // });
+  async sendResetPasswordMail() {
+    await this.fireAuthService.sendFireResetMail(this.resetMailForm.value.email);
+    // !for testing
+    // this.nothing();
    }
 
-   nothing() {
-    this.router.navigate(['/resetPassword'])
-   }
+  //  !for testing
+  //  nothing() {
+  //   this.router.navigate(['/resetPassword'])
+  //  }
 
 }

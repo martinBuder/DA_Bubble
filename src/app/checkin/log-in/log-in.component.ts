@@ -47,27 +47,7 @@ export class LogInComponent {
     await this.fireAuthService.fireLogIn(email, password);
     this.goToNextPage();
     this.isLoggingIn = false; 
-
   }
-
-  // /**
-  //  * normal log In with email and password and go to the next site-- we use firebase getAuth()
-  //  */
-  // async logIn(email: string, password:string) {
-  //   this.isLoggingIn = true; 
-  //   await signInWithEmailAndPassword(this.auth, email, password)
-  //     .then((userCredential) => {
-  //       const user = userCredential.user;
-  //       this.userDatasService.setLoggedInUser(user);
-  //       this.userProfilesService.handleProfileData(user);
-  //       this.goToNextPage();
-  //     })
-  //     .catch((error) => {
-  //       const errorCode = error.code;
-  //       this.createErrorMessages(errorCode);
-  //     })
-  //   this.isLoggingIn = false;
-  // }
 
  
   /**
@@ -88,7 +68,5 @@ export class LogInComponent {
   goToNextPage() {
     this.router.navigate(['/chat']);
   }
-
-   
 
 }

@@ -19,20 +19,16 @@ export class FireDatabaseService {
      * @param fireCollection, that we use
      * @param projectArray, that we need for *ngFor 
      */   
-    getListFromFirebase(fireCollection: any, projectArray: any) {
-      console.log('in get fire List');
-      
+    getListFromFirebase(fireCollection: any, projectArray: any) {      
       onSnapshot(query(fireCollection),
       (querySnapshot) => {
-        projectArray = [];
+        // projectArray = [];
         querySnapshot.forEach((doc) => {
           const itemJson: any = doc.data();
           itemJson['id'] = doc.id;          
           projectArray.push(itemJson);     
         });   
-        if(projectArray[0].timestamp)
-        console.log('time comes');
-
+    
       });
     }
 
