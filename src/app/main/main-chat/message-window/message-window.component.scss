@@ -9,9 +9,20 @@
 .inputfield-wrapper {
 	background-color: var(--colorWhite);
 	border: 1px solid var(--colorPurple);
+	display: flex;
+	flex-wrap: wrap;
+	overflow: hidden;
+	gap: 0;
+
+	&:focus-within { 
+		.search-result-wrapperer {
+			margin-top: -26px;
+		}
+	}
 
 	input{
 		background-color: var(--colorWhite);
+		margin: 0 var(--chatGap);
 	}
 }
 
@@ -45,5 +56,9 @@
 
 	p {
 		font-size: 0.9rem;
+	}
+
+	.purple-hover {
+		padding: 4px var(--chatGap);
 	}
 }

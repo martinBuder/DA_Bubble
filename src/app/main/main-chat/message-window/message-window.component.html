@@ -2,6 +2,7 @@
 	<h3>Neue Nachricht</h3>
 	<form [formGroup]="channelFinderForm">
 		<div class="inputfield-wrapper">
+			<input type="text" placeholder="An: #channel, oder @jemand oder E-Mail-Adresse" formControlName="recipient">
 			<ng-container *ngIf="this.searchingUser">
 				<div class="search-result-wrapperer">
 					<ng-container *ngFor="let profile of this.foundProfiles">
@@ -12,7 +13,6 @@
 					</ng-container>
 				</div>
 			</ng-container>
-			<input type="text" placeholder="An: #channel, oder @jemand oder E-Mail-Adresse" formControlName="recipient">
 		</div>
 	</form>
 </div>
