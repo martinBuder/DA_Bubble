@@ -22,6 +22,7 @@ export default class ChatMessageService {
   messageChannelId: string = 'empty';
   chatMessagesListCollection!: any;
   channelMessages: any | null = null;
+  chatToContact !: any; 
 
   constructor(
     private firestore: Firestore,
@@ -29,7 +30,6 @@ export default class ChatMessageService {
     private fireDatabaseService: FireDatabaseService
   ) {
     this.getTime();
-
   }
 
   setMessageDatas() {
@@ -92,6 +92,15 @@ export default class ChatMessageService {
       });
       this.channelMessages.sort((a: any, b: any) => b.timestamp - a.timestamp); // sort the array by time backwards
     });
+  }
+
+  findChatForMessage(profile: any ) {
+    this.createMessageChannelId(profile);
+  }
+
+  createMessageChannelId(profile: any){
+    let idsToConnect = [this.fireAuthService.fireUser.uid, profile.id].sort();
+    this.messageChannelId = idsToConnect.join('');
   }
 
   checkMessageDate() {}

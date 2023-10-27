@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { UserProfile } from 'src/app/interfaces/user-profile';
+import { UserProfilesService } from 'src/app/services/userDatas/user-profiles.service';
 
 @Component({
   selector: 'app-message-window',
@@ -12,11 +14,37 @@ export class MessageWindowComponent {
     recipient: new FormControl('', [], []),
   });
 
-  constructor(){
+  foundProfiles : Array<any> = []; 
+  searchingUser : boolean = false;
+
+  // searchChat = 
+
+  constructor(
+    private userProfilesService: UserProfilesService,
+  ){
     this.channelFinderForm.valueChanges.subscribe(
-    console.log
-      
-      // this.searchChatMember.bind(this)
+      this.searchChatMember.bind(this)
     );
+  }
+
+  searchChatMember() {
+    console.log(this.channelFinderForm.value.recipient);
+    let member = this.channelFinderForm.value.recipient.toLowerCase();
+    if (member !== '') {
+      this.foundProfiles = this.userProfilesService.allAppUsers.filter(
+        (profile) => profile.userName.toLowerCase().includes(member)
+      );
+      if (this.foundProfiles.length > 0 && this.foundProfiles) {
+        this.searchingUser = true;
+      }
+      console.log(this.foundProfiles);
+      
+    } 
+  }
+
+  selectUser( selectedId: any) {
+    console.log(selectedId);
+    
+
   }
 }

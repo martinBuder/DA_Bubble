@@ -28,6 +28,9 @@
 						<mat-icon></mat-icon>
 						<a href='mailto: {{ this.userProfilesService.contactProfile.userMail }}' target="_blank">{{ this.userProfilesService.contactProfile.userMail }}</a>
 					</div>
-					<button class="primary-btn"><mat-icon (click)="writeMessage(this.userProfilesService.contactProfile)">messenger_outline</mat-icon >Nachricht</button>
+					<button class="primary-btn" (click)="writeMessage(this.userProfilesService.contactProfile)">
+						<mat-icon >messenger_outline</mat-icon>
+						Nachricht
+					</button>
 	</div>
 </div>

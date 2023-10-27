@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import ChatMessageService from 'src/app/services/chatDatas/chat-message.service';
+import { OpenCloseService } from 'src/app/services/generally/open-close.service';
 import { UserProfilesService } from 'src/app/services/userDatas/user-profiles.service';
 
 @Component({
@@ -10,10 +12,18 @@ export class ProfileComponent {
 
   
   constructor(
-    public userProfilesService: UserProfilesService
+    private openCloseService: OpenCloseService,
+    public userProfilesService: UserProfilesService,
+    private chatMessageService: ChatMessageService
     ){ }
 
   writeMessage(contactProfile : any) {
+    this.userProfilesService.openProfile = false;
+    this.openCloseService.chatHeader = 'startHeader';
+    this.chatMessageService.findChatForMessage(contactProfile);
 
+    contactProfile = null;
+    console.log(contactProfile);
+    
   }
 }

@@ -22,3 +22,28 @@
 	position: relative;
 	flex: 1;
 }
+
+.search-result-wrapperer {
+	display: flex;
+	flex-direction: row;
+	gap: var(--chatGap);
+	padding: var(--chatGap) 0;
+	min-width: 100%;
+	overflow-y: auto;
+
+	&::-webkit-scrollbar {
+		display: none; 
+}
+
+&::-webkit-scrollbar-thumb {
+		display: none; 
+}
+
+	img {
+		width: 25px;
+	}
+
+	p {
+		font-size: 0.9rem;
+	}
+}

@@ -5,12 +5,6 @@
 
 }
 
-.member-container {
-  display: flex;
-  gap: var(--chatGap);
-		padding: var(--chatGap) var(--bodyPadding) ;
-}
-
 .icon-background {
   background: var(--colorBackground);
   border-radius: 50%;

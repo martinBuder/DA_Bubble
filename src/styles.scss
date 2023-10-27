@@ -120,6 +120,13 @@ button {
  }
 }
 
+.member-container {
+  display: flex;
+  align-items: center;
+  gap: var(--chatGap);
+	padding: var(--chatGap) var(--bodyPadding) ;
+}
+
 .person-img-wrapper {
 	position: relative;
 	width: 36px;	
