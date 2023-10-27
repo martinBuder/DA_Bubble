@@ -43,7 +43,7 @@ export class FireAuthService {
   }
 
   /**
-   * wait that userChannels is filled
+   * wait that fireUser is filled
    */
   async waitForNotNullValue() {
     while (this.fireUser === null) {

@@ -2,15 +2,24 @@
 	<h3>Neue Nachricht</h3>
 	<form [formGroup]="channelFinderForm">
 		<div class="inputfield-wrapper">
-			<input type="text" placeholder="An: #channel, oder @jemand oder E-Mail-Adresse" formControlName="recipient">
-			<ng-container *ngIf="this.searchingUser">
+			<ng-container *ngIf="this.foundUser === null">
+				<input type="text" placeholder="An: #channel, oder @jemand oder E-Mail-Adresse" formControlName="recipient">
+			</ng-container>
+			<ng-container *ngIf="this.searchingUser && this.foundUser === null">
 				<div class="search-result-wrapperer">
 					<ng-container *ngFor="let profile of this.foundProfiles">
-						<div class="search-result member-container purple-hover pointer" (click)="this.chatMessageService.selectContact(profile.id)">
+						<div class="search-result member-container purple-hover pointer" (click)="selectChat(profile)">
 							<img src='{{ profile.userImg }}' alt="Profile image from {{ profile.userName }}" class="profil-img">
 							<p>{{ profile.userName }}</p>
 						</div>
 					</ng-container>
+				</div>
+			</ng-container>
+			<ng-container *ngIf="this.foundUser !== null">
+				<div class="member-container found-user">
+					<img src='{{ foundUser.userImg }}' alt="Profile image from {{ foundUser.userName }}" class="profil-img">
+					<p>{{ foundUser.userName }}</p>
+					<mat-icon class="pointer purple-hover" (click)="deselectContact()">close</mat-icon>
 				</div>
 			</ng-container>
 		</div>

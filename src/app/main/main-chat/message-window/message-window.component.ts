@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserProfile } from 'src/app/interfaces/user-profile';
 import ChatMessageService from 'src/app/services/chatDatas/chat-message.service';
+import { ContactsService } from 'src/app/services/chatDatas/contacts.service';
 import { UserProfilesService } from 'src/app/services/userDatas/user-profiles.service';
 
 @Component({
@@ -17,12 +18,14 @@ export class MessageWindowComponent {
 
   foundProfiles : Array<any> = []; 
   searchingUser : boolean = false;
+  foundUser : UserProfile | null = null;
 
   // searchChat = 
 
   constructor(
     private userProfilesService: UserProfilesService,
-    public chatMessageService: ChatMessageService
+    public chatMessageService: ChatMessageService,
+    private contactsService: ContactsService,
   ){
     this.channelFinderForm.valueChanges.subscribe(
       this.searchChatMember.bind(this)
@@ -30,7 +33,6 @@ export class MessageWindowComponent {
   }
 
   searchChatMember() {
-    console.log(this.channelFinderForm.value.recipient);
     let member = this.channelFinderForm.value.recipient.toLowerCase();
     if (member !== '') {
       this.foundProfiles = this.userProfilesService.allAppUsers.filter(
@@ -42,10 +44,30 @@ export class MessageWindowComponent {
     } 
   }
 
-  selectChat( selectedId: any) {
+  /**
+   * select user
+   * 
+   * @param profile 
+   */
+  async selectChat(profile: UserProfile) {
+    this.foundUser = profile;
+    this.chatMessageService.selectContact(profile);
+    this.chatMessageService.createMessageChannelId();
+    this.chatMessageService.messageIsSent = false;
+    await this.chatMessageService.waitForMessageIsSent();
+    this.clearSearchInput();
+  }
 
-    console.log(selectedId);
-    
+  /**
+   * deselct the contact user
+   */
+  deselectContact() {
+    this.foundUser = null;
+  }
 
+  clearSearchInput() {
+    this.channelFinderForm.reset();
+    this.foundProfiles = [];
+    this.foundUser = null;
   }
 }

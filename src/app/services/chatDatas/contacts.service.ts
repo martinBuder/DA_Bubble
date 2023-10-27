@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core';
 import { ChatConfig } from '../../interfaces/chat-config';
 import {
   Firestore,
-  addDoc,
   collection,
-  onSnapshot,
-  query,
   where,
 } from '@angular/fire/firestore';
 
@@ -30,26 +27,34 @@ export class ContactsService {
     private firestore: Firestore,
     private fireAuthService: FireAuthService,
     private fireDatabaseService: FireDatabaseService,
-    private userProfilesService: UserProfilesService
+    private userProfilesService: UserProfilesService,
   ) {
     this.getChannelList();
     this.fillContactDataInChannel();
   }
 
-  setContact() {
-    this.setChatConfig();
+  setContact(contactId: string) {
+    this.setChatConfig(contactId);
     this.addContact();
   }
 
-  setChatConfig() {
+  setChatConfig(contactUserId: string) {
     if (this.fireAuthService.fireUser !== null) {
       this.chatData = {
         contactId: [
-          '2WWmAZfqH7gCxt6Lr9cyv1GlRQ33',
+          contactUserId,
           this.fireAuthService.fireUser.uid,
         ],
+        id: this.createChatDatalId(contactUserId)
       };
     }
+    console.log(this.chatData);
+    
+  }
+
+  createChatDatalId(contactUserId: any){
+    let idsToConnect = [this.fireAuthService.fireUser.uid, contactUserId].sort();
+    return idsToConnect.join('');   
   }
 
   addContact() {

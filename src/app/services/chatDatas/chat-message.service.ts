@@ -8,6 +8,8 @@ import {
 import { Message } from '../../interfaces/message';
 import { FireDatabaseService } from '../firebase/fire-database.service';
 import { FireAuthService } from '../firebase/fire-auth.service';
+import { UserProfile } from 'src/app/interfaces/user-profile';
+import { ContactsService } from './contacts.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,12 +25,14 @@ export default class ChatMessageService {
   chatMessagesListCollection!: any;
   channelMessages: any | null = null;
   chatToContact !: any; 
-  selectedContact !: string;
+  selectedContact !: UserProfile;
+  messageIsSent: boolean = true;
 
   constructor(
     private firestore: Firestore,
     private fireAuthService: FireAuthService,
-    private fireDatabaseService: FireDatabaseService
+    private fireDatabaseService: FireDatabaseService,
+    private contactsService: ContactsService,
   ) {
     this.getTime();
   }
@@ -61,6 +65,9 @@ export default class ChatMessageService {
       this.chatMessagesListCollection,
       this.messageDatas
     );
+    if(this.selectedContact)
+     this.contactsService.setContact(this.selectedContact.id);
+     this.messageIsSent = true;
   }
 
   /** get the time in all variants i need for message */
@@ -100,13 +107,25 @@ export default class ChatMessageService {
   }
 
   createMessageChannelId(){
-    let idsToConnect = [this.fireAuthService.fireUser.uid, this.selectedContact].sort();
+    let idsToConnect = [this.fireAuthService.fireUser.uid, this.selectedContact.id].sort();
     this.messageChannelId = idsToConnect.join('');
+    console.log(this.messageChannelId);
+    
   }
 
-  selectContact(profilId: any) {
-    this.selectedContact = profilId;
+  selectContact(profile: UserProfile) {
+    this.selectedContact = profile;
   }
 
-  checkMessageDate() {}
+  /**
+   * wait that userChannels is filled
+   */
+  async waitForMessageIsSent() {
+    while (this.messageIsSent === false) {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
+  }
+
+  
+ 
 }

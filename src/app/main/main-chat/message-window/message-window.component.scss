@@ -59,3 +59,19 @@
 		text-wrap: nowrap;
 	}
 }
+
+.found-user {
+	background-color: var(--colorPurple);
+	padding: 4px var(--chatGap);
+	margin: var(--chatGap) 0;
+	color: white;
+	border-radius: 25px;
+
+	mat-icon {
+		color: rgba(255, 255, 255, 0.5);
+
+		&:hover {
+			color: var(--colorPurple);
+		}
+	}
+}
