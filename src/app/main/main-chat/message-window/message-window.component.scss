@@ -14,12 +14,6 @@
 	overflow: hidden;
 	gap: 0;
 
-	&:focus-within { 
-		.search-result-wrapperer {
-			margin-top: -26px;
-		}
-	}
-
 	input{
 		background-color: var(--colorWhite);
 		margin: 0 var(--chatGap);
@@ -40,7 +34,8 @@
 	gap: var(--chatGap);
 	padding: var(--chatGap) 0;
 	min-width: 100%;
-	overflow-y: auto;
+	overflow-x: auto;
+	margin-top: -18px;
 
 	&::-webkit-scrollbar {
 		display: none; 
@@ -60,5 +55,7 @@
 
 	.purple-hover {
 		padding: 4px var(--chatGap);
+		background-color: var(--colorBackground);
+		text-wrap: nowrap;
 	}
 }

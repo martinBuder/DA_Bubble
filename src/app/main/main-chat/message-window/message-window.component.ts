@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserProfile } from 'src/app/interfaces/user-profile';
+import ChatMessageService from 'src/app/services/chatDatas/chat-message.service';
 import { UserProfilesService } from 'src/app/services/userDatas/user-profiles.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class MessageWindowComponent {
 
   constructor(
     private userProfilesService: UserProfilesService,
+    public chatMessageService: ChatMessageService
   ){
     this.channelFinderForm.valueChanges.subscribe(
       this.searchChatMember.bind(this)
@@ -36,13 +38,12 @@ export class MessageWindowComponent {
       );
       if (this.foundProfiles.length > 0 && this.foundProfiles) {
         this.searchingUser = true;
-      }
-      console.log(this.foundProfiles);
-      
+      }     
     } 
   }
 
-  selectUser( selectedId: any) {
+  selectChat( selectedId: any) {
+
     console.log(selectedId);
     
 

@@ -6,7 +6,7 @@
 			<ng-container *ngIf="this.searchingUser">
 				<div class="search-result-wrapperer">
 					<ng-container *ngFor="let profile of this.foundProfiles">
-						<div class="search-result member-container purple-hover pointer" (click)="selectUser(profile.id)">
+						<div class="search-result member-container purple-hover pointer" (click)="this.chatMessageService.selectContact(profile.id)">
 							<img src='{{ profile.userImg }}' alt="Profile image from {{ profile.userName }}" class="profil-img">
 							<p>{{ profile.userName }}</p>
 						</div>

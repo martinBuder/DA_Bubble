@@ -23,6 +23,7 @@ export default class ChatMessageService {
   chatMessagesListCollection!: any;
   channelMessages: any | null = null;
   chatToContact !: any; 
+  selectedContact !: string;
 
   constructor(
     private firestore: Firestore,
@@ -95,12 +96,16 @@ export default class ChatMessageService {
   }
 
   findChatForMessage(profile: any ) {
-    this.createMessageChannelId(profile);
+    this.createMessageChannelId();
   }
 
-  createMessageChannelId(profile: any){
-    let idsToConnect = [this.fireAuthService.fireUser.uid, profile.id].sort();
+  createMessageChannelId(){
+    let idsToConnect = [this.fireAuthService.fireUser.uid, this.selectedContact].sort();
     this.messageChannelId = idsToConnect.join('');
+  }
+
+  selectContact(profilId: any) {
+    this.selectedContact = profilId;
   }
 
   checkMessageDate() {}

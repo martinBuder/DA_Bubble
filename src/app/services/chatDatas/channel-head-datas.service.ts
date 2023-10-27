@@ -48,7 +48,10 @@ export class ChatHeadDatasService {
    * filter the right channels for user from firebase with abo 
    */
   async getChannelList() {
+    this.userChannels = [];
     await this.fireAuthService.waitForNotNullValue();
+
+
     this.fireDatabaseService.getQueryListFromFirebase(      
       this.channelListCollection,
       where('membersId', 'array-contains', this.fireAuthService.fireUser.uid),
