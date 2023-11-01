@@ -19,10 +19,12 @@ export class ShowMembersComponent {
     public openedChannelService: OpenedChannelService
   ) {}
 
-  openContactChat(chat: any) {
-    this.contactService.openChatData = chat;
+  async openContactChat(chat: any) {  
+    this.contactService.openChatData = chat; 
     this.openCloseService.chatHeader = 'contactHeader';
-    this.chatMessageService.messageChannelId = chat.id;
-    this.chatMessageService.getChannelMessagesList();
+    this.chatMessageService.selectedContact = chat.contact;
+    this.chatMessageService.createMessageChannelId();
+    await this.chatMessageService.getChannelMessagesList();
+    await this.contactService.getChannelList();
   }
 }

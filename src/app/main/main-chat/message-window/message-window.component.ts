@@ -32,11 +32,15 @@ export class MessageWindowComponent {
     );
   }
 
+  /**
+   * fill the chat members with the correct profiles
+   */
   searchChatMember() {
-    let member = this.channelFinderForm.value.recipient.toLowerCase();
-    if (member !== '') {
+    let member = this.channelFinderForm.value.recipient;
+    if (member !== null) {
+      console.log(member);
       this.foundProfiles = this.userProfilesService.allAppUsers.filter(
-        (profile) => profile.userName.toLowerCase().includes(member)
+        (profile) => profile.userName.toLowerCase().includes(member.toLowerCase())
       );
       if (this.foundProfiles.length > 0 && this.foundProfiles) {
         this.searchingUser = true;
@@ -52,7 +56,7 @@ export class MessageWindowComponent {
   async selectChat(profile: UserProfile) {
     this.foundUser = profile;
     this.chatMessageService.selectContact(profile);
-    this.chatMessageService.createMessageChannelId();
+    await this.chatMessageService.createMessageChannelId();
     this.chatMessageService.messageIsSent = false;
     await this.chatMessageService.waitForMessageIsSent();
     this.clearSearchInput();
@@ -65,6 +69,9 @@ export class MessageWindowComponent {
     this.foundUser = null;
   }
 
+  /**
+   * clear the contact search field
+   */
   clearSearchInput() {
     this.channelFinderForm.reset();
     this.foundProfiles = [];

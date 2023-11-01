@@ -86,33 +86,42 @@ export default class ChatMessageService {
   /**
    * get the messages from this channel
    */
-  getChannelMessagesList() {
+  async getChannelMessagesList() {
     const channelMessagesListCollection = collection(
       this.firestore,
       this.messageChannelId
     );
+    console.log(this.messageChannelId);
+    
     onSnapshot(query(channelMessagesListCollection), (querySnapshot) => {
       this.channelMessages = [];
       querySnapshot.forEach((doc) => {
-        const messageData = doc.data();
-        messageData['id'] = doc.id;
-        this.channelMessages.push(messageData);
+        const messageData = doc.data();        this.channelMessages.push(messageData);
       });
       this.channelMessages.sort((a: any, b: any) => b.timestamp - a.timestamp); // sort the array by time backwards
     });
   }
 
-  findChatForMessage(profile: any ) {
+  findChatForMessage() {
     this.createMessageChannelId();
   }
 
-  createMessageChannelId(){
+  /**
+   * take the two contactNumbers sort them and make it to the messageChannelId
+   * we sort it so that is always the same number for contact and for the fireUser
+   */
+  async createMessageChannelId(){
     let idsToConnect = [this.fireAuthService.fireUser.uid, this.selectedContact.id].sort();
     this.messageChannelId = idsToConnect.join('');
     console.log(this.messageChannelId);
     
   }
 
+  /**
+   * fill the selectContact with the contactProfile
+   * 
+   * @param profile 
+   */
   selectContact(profile: UserProfile) {
     this.selectedContact = profile;
   }
@@ -125,7 +134,5 @@ export default class ChatMessageService {
       await new Promise((resolve) => setTimeout(resolve, 1000));
     }
   }
-
-  
  
 }

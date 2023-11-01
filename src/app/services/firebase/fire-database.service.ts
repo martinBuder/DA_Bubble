@@ -41,6 +41,8 @@ export class FireDatabaseService {
      getQueryListFromFirebase(fireCollection: any, fireQuery: any, projectArray: Array<any>) {
       onSnapshot(query(fireCollection,fireQuery),
       (querySnapshot) => {
+                // projectArray = [];
+
         querySnapshot.forEach((doc) => {
           const itemJson: any = doc.data();
           itemJson['id'] = doc.id;

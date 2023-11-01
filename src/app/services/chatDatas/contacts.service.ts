@@ -47,10 +47,9 @@ export class ContactsService {
         ],
         id: this.createChatDatalId(contactUserId)
       };
-    }
-    console.log(this.chatData);
-    
+    }    
   }
+
 
   createChatDatalId(contactUserId: any){
     let idsToConnect = [this.fireAuthService.fireUser.uid, contactUserId].sort();

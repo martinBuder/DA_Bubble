@@ -12,7 +12,7 @@
       <ng-container *ngIf="chat.contact">
         <li
           class="pointer"
-          (click)="this.openContactChat(this.chat)"
+          (click)="this.openContactChat(chat)"
         >
           <div class="person-img-wrapper">
             <img src="{{ chat.contact.userImg }}" alt="" />
