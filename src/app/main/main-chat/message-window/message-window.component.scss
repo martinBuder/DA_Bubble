@@ -60,6 +60,22 @@
 	}
 }
 
+.member-container {
+	mat-icon {
+		&:first-child, &:first-child:hover {
+			transform: translateX(var(--chatGap));
+		}
+	}
+
+	&:hover {
+		color: var(--colorPurple);
+
+		mat-icon {
+			color: var(--colorPurple);
+		}
+	}
+}
+
 .found-user {
 	background-color: var(--colorPurple);
 	padding: 4px var(--chatGap);
@@ -68,10 +84,18 @@
 	border-radius: 25px;
 
 	mat-icon {
-		color: rgba(255, 255, 255, 0.5);
+		color: white;
 
-		&:hover {
-			color: var(--colorPurple);
+		&:first-child:hover {
+			color: white;
+		}
+
+	}
+
+	&:hover {
+		color: white;
+		mat-icon {
+			color: var(--colorWhite);
 		}
 	}
 }

@@ -45,43 +45,45 @@ export class MessageWindowComponent {
    */
   searchChatMember() {
     let searchedChat = this.channelFinderForm.value.recipient;
-    if (searchedChat !== null) {
+    if (searchedChat.length > 0) {
       let firstPos = searchedChat.charAt(0);
       if(firstPos === '#' || '@')
         searchedChat = searchedChat.slice(1);
-      if(firstPos === '@' || searchedChat.length > 0) {
-        this.foundProfiles = this.userProfilesService.allAppUsers.filter(
-          (profile) => profile.userName.toLowerCase().includes(searchedChat.toLowerCase())
-        );
-        if (this.foundProfiles.length > 0) {
-          this.searchingUser = true;
-        }
-        else 
-          firstPos = null;
-      }
-
-      if(firstPos === '#') {
-        console.log(this.chatHeadDatasService.userChannels);
-        
-        this.foundChannels = this.chatHeadDatasService.userChannels.filter(
-          (profile: any ) => profile.channelName.toLowerCase().includes(searchedChat.toLowerCase()),
-
-          
-        );
-        console.log(this.foundChannels);
-        if (this.foundChannels.length > 0 && this.foundChannels) {
-          this.searchingChannel = true;
-        }     
-      }
-      
-      
-      
-      
-
-    
+      if(firstPos === '@') 
+        this.searchContact(searchedChat)        
+      if(firstPos === '#') 
+        this.searchChannel(searchedChat)
     } 
-    
-   
+  }
+
+  /**
+   * search the channel
+   * 
+   * @param searchedChat input
+   */
+  searchChannel(searchedChat : string){
+    this.foundChannels = this.chatHeadDatasService.userChannels.filter(
+      (profile: any ) => profile.channelName.toLowerCase().includes(searchedChat.toLowerCase()),     
+    );
+    if (this.foundChannels.length > 0) 
+      this.searchingChannel = true;
+    if (searchedChat.length < 1)
+      this.searchingChannel = false
+  }
+
+  /**
+   * search the contact 
+   * 
+   * @param searchedChat input 
+   */
+  searchContact(searchedChat : string){
+    this.foundProfiles = this.userProfilesService.allAppUsers.filter(
+      (profile) => profile.userName.toLowerCase().includes(searchedChat.toLowerCase())
+    );
+    if (this.foundProfiles.length > 0) 
+      this.searchingUser = true;
+    if (searchedChat.length < 1) 
+      this.searchingUser = false;
   }
 
   /**
@@ -90,8 +92,6 @@ export class MessageWindowComponent {
    * @param profile 
    */
   async selectChat(profile: UserProfile) {
-
-
     this.foundUser = profile;
     this.chatMessageService.selectContact(profile);
     await this.chatMessageService.createMessageChannelId();
@@ -102,13 +102,12 @@ export class MessageWindowComponent {
 
   async selectChannel(channel: ChannelConfig) {
     this.foundChannel = channel;
-
-
-    // this.chatMessageService.selectContact(profile);
-    // await this.chatMessageService.createMessageChannelId();
-    // this.chatMessageService.messageIsSent = false;
+    this.chatMessageService.messageIsSent = false;
+    // console.log(this.foundChannel);
     // await this.chatMessageService.waitForMessageIsSent();
     // this.clearSearchInput();
+
+    
   }
 
   /**

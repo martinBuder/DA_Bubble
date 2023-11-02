@@ -2,7 +2,7 @@
 	<h3>Neue Nachricht</h3>
 	<form [formGroup]="channelFinderForm">
 		<div class="inputfield-wrapper">
-			<ng-container *ngIf="this.foundUser === null">
+			<ng-container *ngIf="this.foundUser === null && this.foundChannel === null">
 				<input type="text" placeholder="An: #channel, oder @jemand oder E-Mail-Adresse" formControlName="recipient">
 			</ng-container>
 			<!-- *contact area -->
@@ -31,7 +31,7 @@
 				<div class="search-result-wrapperer">
 					<ng-container *ngFor="let channel of this.foundChannels">
 						<div class="search-result member-container purple-hover pointer" (click)="selectChannel(channel)">
-								<mat-icon>numbers</mat-icon>
+							<mat-icon>numbers</mat-icon>
 							<p>{{ channel.channelName }}</p>
 						</div>
 					</ng-container>
@@ -40,7 +40,7 @@
 			<!-- selected channel -->
 			<ng-container *ngIf="this.foundChannel !== null">
 				<div class="member-container found-user">
-					<mat-icon>number</mat-icon>
+					<mat-icon>numbers</mat-icon>
 					<p>{{ foundChannel.channelName }}</p>
 					<mat-icon class="pointer purple-hover" (click)="deselect()">close</mat-icon>
 				</div>

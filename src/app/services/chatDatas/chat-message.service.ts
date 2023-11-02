@@ -112,9 +112,7 @@ export default class ChatMessageService {
    */
   async createMessageChannelId(){
     let idsToConnect = [this.fireAuthService.fireUser.uid, this.selectedContact.id].sort();
-    this.messageChannelId = idsToConnect.join('');
-    console.log(this.messageChannelId);
-    
+    this.messageChannelId = idsToConnect.join('');    
   }
 
   /**
