@@ -50,8 +50,6 @@ export class ChatHeadDatasService {
   async getChannelList() {
     this.userChannels = [];
     await this.fireAuthService.waitForNotNullValue();
-
-
     this.fireDatabaseService.getQueryListFromFirebase(      
       this.channelListCollection,
       where('membersId', 'array-contains', this.fireAuthService.fireUser.uid),
