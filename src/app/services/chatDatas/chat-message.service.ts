@@ -96,7 +96,8 @@ export default class ChatMessageService {
     onSnapshot(query(channelMessagesListCollection), (querySnapshot) => {
       this.channelMessages = [];
       querySnapshot.forEach((doc) => {
-        const messageData = doc.data();        this.channelMessages.push(messageData);
+        const messageData = doc.data();       
+        this.channelMessages.push(messageData);
       });
       this.channelMessages.sort((a: any, b: any) => b.timestamp - a.timestamp); // sort the array by time backwards
     });
@@ -105,6 +106,7 @@ export default class ChatMessageService {
   findChatForMessage() {
     this.createMessageChannelId();
   }
+
 
   /**
    * take the two contactNumbers sort them and make it to the messageChannelId

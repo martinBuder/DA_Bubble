@@ -45,7 +45,7 @@ export class MessageWindowComponent {
    */
   searchChatMember() {
     let searchedChat = this.channelFinderForm.value.recipient;
-    if (searchedChat.length > 0) {
+    if (searchedChat !== null) {
       let firstPos = searchedChat.charAt(0);
       if(firstPos === '#' || '@')
         searchedChat = searchedChat.slice(1);
@@ -103,11 +103,10 @@ export class MessageWindowComponent {
   async selectChannel(channel: ChannelConfig) {
     this.foundChannel = channel;
     this.chatMessageService.messageIsSent = false;
-    // console.log(this.foundChannel);
-    // await this.chatMessageService.waitForMessageIsSent();
-    // this.clearSearchInput();
-
-    
+    this.chatMessageService.messageChannelId = channel.id;
+    console.log(this.chatMessageService.messageChannelId);
+    await this.chatMessageService.waitForMessageIsSent();
+    this.clearSearchInput();
   }
 
   /**
