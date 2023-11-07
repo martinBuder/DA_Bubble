@@ -70,7 +70,9 @@ export default class ChatMessageService {
      this.messageIsSent = true;
   }
 
-  /** get the time in all variants i need for message */
+  /**
+   *  get the time in all variants i need for message 
+   */
   getTime() {
     const dateOptions = { weekday: 'long', day: 'numeric', month: 'long' };
     this.timestamp = new Date();
@@ -90,9 +92,7 @@ export default class ChatMessageService {
     const channelMessagesListCollection = collection(
       this.firestore,
       this.messageChannelId
-    );
-    console.log(this.messageChannelId);
-    
+    );   
     onSnapshot(query(channelMessagesListCollection), (querySnapshot) => {
       this.channelMessages = [];
       querySnapshot.forEach((doc) => {

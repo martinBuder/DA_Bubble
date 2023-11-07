@@ -15,6 +15,7 @@ import { FireDatabaseService } from '../firebase/fire-database.service';
 })
 export class ContactsService {
   openChatData!: ChatConfig;
+  contactId!: any;
 
   chatData: ChatConfig = {
     contactId: ['', ''],
@@ -57,9 +58,10 @@ export class ContactsService {
   }
 
   addContact() {
-    this.fireDatabaseService.addItemToFirebase(
-      this.contactsListCollection,
-      this.chatData
+    this.fireDatabaseService.setItemToFirebase(
+      'contactsList',
+      this.chatData.id,
+      this.chatData,
     );
   }
 
