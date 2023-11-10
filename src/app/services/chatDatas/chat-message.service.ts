@@ -24,15 +24,16 @@ export default class ChatMessageService {
   messageChannelId: string = 'empty';
   chatMessagesListCollection!: any;
   channelMessages: any | null = null;
-  chatToContact !: any; 
-  selectedContact !: UserProfile;
+  chatToContact!: any;
+  selectedContact!: UserProfile;
   messageIsSent: boolean = true;
+  contactMail: string | null = null;
 
   constructor(
     private firestore: Firestore,
     private fireAuthService: FireAuthService,
     private fireDatabaseService: FireDatabaseService,
-    private contactsService: ContactsService,
+    private contactsService: ContactsService
   ) {
     this.getTime();
   }
@@ -54,20 +55,9 @@ export default class ChatMessageService {
   /**
    * add messeage to firebase
    */
-  async addFireMessage() {
-    this.getTime();
-    this.setMessageDatas();
-    this.chatMessagesListCollection = collection(
-      this.firestore,
-      this.messageChannelId
-    );
-    await this.fireDatabaseService.addItemToFirebase(
-      this.chatMessagesListCollection,
-      this.messageDatas
-    );
-    if(this.selectedContact)
-     this.contactsService.setContact(this.selectedContact.id);
-     this.messageIsSent = true;
+  sendMessage() {
+    if (this.contactMail !== null) this.sendEmail();
+    else this.sendAppMessage();
   }
 
   /** get the time in all variants i need for message */
@@ -92,35 +82,39 @@ export default class ChatMessageService {
       this.messageChannelId
     );
     console.log(this.messageChannelId);
-    
     onSnapshot(query(channelMessagesListCollection), (querySnapshot) => {
       this.channelMessages = [];
       querySnapshot.forEach((doc) => {
-        const messageData = doc.data();       
+        const messageData = doc.data();
         this.channelMessages.push(messageData);
       });
       this.channelMessages.sort((a: any, b: any) => b.timestamp - a.timestamp); // sort the array by time backwards
     });
   }
 
+  /**
+   * find the channel id
+   */
   findChatForMessage() {
     this.createMessageChannelId();
   }
-
 
   /**
    * take the two contactNumbers sort them and make it to the messageChannelId
    * we sort it so that is always the same number for contact and for the fireUser
    */
-  async createMessageChannelId(){
-    let idsToConnect = [this.fireAuthService.fireUser.uid, this.selectedContact.id].sort();
-    this.messageChannelId = idsToConnect.join('');    
+  async createMessageChannelId() {
+    let idsToConnect = [
+      this.fireAuthService.fireUser.uid,
+      this.selectedContact.id,
+    ].sort();
+    this.messageChannelId = idsToConnect.join('');
   }
 
   /**
    * fill the selectContact with the contactProfile
-   * 
-   * @param profile 
+   *
+   * @param profile
    */
   selectContact(profile: UserProfile) {
     this.selectedContact = profile;
@@ -134,5 +128,57 @@ export default class ChatMessageService {
       await new Promise((resolve) => setTimeout(resolve, 1000));
     }
   }
- 
+
+  /**
+   * send the message in this app
+   */
+  async sendAppMessage() {
+    this.getTime();
+    this.setMessageDatas();
+    this.chatMessagesListCollection = collection(
+      this.firestore,
+      this.messageChannelId
+    );
+    await this.fireDatabaseService.addItemToFirebase(
+      this.chatMessagesListCollection,
+      this.messageDatas
+    );
+    if (this.selectedContact)
+      this.contactsService.setContact(this.selectedContact.id);
+    this.messageIsSent = true;
+  }
+
+  /**
+   * send mail or show info
+   */
+  async sendEmail() {
+    let formdata = new FormData;
+    formdata.append('userMail', this.fireAuthService.fireUser.email);
+    formdata.append('userName', this.fireAuthService.fireUser.displayName)
+    formdata.append('message', this.messageText);
+    if(this.contactMail !== null)
+      formdata.append('contactMail', this.contactMail);
+    
+
+    if (this.isEmailValid()) 
+    await fetch('https://designyourstage.com/sendMail/send_DABubble_mail.php',
+    {
+      method: 'POST',
+      body: formdata,
+    }
+   )
+    else console.log('stop');
+  }
+
+  /**
+   * check if email adress ist valid
+   *
+   * @returns boolean
+   */
+  isEmailValid() {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (typeof this.contactMail === 'string')
+      return emailRegex.test(this.contactMail);
+    else return console.log(`error = contactMail isn't a string`);
+  }
 }

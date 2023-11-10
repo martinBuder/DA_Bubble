@@ -30,7 +30,7 @@ export class TextfieldComponent {
   sendMessage(inputText: string) {
     this.chatMessageService.messageText = inputText;
     this.chatMessageService.setMessageDatas();
-    this.chatMessageService.addFireMessage();
+    this.chatMessageService.sendMessage();
     this.clearTextarea(this.textfieldForm);
   }
 

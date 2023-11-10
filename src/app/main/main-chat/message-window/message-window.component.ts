@@ -50,9 +50,11 @@ export class MessageWindowComponent {
       if(firstPos === '#' || '@')
         searchedChat = searchedChat.slice(1);
       if(firstPos === '@') 
-        this.searchContact(searchedChat)        
+        this.searchContact(searchedChat);        
       if(firstPos === '#') 
-        this.searchChannel(searchedChat)
+        this.searchChannel(searchedChat);
+      if(firstPos !== '#' || '@')
+        this.sendMailToContact(searchedChat);
     } 
   }
 
@@ -127,4 +129,9 @@ export class MessageWindowComponent {
     this.foundChannels = [];
     this.foundChannel = null;
   }
+
+  sendMailToContact(mailAdress : string){
+    this.chatMessageService.contactMail = mailAdress;
+  } 
+ 
 }

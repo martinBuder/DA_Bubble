@@ -50,7 +50,7 @@ export class ContactsService {
     }    
   }
 
-
+  
   createChatDatalId(contactUserId: any){
     let idsToConnect = [this.fireAuthService.fireUser.uid, contactUserId].sort();
     return idsToConnect.join('');   
