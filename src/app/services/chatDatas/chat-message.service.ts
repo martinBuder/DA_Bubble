@@ -60,7 +60,9 @@ export default class ChatMessageService {
     else this.sendAppMessage();
   }
 
-  /** get the time in all variants i need for message */
+  /**
+   *  get the time in all variants i need for message 
+   */
   getTime() {
     const dateOptions = { weekday: 'long', day: 'numeric', month: 'long' };
     this.timestamp = new Date();
@@ -82,6 +84,7 @@ export default class ChatMessageService {
       this.messageChannelId
     );
     console.log(this.messageChannelId);
+    
     onSnapshot(query(channelMessagesListCollection), (querySnapshot) => {
       this.channelMessages = [];
       querySnapshot.forEach((doc) => {
