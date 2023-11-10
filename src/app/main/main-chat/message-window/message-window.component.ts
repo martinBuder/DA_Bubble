@@ -47,14 +47,15 @@ export class MessageWindowComponent {
     let searchedChat = this.channelFinderForm.value.recipient;
     if (searchedChat !== null) {
       let firstPos = searchedChat.charAt(0);
-      if(firstPos === '#' || '@')
+      if(firstPos !== '#' &&  firstPos !== '@')
+      this.sendMailToContact(searchedChat);
+      else {
         searchedChat = searchedChat.slice(1);
-      if(firstPos === '@') 
-        this.searchContact(searchedChat);        
-      if(firstPos === '#') 
-        this.searchChannel(searchedChat);
-      if(firstPos !== '#' || '@')
-        this.sendMailToContact(searchedChat);
+        if(firstPos === '@') 
+          this.searchContact(searchedChat);        
+        if(firstPos === '#') 
+          this.searchChannel(searchedChat);
+      }
     } 
   }
 

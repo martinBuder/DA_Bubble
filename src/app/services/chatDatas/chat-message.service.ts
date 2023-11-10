@@ -56,6 +56,8 @@ export default class ChatMessageService {
    * add messeage to firebase
    */
   sendMessage() {
+    console.log(this.contactMail);
+    
     if (this.contactMail !== null) this.sendEmail();
     else this.sendAppMessage();
   }
@@ -82,9 +84,7 @@ export default class ChatMessageService {
     const channelMessagesListCollection = collection(
       this.firestore,
       this.messageChannelId
-    );
-    console.log(this.messageChannelId);
-    
+    );    
     onSnapshot(query(channelMessagesListCollection), (querySnapshot) => {
       this.channelMessages = [];
       querySnapshot.forEach((doc) => {
@@ -171,6 +171,7 @@ export default class ChatMessageService {
     }
    )
     else console.log('stop');
+   this.contactMail = null; 
   }
 
   /**
