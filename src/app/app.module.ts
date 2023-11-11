@@ -13,7 +13,6 @@ import { ResetEmailComponent } from './checkin/reset-email/reset-email.component
 import { ResetPasswordComponent } from './checkin/reset-password/reset-password.component';
 import { MainComponent } from './global/main/main.component';
 import { HeaderComponent } from './global/header/header.component';
-import { LogoComponent } from './global/logo/logo.component';
 import { SearchComponent } from './global/search/search.component';
 import { ProfileComponent } from './global/profile/profile.component';
 import { NavigationComponent } from './global/navigation/navigation.component';
@@ -59,7 +58,6 @@ import { AddContactComponent } from './chat/chat-persons/add-contact/add-contact
     ResetPasswordComponent,
     MainComponent,
     HeaderComponent,
-    LogoComponent,
     SearchComponent,
     ProfileComponent,
     NavigationComponent,

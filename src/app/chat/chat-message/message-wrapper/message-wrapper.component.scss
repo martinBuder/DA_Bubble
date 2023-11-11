@@ -9,5 +9,18 @@ img {
 	aspect-ratio: 1/1;
 }
 
+.add-icon-container {
+	position: relative;
+}
+
+.all-emojies-wrapper {
+	position: absolute;
+	top: 30px;
+	right: 0;
+	display: flex;
+	flex-wrap: wrap;
+	width: 30vw;
+}
+
 
 

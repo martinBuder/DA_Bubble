@@ -24,7 +24,14 @@
 					<div class="smilie">:-|</div>
 					<div class="smilie-amount">1</div>
 				</div>
-				<mat-icon>add_reaction_outline</mat-icon>
+				<div class="add-icon-container">
+					<mat-icon class="pointer">add_reaction_outline</mat-icon>
+					<div class="all-emojies-wrapper">
+						<div class="emoji-list-item" *ngFor="let emoji of this.allEmojis">
+							{{emoji.unicode}}
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

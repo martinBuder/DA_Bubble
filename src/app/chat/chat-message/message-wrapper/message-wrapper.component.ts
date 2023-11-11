@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Message } from 'src/app/interfaces/message';
 import { FireAuthService } from 'src/app/services/firebase/fire-auth.service';
+import { EmojisService } from 'src/app/services/generally/emojis.service';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -21,8 +22,17 @@ export class MessageWrapperComponent {
     text: 'null',
   }
 
+  allEmojis !: Array<any>;
+
+
+
   constructor(
     public fireAuthService: FireAuthService,
-    ) { }
+    private emojisService: EmojisService,
+    ) {  
+      this.allEmojis = this.emojisService.getAllEmoijs();     
+    }
+
+
 
 }
