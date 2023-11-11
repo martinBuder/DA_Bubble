@@ -25,12 +25,15 @@
 					<div class="smilie-amount">1</div>
 				</div>
 				<div class="add-icon-container">
-					<mat-icon class="pointer">add_reaction_outline</mat-icon>
-					<div class="all-emojies-wrapper">
-						<div class="emoji-list-item" *ngFor="let emoji of this.allEmojis">
-							{{emoji.unicode}}
-						</div>
-					</div>
+					<mat-icon class="pointer" (click)="toggleEmojis()">add_reaction_outline</mat-icon>
+				
+						<ng-container *ngIf="allEmojisOpen">
+							<div class="all-emojies-wrapper scrollbar-none">
+								<div class="emoji-list-item" *ngFor="let emoji of this.allEmojis">
+									<div class="emoji pointer" (click)="addEmoji(emoji.unicode, message)">{{emoji.unicode}}</div>
+								</div>
+							</div>
+						</ng-container>
 				</div>
 			</div>
 		</div>

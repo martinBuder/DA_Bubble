@@ -17,9 +17,17 @@ img {
 	position: absolute;
 	top: 30px;
 	right: 0;
+	z-index: 20;
 	display: flex;
+	justify-content: center;
+	gap: 5px;
 	flex-wrap: wrap;
-	width: 30vw;
+	width: 40vw;
+	height: 300px;
+	background-color: var(--colorBackground);
+	padding: var(--chatGap);
+	border: 1px solid var(--colorPurple);
+	border-radius: 10px;
 }
 
 
