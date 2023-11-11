@@ -1,8 +1,8 @@
 <div class="message-window-header">
 	<h3>Neue Nachricht</h3>
-	<form [formGroup]="channelFinderForm">
+	<form [formGroup]="channelFinderForm" class="pos-relative">
 		<div class="inputfield-wrapper">
-			<ng-container *ngIf="this.foundUser === null && this.foundChannel === null">
+			<ng-container *ngIf="this.foundUser === null && this.foundChannel === null" >
 				<input type="text" placeholder="An: #channel, oder @jemand oder E-Mail-Adresse" formControlName="recipient">
 			</ng-container>
 			<!-- *contact area -->
@@ -45,11 +45,13 @@
 					<mat-icon class="pointer purple-hover" (click)="deselect()">close</mat-icon>
 				</div>
 			</ng-container>
-			
-			
-			
 		</div>
+		<p class="error" *ngIf="this.chatAddressMistake">Keinen User oder Channel gefunden werden.
+		</p>
+		<p class="error" *ngIf="this.chatMessageService.mailAddressMistake">Fehler in der E-Mail-Adresse.
+		</p>
 	</form>
+
 </div>
 <div class="message-window-body">
 	<app-textfield class="posFix"></app-textfield>

@@ -26,8 +26,8 @@ export class MessageWindowComponent {
   searchingChannel : boolean = false;
   foundChannel : ChannelConfig | null = null;
 
+  chatAddressMistake: boolean = false;
 
-  // searchChat = 
 
   constructor(
     private userProfilesService: UserProfilesService,
@@ -41,7 +41,7 @@ export class MessageWindowComponent {
   }
 
   /**
-   * fill the chat members with the correct profiles
+   * decide is this a mail, a contact or an email
    */
   searchChatMember() {
     let searchedChat = this.channelFinderForm.value.recipient;
@@ -51,10 +51,17 @@ export class MessageWindowComponent {
       this.sendMailToContact(searchedChat);
       else {
         searchedChat = searchedChat.slice(1);
-        if(firstPos === '@') 
-          this.searchContact(searchedChat);        
-        if(firstPos === '#') 
+        if(firstPos === '@') {
+          this.foundChannels = [];
+          this.searchContact(searchedChat);   
+        } else if(firstPos === '#') {
+          this.foundProfiles = [];
           this.searchChannel(searchedChat);
+        }
+        if(this.foundChannels.length < 1 && this.foundProfiles.length < 1)
+          this.chatAddressMistake = true;
+        if(this.foundChannels.length > 0 || this.foundProfiles.length > 0)
+          this.chatAddressMistake = false;
       }
     } 
   }

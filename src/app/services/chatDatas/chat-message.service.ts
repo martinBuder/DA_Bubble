@@ -28,6 +28,8 @@ export default class ChatMessageService {
   selectedContact!: UserProfile;
   messageIsSent: boolean = true;
   contactMail: string | null = null;
+  contactMistake: boolean = true;
+  mailAddressMistake: boolean = false;
 
   constructor(
     private firestore: Firestore,
@@ -38,6 +40,9 @@ export default class ChatMessageService {
     this.getTime();
   }
 
+  /**
+   * set the message datas 
+   */
   setMessageDatas() {
     this.messageDatas = {
       timestamp: this.timestamp,
@@ -55,9 +60,7 @@ export default class ChatMessageService {
   /**
    * add messeage to firebase
    */
-  sendMessage() {
-    console.log(this.contactMail);
-    
+  sendMessage() { 
     if (this.contactMail !== null) this.sendEmail();
     else this.sendAppMessage();
   }
@@ -168,9 +171,13 @@ export default class ChatMessageService {
     {
       method: 'POST',
       body: formdata,
+    });
+    else {
+      this.mailAddressMistake = true;
+      setTimeout(() => {
+        this.mailAddressMistake = false;
+      }, 2500);
     }
-   )
-    else console.log('stop');
    this.contactMail = null; 
   }
 
