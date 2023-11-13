@@ -1,6 +1,7 @@
 import { Time } from "@angular/common";
 
 export interface Message {
+	fireId?: any;
 	timestamp: any;
 	date: any;
 	time: any;
@@ -8,7 +9,10 @@ export interface Message {
 	writerName: string;
 	writerImg: string;
 	writerId: string;
-	reactions: string;
+	reactions : Array<{
+		item: string,
+		amount: number
+	}>;
 	text: string;
 	answerAmount?: number;
 	lastAnswerTime?: string;

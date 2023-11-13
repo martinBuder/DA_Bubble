@@ -52,8 +52,8 @@ export default class ChatMessageService {
       writerName: this.fireAuthService.fireUser.displayName,
       writerImg: this.fireAuthService.fireUser.photoURL,
       writerId: this.fireAuthService.fireUser.uid,
-      reactions: `test`,
       text: this.messageText,
+      reactions: []
     };
   }
 
@@ -92,6 +92,7 @@ export default class ChatMessageService {
       this.channelMessages = [];
       querySnapshot.forEach((doc) => {
         const messageData = doc.data();
+        messageData['fireId'] = doc.id;
         this.channelMessages.push(messageData);
       });
       this.channelMessages.sort((a: any, b: any) => b.timestamp - a.timestamp); // sort the array by time backwards

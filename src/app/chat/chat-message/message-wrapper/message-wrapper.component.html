@@ -1,4 +1,4 @@
-<ng-container *ngIf="message.writerName != 'null'">
+<ng-container *ngIf="message">
 	<div class="message-wrapper" [ngClass]="{'user-message-wrapper': message.writerId === this.fireAuthService.fireUser.uid}">
 		<img src="{{ message.writerImg }}" alt="">
 		<div class="message-container">
@@ -12,21 +12,16 @@
 					<div class="last-answer-time text-light">Letzte Antwort 14:56</div>
 				</div>
 			<div class="smilies-wrapper">
-				<div class="smilie-container">
-					<div class="smilie">:-*</div>
-					<div class="smilie-amount">1</div>
+				<ng-container *ngIf="message.reactions.length > 0">
+				<div class="smilie-container" *ngFor="let emoji of message.reactions">
+					<div class="smilie">{{ emoji.item }}</div>
+					<ng-container *ngIf="emoji.amount > 1">
+						<div class="smilie-amount">{{ emoji.amount }}</div>
+					</ng-container>
 				</div>
-				<div class="smilie-container">
-					<div class="smilie">:-/</div>
-					<div class="smilie-amount">1</div>
-				</div>
-				<div class="smilie-container">
-					<div class="smilie">:-|</div>
-					<div class="smilie-amount">1</div>
-				</div>
+			</ng-container>
 				<div class="add-icon-container">
 					<mat-icon class="pointer" (click)="toggleEmojis()">add_reaction_outline</mat-icon>
-				
 						<ng-container *ngIf="allEmojisOpen">
 							<div class="all-emojies-wrapper scrollbar-none">
 								<div class="emoji-list-item" *ngFor="let emoji of this.allEmojis">
