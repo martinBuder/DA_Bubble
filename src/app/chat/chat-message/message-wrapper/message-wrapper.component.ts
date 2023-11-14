@@ -131,4 +131,12 @@ export class MessageWrapperComponent {
       }
     }
 
+    answerToMessage(message: any) {
+
+    }
+
+    editMessage(message: any) {
+
+    }
+
 }

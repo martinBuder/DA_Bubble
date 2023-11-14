@@ -7,7 +7,7 @@
 			</div>
 			<div class="message">{{ message.text }}</div>
 			<div class="answer-container">
-				<!-- !hier fehlen noch daten -->
+				<!-- !ANSWER CONTAINER -->
 					<div class="answer-amount">2 Anworten</div>
 					<div class="last-answer-time text-light">Letzte Antwort 14:56</div>
 				</div>
@@ -40,5 +40,9 @@
 				</div>
 			</div>
 		</div>
-	</div>
+			<div class="work-icon-container">
+				<mat-icon (click)="editMessage(message)">edit</mat-icon>
+				<mat-icon (click)="answerToMessage(message)">reply</mat-icon>
+			</div>
+		</div>
 </ng-container>

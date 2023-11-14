@@ -345,6 +345,7 @@ button {
 	display: flex;
 	gap: var(--chatGap);
 	align-items: center;
+  padding: 4px 0;
 
 	img {
 		width: 30px;
@@ -353,11 +354,31 @@ button {
 	}
 }
 
+.message-wrapper {
+  &:hover {
+    background-color: var(--colorBackground);
+    margin: 0 calc(var(--bodyPadding) * -1);
+    padding: 4px var(--bodyPadding);
+
+    .message{
+      background-color: var(--colorWhite);
+    }
+  }
+}
+
 .user-message-wrapper {
   flex-direction: row-reverse;
 
   .message {
+    background-color: var(--colorPurple);
     border-radius: 25px 0 25px 25px;
+    color: var(--colorWhite);
+  }
+
+  &:hover {
+    .message{
+      background-color: var(--colorPurple);
+    }
   }
 }
 

@@ -48,7 +48,7 @@ img {
 
 .user-message-wrapper {
 
-	.smilies-wrapper {
+	.smilies-wrapper, .answer-container {
 		justify-content: flex-end;
 	}
 
@@ -60,6 +60,7 @@ img {
 
 .smilie-container {
 	position: relative;
+	background-color: var(--colorWhite);
 
 	.reaction-users-container {
 		display: none;
@@ -76,6 +77,9 @@ img {
 
 		.reaction-users {
 			margin-bottom: 8px;
+   .message{
+				background-color: var(--colorWhite);
+		}
 
 			&:last-child {
 				margin-bottom: 0;
@@ -86,9 +90,40 @@ img {
 
 	&:hover .reaction-users-container {
 		display: block;
-	
+
 	}
 }
+
+.message-wrapper {
+	&:hover{
+		.work-icon-container {
+			display: flex;
+	}
+}
+}
+
+.message-container {
+	max-width: 85%;
+}
+
+.work-icon-container {
+		display: none;
+		flex-direction: column;
+		align-self: flex-start;
+		gap: 4px;
+		margin-top: 24px;
+
+		mat-icon {
+			cursor: pointer;
+			padding: 4px;
+			background-color: var(--colorWhite);
+			border-radius: 50%;
+			font-size: 1rem;
+			text-align: center;
+		}
+
+	}
+
 
 
 
