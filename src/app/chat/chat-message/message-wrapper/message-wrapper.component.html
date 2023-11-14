@@ -18,6 +18,13 @@
 					<ng-container *ngIf="emoji.amount > 1">
 						<div class="smilie-amount">{{ emoji.amount }}</div>
 					</ng-container>
+					<div class="reaction-users-container">
+						<ng-container *ngFor="let user of emoji.reactionUsers">
+							<div class="reaction-users">
+								{{ user.name }}
+							</div>
+						</ng-container>				
+					</div>
 				</div>
 			</ng-container>
 				<div class="add-icon-container">

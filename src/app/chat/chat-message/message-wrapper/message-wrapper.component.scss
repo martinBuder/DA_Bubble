@@ -16,7 +16,7 @@ img {
 .all-emojies-wrapper {
 	position: absolute;
 	top: 30px;
-	right: 0;
+	left: 0;
 	z-index: 20;
 	display: flex;
 	justify-content: center;
@@ -32,6 +32,50 @@ img {
 
 .emoji-list-item {
 	font-size: 2rem;
+}
+
+.user-message-wrapper {
+
+	.smilies-wrapper {
+		justify-content: flex-end;
+	}
+
+	.all-emojies-wrapper {
+		right: 0;
+		left: auto;
+	}
+}
+
+.smilie-container {
+	position: relative;
+
+	.reaction-users-container {
+		display: none;
+		position: absolute;
+		top: 28px;
+		z-index: 30;
+		padding: 4px 8px;
+		background-color: var(--colorBackground);
+		border: 1px solid var(--colorPurple);
+		border-radius: 10px;
+		font-size: 0.7rem;
+		width: min-content;
+		text-wrap: nowrap;
+
+		.reaction-users {
+			margin-bottom: 8px;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+	}
+
+	&:hover .reaction-users-container {
+		display: block;
+	
+	}
 }
 
 
