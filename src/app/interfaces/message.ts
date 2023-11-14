@@ -11,7 +11,11 @@ export interface Message {
 	writerId: string;
 	reactions : Array<{
 		item: string,
-		amount: number
+		amount: number,
+		reactionUsers: Array<{
+			name: string,
+			userId: any
+		}>
 	}>;
 	text: string;
 	answerAmount?: number;

@@ -33,6 +33,12 @@ export class MessageWrapperComponent {
       this.allEmojis = this.emojisService.getAllEmoijs();     
     }
 
+    /**
+     * start - the way to add or remove a emoji to a message
+     * 
+     * @param emoji 
+     * @param message 
+     */
     async addEmoji(emoji : any, message : any ){
       const chatMessagesListCollection = collection(
         this.firestore,
@@ -42,17 +48,77 @@ export class MessageWrapperComponent {
       this.fireDatabaseService.updateFireItem(chatMessagesListCollection, message.fireId, message)
     }
 
+    /**
+     * set the emoji datas to update
+     * 
+     * @param emoji 
+     * @param message 
+     */
     async setEmojiDatas(emoji : any, message : any ) {
-      let emojiItem 
       let emojiIndex = message.reactions.findIndex((reaction: { item: any; }) => reaction.item === emoji);
       if(emojiIndex === -1) {
-        emojiItem = {
-          item: emoji,
-          amount: 1,
-        };
-        message.reactions.push(emojiItem);
+        message.reactions.push(this.setFirstEmojiJson(emoji));
       }else{
+        let reactionUserIndex = message.reactions[emojiIndex].reactionUsers.findIndex((user: {userId: any}) => user.userId == this.fireAuthService.fireUser.uid);
+        this.updateMessageEmojis(reactionUserIndex, message, emojiIndex);
+      }
+    }
+
+    /**
+     * if the user isn't in reactions User add the emoji, else take one emoji away
+     * 
+     * @param reactionUserIndex is the index of this user in message.emoji.reactionUsers
+     * @param message this message
+     * @param emojiIndex is the index of this emoji in message.emoji 
+     */
+    updateMessageEmojis(reactionUserIndex: number, message: Message, emojiIndex: number) {
+      if(reactionUserIndex === -1) {
         message.reactions[emojiIndex].amount++;
+        message.reactions[emojiIndex].reactionUsers.push(this.setReactionUser());
+      }
+      else {
+        message.reactions[emojiIndex].amount--;
+        this.spliceMessageEmoji(reactionUserIndex, message, emojiIndex);
+      }
+    }    
+
+    /**
+     * splice the user, who reacted or/and the emoji if the amount goes under 1
+     * 
+     * @param reactionUserIndex is the index of this user in message.emoji.reactionUsers
+     * @param message this message
+     * @param emojiIndex is the index of this emoji in message.emoji
+     */
+    spliceMessageEmoji(reactionUserIndex: number, message: Message, emojiIndex: number) {
+      if (message.reactions[emojiIndex].amount > 0) {
+        message.reactions[emojiIndex].reactionUsers.splice(reactionUserIndex, 1);
+      } else {
+        message.reactions.splice(emojiIndex, 1)
+      }
+    }
+
+    /**
+     * set the first json for each emoji, which is a new reaction on this message
+     * 
+     * @param emoji 
+     * @returns 
+     */
+    setFirstEmojiJson(emoji: any) {
+      return {
+        item: emoji,
+        amount: 1,
+        reactionUsers: [this.setReactionUser()]
+      };
+    }
+
+    /**
+     * 
+     * @returns reacted user (actually user) with the datas we need 
+     */
+    setReactionUser() {
+      return  {
+        name: this.fireAuthService.fireUser.displayName,
+        userId: this.fireAuthService.fireUser.uid
       }
     }
 

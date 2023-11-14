@@ -13,7 +13,7 @@
 				</div>
 			<div class="smilies-wrapper">
 				<ng-container *ngIf="message.reactions.length > 0">
-				<div class="smilie-container" *ngFor="let emoji of message.reactions">
+				<div class="smilie-container pointer" *ngFor="let emoji of message.reactions" (click)="addEmoji(emoji.item, message)">
 					<div class="smilie">{{ emoji.item }}</div>
 					<ng-container *ngIf="emoji.amount > 1">
 						<div class="smilie-amount">{{ emoji.amount }}</div>
