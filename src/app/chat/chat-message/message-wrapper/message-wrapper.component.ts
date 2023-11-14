@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
 import { Firestore, collection } from '@angular/fire/firestore';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Message } from 'src/app/interfaces/message';
 import ChatMessageService from 'src/app/services/chatDatas/chat-message.service';
 import { FireAuthService } from 'src/app/services/firebase/fire-auth.service';
@@ -17,10 +18,20 @@ export class MessageWrapperComponent {
 
   allEmojis !: Array<any>;
   allEmojisOpen : boolean = false;
+  editMessageWindow : boolean = false;
+  textMessage !: string; 
   
   toggleEmojis() {
     this.allEmojisOpen = !this.allEmojisOpen;
   }
+
+  public textfieldForm : FormGroup = new FormGroup({
+   
+    textarea: new FormControl ('', [
+      Validators.required,
+    ], []),
+
+  });
 
 
   constructor(
@@ -131,12 +142,35 @@ export class MessageWrapperComponent {
       }
     }
 
+    
     answerToMessage(message: any) {
 
     }
 
-    editMessage(message: any) {
+    // * edit messeage
 
+    editMessage(message: any) {      
+      this.textfieldForm.get('textarea')?.setValue(message.text)
+      this.editMessageWindow = true;
+  
     }
+
+    async saveEditMessage(input : string) {      
+      this.message.text = input;
+      this.message.editedMessage = true;
+      const chatMessagesListCollection = collection(
+        this.firestore,
+        this.chatMessageService.messageChannelId
+      );    
+      await this.fireDatabaseService.updateFireItem(chatMessagesListCollection, this.message.fireId, this.message)
+      this.closeEditMessage();
+    }
+
+    closeEditMessage() {
+      this.textfieldForm.get('textarea')?.setValue('')
+      this.editMessageWindow = false;
+    }
+
+
 
 }

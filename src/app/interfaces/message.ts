@@ -18,6 +18,7 @@ export interface Message {
 		}>
 	}>;
 	text: string;
+	editedMessage ?: boolean;
 	answerAmount?: number;
 	lastAnswerTime?: string;
 }

@@ -1,5 +1,15 @@
 <ng-container *ngIf="message" >
 	<div class="message-wrapper" [ngClass]="{'user-message-wrapper': message.writerId === this.fireAuthService.fireUser.uid}" >
+		<ng-container *ngIf="editMessageWindow">
+			<form class="inputfield-wrapper" [formGroup]="textfieldForm">
+				<textarea name="" id=""  rows="5" class="scrollbar-none" formControlName="textarea">{{ message.text }}</textarea>
+				<div class="work-icon-container">
+					<mat-icon style="color: green" (click)="saveEditMessage(this.textfieldForm.value.textarea)" >check</mat-icon>
+					<mat-icon style="color: red" (click)="closeEditMessage()">close</mat-icon>
+				</div>
+			</form>
+
+		</ng-container>
 		<img src="{{ message.writerImg }}" alt="">
 		<div class="message-container">
 			<div class="first-line">
@@ -41,8 +51,12 @@
 			</div>
 		</div>
 			<div class="work-icon-container">
-				<mat-icon (click)="editMessage(message)">edit</mat-icon>
-				<mat-icon (click)="answerToMessage(message)">reply</mat-icon>
+				<ng-container *ngIf="message.writerId === this.fireAuthService.fireUser.uid">
+					<mat-icon (click)="editMessage(message)">edit</mat-icon>
+				</ng-container>
+				<ng-container *ngIf="message.writerId !== this.fireAuthService.fireUser.uid">
+					<mat-icon (click)="answerToMessage(message)">reply</mat-icon>
+				</ng-container>
 			</div>
 		</div>
 </ng-container>

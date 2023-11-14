@@ -95,6 +95,8 @@ img {
 }
 
 .message-wrapper {
+position: relative;
+
 	&:hover{
 		.work-icon-container {
 			display: flex;
@@ -121,8 +123,47 @@ img {
 			font-size: 1rem;
 			text-align: center;
 		}
-
 	}
+
+	.message-wrapper:has(.inputfield-wrapper) {
+		&:hover {
+			background-color: var(--colorBackground);
+			margin: 0;
+			padding: 4px 0;
+		}
+	}
+
+	.inputfield-wrapper {
+		position: absolute;
+		z-index: 50;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-radius: 0;
+		margin: 0 auto;
+		padding: var(--bodyPadding);
+		border: 1px solid var(--colorPurple);
+		background-color: var(--colorBackground);
+
+		textarea {
+			border: none;
+			width: 85%;
+			background-color: var(--colorBackground);
+
+			&:focus {
+				outline: none;
+			}
+		}
+
+		.work-icon-container {
+			height: 100%;
+			justify-content: center;
+			margin-top: 0;
+			gap: var(--bodyPadding);
+		}
+}
+
 
 
 
