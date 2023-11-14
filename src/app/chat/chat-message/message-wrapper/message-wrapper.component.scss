@@ -28,6 +28,18 @@ img {
 	padding: var(--chatGap);
 	border: 1px solid var(--colorPurple);
 	border-radius: 10px;
+
+
+}
+
+.emojis-background {
+	width: 100svw;
+	height: 100svh;
+	top: 0;
+	left: 0;
+	position: fixed;
+	z-index: 20;	
+	background: rgba(0,0,0, 0.1);
 }
 
 .emoji-list-item {
@@ -52,7 +64,7 @@ img {
 	.reaction-users-container {
 		display: none;
 		position: absolute;
-		top: 28px;
+		top: 50px;
 		z-index: 30;
 		padding: 4px 8px;
 		background-color: var(--colorBackground);

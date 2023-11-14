@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
 import { Firestore, collection } from '@angular/fire/firestore';
 import { Message } from 'src/app/interfaces/message';
 import ChatMessageService from 'src/app/services/chatDatas/chat-message.service';
@@ -13,7 +13,7 @@ import { EmojisService } from 'src/app/services/generally/emojis.service';
 })
 export class MessageWrapperComponent {
 
-  @Input() message !: Message 
+  @Input() message !: Message;
 
   allEmojis !: Array<any>;
   allEmojisOpen : boolean = false;
@@ -25,6 +25,7 @@ export class MessageWrapperComponent {
 
   constructor(
     private firestore: Firestore,
+    private elementRef: ElementRef,
     public fireAuthService: FireAuthService,
     private fireDatabaseService: FireDatabaseService,
     private chatMessageService: ChatMessageService,
@@ -32,6 +33,14 @@ export class MessageWrapperComponent {
     ) {  
       this.allEmojis = this.emojisService.getAllEmoijs();     
     }
+
+
+    @HostListener('document:click', ['$event'])
+    onClickOutside(event: Event) {
+      if (!this.elementRef.nativeElement.contains(event.target))
+        this.allEmojisOpen = false;
+    }
+
 
     /**
      * start - the way to add or remove a emoji to a message

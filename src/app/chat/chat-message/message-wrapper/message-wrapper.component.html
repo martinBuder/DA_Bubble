@@ -1,5 +1,5 @@
-<ng-container *ngIf="message">
-	<div class="message-wrapper" [ngClass]="{'user-message-wrapper': message.writerId === this.fireAuthService.fireUser.uid}">
+<ng-container *ngIf="message" >
+	<div class="message-wrapper" [ngClass]="{'user-message-wrapper': message.writerId === this.fireAuthService.fireUser.uid}" >
 		<img src="{{ message.writerImg }}" alt="">
 		<div class="message-container">
 			<div class="first-line">
@@ -30,6 +30,7 @@
 				<div class="add-icon-container">
 					<mat-icon class="pointer" (click)="toggleEmojis()">add_reaction_outline</mat-icon>
 						<ng-container *ngIf="allEmojisOpen">
+							<div class="emojis-background pointer" (click)="toggleEmojis()"></div>
 							<div class="all-emojies-wrapper scrollbar-none">
 								<div class="emoji-list-item" *ngFor="let emoji of this.allEmojis">
 									<div class="emoji pointer" (click)="addEmoji(emoji.unicode, message)">{{emoji.unicode}}</div>
