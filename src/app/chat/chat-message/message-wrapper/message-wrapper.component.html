@@ -8,12 +8,22 @@
 					<mat-icon style="color: red" (click)="closeEditMessage()">close</mat-icon>
 				</div>
 			</form>
-
 		</ng-container>
 		<img src="{{ message.writerImg }}" alt="">
 		<div class="message-container">
 			<div class="first-line">
-				<h6>{{ message.writerName }}</h6><p class="time text-light">{{ message.time }}</p>
+				<h6>{{ message.writerName }}</h6>
+				<p class="time text-light">{{ message.time }} Uhr
+				</p>
+				<div class="between"></div>
+				<ng-container *ngIf="message.lastEditedTime">
+					<p class="edited-message text-light">geändert
+						<ng-container *ngIf="message.lastEditedTime.date !== this.chatMessageService.today.dateNumber && message.lastEditedTime.year !== this.chatMessageService.today.year">{{ message.lastEditedTime.date }}<ng-container *ngIf="message.lastEditedTime.year !== this.chatMessageService.today.year">{{ message.lastEditedTime.year }}
+							</ng-container> - 
+						</ng-container>
+						{{ message.lastEditedTime.time }} Uhr
+					</p>
+				</ng-container>
 			</div>
 			<div class="message">{{ message.text }}</div>
 			<div class="answer-container">
@@ -53,6 +63,7 @@
 			<div class="work-icon-container">
 				<ng-container *ngIf="message.writerId === this.fireAuthService.fireUser.uid">
 					<mat-icon (click)="editMessage(message)">edit</mat-icon>
+					<mat-icon (click)="deleteMessage(message)">delete</mat-icon>
 				</ng-container>
 				<ng-container *ngIf="message.writerId !== this.fireAuthService.fireUser.uid">
 					<mat-icon (click)="answerToMessage(message)">reply</mat-icon>

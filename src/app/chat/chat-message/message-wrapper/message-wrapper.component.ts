@@ -39,7 +39,7 @@ export class MessageWrapperComponent {
     private elementRef: ElementRef,
     public fireAuthService: FireAuthService,
     private fireDatabaseService: FireDatabaseService,
-    private chatMessageService: ChatMessageService,
+    public chatMessageService: ChatMessageService,
     private emojisService: EmojisService,
     ) {  
       this.allEmojis = this.emojisService.getAllEmoijs();     
@@ -147,30 +147,58 @@ export class MessageWrapperComponent {
 
     }
 
+    deleteMessage(message: any) {
+
+    }
+
     // * edit messeage
 
+    /**
+     * open the edit messae window with the text from message
+     * 
+     * @param message 
+     */
     editMessage(message: any) {      
       this.textfieldForm.get('textarea')?.setValue(message.text)
       this.editMessageWindow = true;
-  
     }
 
+    /**
+     * save the editet message
+     * 
+     * @param input message text that is edited
+     */
     async saveEditMessage(input : string) {      
-      this.message.text = input;
-      this.message.editedMessage = true;
-      const chatMessagesListCollection = collection(
-        this.firestore,
-        this.chatMessageService.messageChannelId
-      );    
-      await this.fireDatabaseService.updateFireItem(chatMessagesListCollection, this.message.fireId, this.message)
-      this.closeEditMessage();
+      if(this.message.text !== input) {
+        this.message.text = input;
+        this.setEditTimeToMessage();
+        const chatMessagesListCollection = collection(
+          this.firestore,
+          this.chatMessageService.messageChannelId
+        );    
+        await this.fireDatabaseService.updateFireItem(chatMessagesListCollection, this.message.fireId, this.message)
+        this.closeEditMessage();
+        console.log(this.message);
+      } 
     }
 
+    /**
+     * close message editer
+     */
     closeEditMessage() {
       this.textfieldForm.get('textarea')?.setValue('')
       this.editMessageWindow = false;
     }
 
-
-
+    /**
+     * what time is the message editet 
+     */
+    setEditTimeToMessage() {
+      this.chatMessageService.getTime();
+      this.message.lastEditedTime = {
+        date: this.chatMessageService.dateNumber,
+        time: this.chatMessageService.time,
+        year: this.chatMessageService.year
+      }
+    }
 }

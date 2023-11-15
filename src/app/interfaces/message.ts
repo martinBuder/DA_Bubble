@@ -18,7 +18,11 @@ export interface Message {
 		}>
 	}>;
 	text: string;
-	editedMessage ?: boolean;
+	lastEditedTime ?: {
+		date: any;
+		time: string;
+		year: string
+	};
 	answerAmount?: number;
 	lastAnswerTime?: string;
 }

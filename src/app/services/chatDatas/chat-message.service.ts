@@ -17,6 +17,7 @@ import { ContactsService } from './contacts.service';
 export default class ChatMessageService {
   timestamp!: any;
   date!: Date;
+  dateNumber! : Date;
   time!: any;
   year!: any;
   messageText!: string;
@@ -30,6 +31,7 @@ export default class ChatMessageService {
   contactMail: string | null = null;
   contactMistake: boolean = true;
   mailAddressMistake: boolean = false;
+  today !: any;
 
   constructor(
     private firestore: Firestore,
@@ -37,7 +39,7 @@ export default class ChatMessageService {
     private fireDatabaseService: FireDatabaseService,
     private contactsService: ContactsService
   ) {
-    this.getTime();
+    this.getToday();
   }
 
   /**
@@ -57,6 +59,15 @@ export default class ChatMessageService {
     };
   }
 
+  getToday() {
+    this.getTime();
+    this.today = {
+      date: this.date,
+      dateNumber: this.dateNumber,
+      year: this.year
+    }
+  }
+
   /**
    * add messeage to firebase
    */
@@ -69,10 +80,13 @@ export default class ChatMessageService {
    *  get the time in all variants i need for message 
    */
   getTime() {
-    const dateOptions = { weekday: 'long', day: 'numeric', month: 'long' };
+    const dateOptions = { weekday: 'long', day: 'numeric', month: 'long'};
+    const dateNumberOptions = { day: 'numeric', month: 'numeric',};
+    const yearOption = { year: 'numeric' };
     this.timestamp = new Date();
     this.date = this.timestamp.toLocaleDateString('de-DE', dateOptions);
-    this.year = this.timestamp.toLocaleDateString('de-DE', { year: 'numeric' });
+    this.dateNumber = this.timestamp.toLocaleDateString('de-DE', dateNumberOptions);
+    this.year = this.timestamp.toLocaleDateString('de-DE', yearOption);
     this.time = {
       hour: this.timestamp.getHours().toString().padStart(2, '0'),
       minute: this.timestamp.getMinutes().toString().padStart(2, '0'),
