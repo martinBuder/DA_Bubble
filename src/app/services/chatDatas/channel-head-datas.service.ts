@@ -11,9 +11,6 @@ import { FireAuthService } from '../firebase/fire-auth.service';
 })
 export class ChatHeadDatasService {
 
-
-
-
   chatOpen : boolean = false;
   channelListCollection = collection(this.firestore, 'channelList');
   channel !: ChannelConfig;

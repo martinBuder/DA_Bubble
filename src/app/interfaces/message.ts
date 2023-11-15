@@ -25,4 +25,5 @@ export interface Message {
 	};
 	answerAmount?: number;
 	lastAnswerTime?: string;
+	deletedMessage ?: true;
 }

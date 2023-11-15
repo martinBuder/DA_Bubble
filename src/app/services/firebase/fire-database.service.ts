@@ -1,5 +1,5 @@
 import { Injectable} from '@angular/core';
-import { Firestore, addDoc, doc, onSnapshot, query, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, deleteDoc, doc, onSnapshot, query, setDoc, updateDoc } from '@angular/fire/firestore';
 
 
 @Injectable({
@@ -67,7 +67,6 @@ export class FireDatabaseService {
 
     async addItemToFirebase(fireList: any, item: any) {
       await addDoc(fireList, item ) 
-
     }
 
      /**
@@ -79,4 +78,15 @@ export class FireDatabaseService {
       const itemRef = doc(fireCollection, id)
       await updateDoc(itemRef, item);
     }
+
+     /**
+   * delete User from firebase
+   * 
+   * @param id 
+   */
+  deleteUser(fireList:any, id:string) {
+    let fireCollection = collection(this.firestore, fireList);
+    let userDoc = doc(fireCollection, id)
+    deleteDoc(userDoc);
+  }
 }

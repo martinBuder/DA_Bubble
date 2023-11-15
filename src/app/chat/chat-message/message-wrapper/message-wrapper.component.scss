@@ -185,6 +185,22 @@ position: relative;
 	margin-bottom: -20px;
 }
 
+.deleted-container {
+	border: 1px solid var(--colorPurpleLight);
+	border-radius: 25px;
+	width: max-content;
+	display: flex;
+	gap: var(--chatGap);
+	align-items: center;
+	padding: 4px var(--chatGap);
+	color: rgb(173, 171, 171);
+
+	mat-icon {
+		color: rgb(173, 171, 171);
+
+	}
+}
+
 
 
 

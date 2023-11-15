@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Firestore, collection } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Message } from 'src/app/interfaces/message';
@@ -36,7 +36,6 @@ export class MessageWrapperComponent {
 
   constructor(
     private firestore: Firestore,
-    private elementRef: ElementRef,
     public fireAuthService: FireAuthService,
     private fireDatabaseService: FireDatabaseService,
     public chatMessageService: ChatMessageService,
@@ -44,14 +43,6 @@ export class MessageWrapperComponent {
     ) {  
       this.allEmojis = this.emojisService.getAllEmoijs();     
     }
-
-
-    @HostListener('document:click', ['$event'])
-    onClickOutside(event: Event) {
-      if (!this.elementRef.nativeElement.contains(event.target))
-        this.allEmojisOpen = false;
-    }
-
 
     /**
      * start - the way to add or remove a emoji to a message
@@ -147,8 +138,31 @@ export class MessageWrapperComponent {
 
     }
 
-    deleteMessage(message: any) {
+    /**
+     * deleteMessage
+     */
+    async deleteMessage() {
+      this.setDeleteMessage();
+      await this.sendUpdateDatasToFirebaseService();
+    }
 
+    /**
+     * clear datas for delet message
+     */
+    setDeleteMessage() {
+      this.message.writerName = '';
+      this.message.writerImg = '';
+      this.message.writerId = '' ;
+      this.message.reactions = [];
+      this.message.answerAmount = 0;
+      this.message.lastAnswerTime = '';
+      this.message.text = 'Diese Nachricht wurde gelöscht.',
+      this.message.lastEditedTime = {
+        date: '',
+        time: '',
+        year: ''
+      }
+      this.message.deletedMessage = true;
     }
 
     // * edit messeage
@@ -172,14 +186,17 @@ export class MessageWrapperComponent {
       if(this.message.text !== input) {
         this.message.text = input;
         this.setEditTimeToMessage();
-        const chatMessagesListCollection = collection(
-          this.firestore,
-          this.chatMessageService.messageChannelId
-        );    
-        await this.fireDatabaseService.updateFireItem(chatMessagesListCollection, this.message.fireId, this.message)
+        await this.sendUpdateDatasToFirebaseService();
         this.closeEditMessage();
-        console.log(this.message);
       } 
+    }
+
+    async sendUpdateDatasToFirebaseService() {
+      const chatMessagesListCollection = collection(
+        this.firestore,
+        this.chatMessageService.messageChannelId
+      );    
+      await this.fireDatabaseService.updateFireItem(chatMessagesListCollection, this.message.fireId, this.message)
     }
 
     /**
