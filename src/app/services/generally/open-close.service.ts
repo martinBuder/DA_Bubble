@@ -5,9 +5,13 @@ import { Injectable } from '@angular/core';
 })
 export class OpenCloseService {
 
-  threadOpen : boolean = true;
+  threadOpen : boolean = false;
   navOpen : boolean = false;
   chatHeader: string = 'startHeader';
+  threadChannel: {
+    name: string,
+    id: any
+  } | null = null;
   channelMembersOpen: boolean = false;
   openAddChannelMembers: boolean = false;
   

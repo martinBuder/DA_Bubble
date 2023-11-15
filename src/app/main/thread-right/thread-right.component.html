@@ -1,18 +1,22 @@
+<ng-container *ngIf="openCloseService.threadChannel !== null ">	
 	<div class="thread-header-container">
-		<div class="header-text">
-			<h4>Thread</h4>
-			<mat-icon>numbers</mat-icon>
-			Channelname
+			<div class="header-text">
+				<h4>Thread</h4>
+				<mat-icon>numbers</mat-icon>{{ this.openCloseService.threadChannel.name }}
+			</div>
+			<mat-icon class="closeX" (click)="openCloseService.threadOpen = false">close</mat-icon>
 		</div>
-		<mat-icon class="closeX" (click)="openCloseService.threadOpen = false" >close</mat-icon>
-	</div>
-	<div class="thread-content scrollbar-none">
-		<app-thread-message-wrapper></app-thread-message-wrapper>
-		<div class="thread-answer-line">
-			<p>2 Antworten</p><div class="line"></div>
+		<div class="chat-wrapper">
+			<div class="chat-container scrollbar-none">
+				<ng-container *ngFor="let message of this.chatMessageService.threadMessages; let i = index">
+					<ng-container *ngIf="i === 0 || message.date !== this.chatMessageService.threadMessages[i - 1].date">
+						<app-chat-date [date]="message.date"></app-chat-date>
+					</ng-container>
+					<app-message-wrapper [message]="message"></app-message-wrapper>
+				</ng-container>
+			</div>
+			<app-textfield class="posFix" [chatOrThread]="'thread'"></app-textfield>
 		</div>
-		<app-message-wrapper></app-message-wrapper>
-		<app-message-wrapper></app-message-wrapper>
-	</div>
+</ng-container>
 
 

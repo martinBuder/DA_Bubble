@@ -8,7 +8,7 @@
 	<div class="message-wrapper" [ngClass]="{'user-message-wrapper': message.writerId === this.fireAuthService.fireUser.uid}" >
 		<ng-container *ngIf="editMessageWindow">
 			<form class="inputfield-wrapper" [formGroup]="textfieldForm">
-				<textarea name="" id=""  rows="5" class="scrollbar-none" formControlName="textarea">{{ message.text }}</textarea>
+				<textarea name="" id=""  rows="5" class="scrollbar-none" formControlName="textarea"></textarea>
 				<div class="work-icon-container">
 					<mat-icon style="color: green" (click)="saveEditMessage(this.textfieldForm.value.textarea)" >check</mat-icon>
 					<mat-icon style="color: red" (click)="closeEditMessage()">close</mat-icon>
@@ -39,7 +39,7 @@
 				</div>
 			<div class="smilies-wrapper">
 				<ng-container *ngIf="message.reactions.length > 0">
-				<div class="smilie-container pointer" *ngFor="let emoji of message.reactions" (click)="addEmoji(emoji.item, message)">
+				<div class="smilie-container pointer" *ngFor="let emoji of message.reactions" (click)="addEmoji(emoji.item)">
 					<div class="smilie">{{ emoji.item }}</div>
 					<ng-container *ngIf="emoji.amount > 1">
 						<div class="smilie-amount">{{ emoji.amount }}</div>
@@ -59,7 +59,7 @@
 							<div class="emojis-background pointer" (click)="toggleEmojis()"></div>
 							<div class="all-emojies-wrapper scrollbar-none">
 								<div class="emoji-list-item" *ngFor="let emoji of this.allEmojis">
-									<div class="emoji pointer" (click)="addEmoji(emoji.unicode, message)">{{emoji.unicode}}</div>
+									<div class="emoji pointer" (click)="addEmoji(emoji.unicode)">{{emoji.unicode}}</div>
 								</div>
 							</div>
 						</ng-container>
@@ -72,7 +72,7 @@
 					<mat-icon (click)="deleteMessage()">delete</mat-icon>
 				</ng-container>
 				<ng-container *ngIf="message.writerId !== this.fireAuthService.fireUser.uid">
-					<mat-icon (click)="answerToMessage(message)">reply</mat-icon>
+					<mat-icon (click)="answerToMessage()">reply</mat-icon>
 				</ng-container>
 			</div>
 		</div>

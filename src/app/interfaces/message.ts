@@ -25,5 +25,6 @@ export interface Message {
 	};
 	answerAmount?: number;
 	lastAnswerTime?: string;
-	deletedMessage ?: true;
+	deletedMessage ?: boolean;
+	threadExist ?: boolean;
 }

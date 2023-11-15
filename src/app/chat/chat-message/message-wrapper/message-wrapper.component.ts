@@ -2,10 +2,12 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { Firestore, collection } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Message } from 'src/app/interfaces/message';
+import { ChatHeadDatasService } from 'src/app/services/chatDatas/channel-head-datas.service';
 import ChatMessageService from 'src/app/services/chatDatas/chat-message.service';
 import { FireAuthService } from 'src/app/services/firebase/fire-auth.service';
 import { FireDatabaseService } from 'src/app/services/firebase/fire-database.service';
 import { EmojisService } from 'src/app/services/generally/emojis.service';
+import { OpenCloseService } from 'src/app/services/generally/open-close.service';
 
 @Component({
   selector: 'app-message-wrapper',
@@ -38,7 +40,9 @@ export class MessageWrapperComponent {
     private firestore: Firestore,
     public fireAuthService: FireAuthService,
     private fireDatabaseService: FireDatabaseService,
+    private openCloseService: OpenCloseService,
     public chatMessageService: ChatMessageService,
+    private chatHeadDataService: ChatHeadDatasService,
     private emojisService: EmojisService,
     ) {  
       this.allEmojis = this.emojisService.getAllEmoijs();     
@@ -48,15 +52,14 @@ export class MessageWrapperComponent {
      * start - the way to add or remove a emoji to a message
      * 
      * @param emoji 
-     * @param message 
      */
-    async addEmoji(emoji : any, message : any ){
+    async addEmoji(emoji : any ){
       const chatMessagesListCollection = collection(
         this.firestore,
         this.chatMessageService.messageChannelId
       );    
-      await this.setEmojiDatas(emoji, message)
-      this.fireDatabaseService.updateFireItem(chatMessagesListCollection, message.fireId, message)
+      await this.setEmojiDatas(emoji, this.message)
+      this.fireDatabaseService.updateFireItem(chatMessagesListCollection, this.message.fireId, this.message)
     }
 
     /**
@@ -133,13 +136,27 @@ export class MessageWrapperComponent {
       }
     }
 
+    // * open thread Message
     
-    answerToMessage(message: any) {
-
+    async answerToMessage() {   
+      this.openCloseService.threadChannel = {
+        name: this.chatHeadDataService.channel.channelName,
+        id: this.chatHeadDataService.channel.id
+      }
+      this.openCloseService.threadOpen = true;
+      this.chatMessageService.messageThreadId = this.message.fireId;
+      if(!this.message.threadExist) {
+        this.chatMessageService.threadMessages.push(this.message);
+        this.chatMessageService.threadFirstMessage = this.message        
+      }
+      else
+       this.chatMessageService.getThreadMessagesList(); 
     }
 
+    // *deletedMessage
+
     /**
-     * deleteMessage
+     * delete Message
      */
     async deleteMessage() {
       this.setDeleteMessage();

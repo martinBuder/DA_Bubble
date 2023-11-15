@@ -37,7 +37,6 @@ import { CheckInSiteServiceService } from './services/generally/check-in-site-se
 import { ChatSiteComponent } from './main/chat-site/chat-site.component';
 import { ChannelAreaComponent } from './main/sidebar-left/channel-area/channel-area.component';
 import { ChatDateComponent } from './chat/chat-message/chat-date/chat-date.component';
-import { ThreadMessageWrapperComponent } from './main/thread-right/thread-message-wrapper/thread-message-wrapper.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
@@ -77,7 +76,6 @@ import { AddContactComponent } from './chat/chat-persons/add-contact/add-contact
     ChatSiteComponent,
     ChannelAreaComponent,
     ChatDateComponent,
-    ThreadMessageWrapperComponent,
     MessageWindowComponent,
     ChatMembersComponent,
     AddContactComponent,

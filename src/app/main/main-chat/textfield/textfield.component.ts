@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import ChatMessageService from 'src/app/services/chatDatas/chat-message.service';
 
@@ -9,6 +9,8 @@ import ChatMessageService from 'src/app/services/chatDatas/chat-message.service'
   styleUrls: ['./textfield.component.scss']
 })
 export class TextfieldComponent {
+
+  @Input() chatOrThread !: string; 
 
   public textfieldForm : FormGroup = new FormGroup({
    
@@ -27,10 +29,10 @@ export class TextfieldComponent {
    * 
    * @param inputText value from the textareafield
    */
-  sendMessage(inputText: string) {
+  sendMessage(inputText: string) {    
     this.chatMessageService.messageText = inputText;
     this.chatMessageService.setMessageDatas();
-    this.chatMessageService.sendMessage();
+    this.chatMessageService.sendMessage(this.chatOrThread);
     this.clearTextarea(this.textfieldForm);
   }
 
