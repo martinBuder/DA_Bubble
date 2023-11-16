@@ -32,22 +32,6 @@
 	height: 30px
 }
 
-.chat-wrapper {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	position: relative;
-	flex: 1;
-}
-
-.chat-container {
-	padding: var(--bodyPadding);
-	padding-bottom: 15rem;
-	display: flex;
-	flex-direction: column;
-	gap: var(--bodyPadding);
-	height: 78vh;
-}
 
 .posFix {
 	height: 15vh;
@@ -60,9 +44,7 @@
 	padding: 4px var(--chatGap);
 }
 
-app-chat-date {
-	margin: 22px 0 -22px 0;
-}
+
 
 
 
