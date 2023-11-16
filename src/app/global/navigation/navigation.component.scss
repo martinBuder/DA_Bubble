@@ -25,6 +25,7 @@
 		padding: var(--chatGap);
 		border-radius: 25px;
 		transition: all ease-in-out 128ms;
+		cursor: pointer;
 
 			&:last-child {
 				margin-bottom: 0;

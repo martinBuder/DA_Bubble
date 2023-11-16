@@ -38,7 +38,7 @@
 			<ng-container *ngIf="i === 0 || message.date !== this.chatMessageService.channelMessages[i - 1].date">
 				<app-chat-date [date]="message.date"></app-chat-date>
 			</ng-container>
-			<app-message-wrapper [message]="message"></app-message-wrapper>
+			<app-message-wrapper [message]="message" [chatOrThread]="'chat'"></app-message-wrapper>
 		</ng-container>
 	</div>
 	<app-textfield class="posFix" [chatOrThread]="'chat'"></app-textfield>

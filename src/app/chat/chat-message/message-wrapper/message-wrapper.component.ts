@@ -17,11 +17,14 @@ import { OpenCloseService } from 'src/app/services/generally/open-close.service'
 export class MessageWrapperComponent {
 
   @Input() message !: Message;
+  @Input() chatOrThread !: string;
 
   allEmojis !: Array<any>;
   allEmojisOpen : boolean = false;
   editMessageWindow : boolean = false;
   textMessage !: string; 
+
+
   
   toggleEmojis() {
     this.allEmojisOpen = !this.allEmojisOpen;
@@ -138,19 +141,30 @@ export class MessageWrapperComponent {
 
     // * open thread Message
     
-    async answerToMessage() {   
+    async answerToMessage() { 
+      this.chatMessageService.comeFromAnswer = true; 
       this.openCloseService.threadChannel = {
         name: this.chatHeadDataService.channel.channelName,
         id: this.chatHeadDataService.channel.id
       }
       this.openCloseService.threadOpen = true;
       this.chatMessageService.messageThreadId = this.message.fireId;
+      let messageCopy = this.message;
+      messageCopy.reactions = [];
+      this.chatMessageService.threadFirstMessage = messageCopy;
       if(!this.message.threadExist) {
-        this.chatMessageService.threadMessages.push(this.message);
-        this.chatMessageService.threadFirstMessage = this.message        
+        this.chatMessageService.threadMessages = [];
+        this.chatMessageService.threadMessages.push(messageCopy);
+        await this.waitForThreadExist();  
       }
-      else
-       this.chatMessageService.getThreadMessagesList(); 
+      this.chatMessageService.getThreadMessagesList(); 
+    }
+
+
+    async waitForThreadExist() {
+      while (!this.chatMessageService.firstThreadMessageSent === true) {
+        await new Promise(resolve => setTimeout(resolve, 1000)); 
+      }      
     }
 
     // *deletedMessage
@@ -180,6 +194,7 @@ export class MessageWrapperComponent {
         year: ''
       }
       this.message.deletedMessage = true;
+
     }
 
     // * edit messeage

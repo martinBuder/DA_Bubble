@@ -28,3 +28,4 @@ export interface Message {
 	deletedMessage ?: boolean;
 	threadExist ?: boolean;
 }
+

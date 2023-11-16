@@ -36,6 +36,8 @@ export default class ChatMessageService {
   contactMistake: boolean = true;
   mailAddressMistake: boolean = false;
   today !: any;
+  comeFromAnswer : boolean = false;
+  firstThreadMessageSent : boolean = false;
 
   constructor(
     private firestore: Firestore,
@@ -62,6 +64,7 @@ export default class ChatMessageService {
       text: this.messageText,
       reactions: [],
       threadExist: false,
+      deletedMessage: false
     };
   }
 
@@ -183,7 +186,8 @@ export default class ChatMessageService {
       this.setFireChatCollection();
     if(chatOrThread === 'thread')
       this.setFireThreadCollection();
-    if(!this.messageDatas.threadExist) 
+    // !hier ist ein Fehler er darf hier nicht immer rein
+    if(!this.messageDatas.threadExist && this.comeFromAnswer) 
       await this.firstThreadOpen();
     this.getTime();
     this.setMessageDatas();
@@ -194,18 +198,35 @@ export default class ChatMessageService {
     if (this.selectedContact)
       this.contactsService.setContact(this.selectedContact.id);
     this.messageIsSent = true;
+    this.comeFromAnswer = false;
   }
 
+  /**
+   * add the first message, which opened the thread to firebase
+   */
   async firstThreadOpen() {
     this.threadFirstMessage.threadExist = true;
     await this.changeChannelMessage();
-    this.threadFirstMessage.reactions = [];  
     await this.fireDatabaseService.addItemToFirebase(
       this.chatMessagesListCollection,
       this.threadFirstMessage
     );
+    this.setFirstThreadMessageSent();
   }
 
+  /**
+   * change the firstThreadMessageSent variable
+   */
+  setFirstThreadMessageSent() {
+    this.firstThreadMessageSent = true;
+    setTimeout(() => {
+      this.firstThreadMessageSent = false;
+    }, 1000);
+  }
+
+  /**
+   * send the variable threadExist in the channel message 
+   */
   async changeChannelMessage(){
     if(this.openCloseService.threadChannel) {
       const chatMessagesListCollection = collection(
@@ -216,6 +237,9 @@ export default class ChatMessageService {
     }
   }
 
+  /**
+   * set the fire collection with the thread Datas
+   */
   setFireThreadCollection() {
     this.chatMessagesListCollection = collection(
       this.firestore,
@@ -223,6 +247,9 @@ export default class ChatMessageService {
     );
   }
 
+  /**
+   * set the fire collection with the chat Datas
+   */
   setFireChatCollection() {
     this.chatMessagesListCollection = collection(
       this.firestore,
