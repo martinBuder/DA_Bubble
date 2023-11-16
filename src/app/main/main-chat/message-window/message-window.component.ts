@@ -4,7 +4,7 @@ import { ChannelConfig } from 'src/app/interfaces/channel-config';
 import { UserProfile } from 'src/app/interfaces/user-profile';
 import { ChatHeadDatasService } from 'src/app/services/chatDatas/channel-head-datas.service';
 import ChatMessageService from 'src/app/services/chatDatas/chat-message.service';
-import { ContactsService } from 'src/app/services/chatDatas/contacts.service';
+import { FireDatabaseService } from 'src/app/services/firebase/fire-database.service';
 import { UserProfilesService } from 'src/app/services/userDatas/user-profiles.service';
 
 @Component({
@@ -30,10 +30,8 @@ export class MessageWindowComponent {
 
 
   constructor(
-    private userProfilesService: UserProfilesService,
-    private chatHeadDatasService: ChatHeadDatasService,
     public chatMessageService: ChatMessageService,
-    private contactsService: ContactsService,
+    private fireDatabaseService: FireDatabaseService
   ){
     this.channelFinderForm.valueChanges.subscribe(
       this.searchChatMember.bind(this)
@@ -52,10 +50,10 @@ export class MessageWindowComponent {
       else {
         searchedChat = searchedChat.slice(1);
         if(firstPos === '@') {
-          this.foundChannels = [];
+          this.foundProfiles = [];
           this.searchContact(searchedChat);   
         } else if(firstPos === '#') {
-          this.foundProfiles = [];
+          this.foundChannels = [];
           this.searchChannel(searchedChat);
         }
         if(this.foundChannels.length < 1 && this.foundProfiles.length < 1)
@@ -72,7 +70,7 @@ export class MessageWindowComponent {
    * @param searchedChat input
    */
   searchChannel(searchedChat : string){
-    this.foundChannels = this.chatHeadDatasService.userChannels.filter(
+    this.foundChannels = this.fireDatabaseService.userChannels.filter(
       (profile: any ) => profile.channelName.toLowerCase().includes(searchedChat.toLowerCase()),     
     );
     if (this.foundChannels.length > 0) 
@@ -87,7 +85,7 @@ export class MessageWindowComponent {
    * @param searchedChat input 
    */
   searchContact(searchedChat : string){
-    this.foundProfiles = this.userProfilesService.allAppUsers.filter(
+    this.foundProfiles = this.fireDatabaseService.allAppUsers.filter(
       (profile) => profile.userName.toLowerCase().includes(searchedChat.toLowerCase())
     );
     if (this.foundProfiles.length > 0) 

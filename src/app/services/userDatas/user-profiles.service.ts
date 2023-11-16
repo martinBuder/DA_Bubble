@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, doc, onSnapshot, query, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collection} from '@angular/fire/firestore';
 import { UserProfile } from '../../interfaces/user-profile';
 import { FireDatabaseService } from '../firebase/fire-database.service';
-import { FireAuthService } from '../firebase/fire-auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,6 @@ import { FireAuthService } from '../firebase/fire-auth.service';
 export class UserProfilesService {
 
   userProfileListCollection = collection(this.firestore, 'usersProfileList');
-  allAppUsers : Array<any> = [];
   userProfile !: UserProfile;
   contactProfile !: UserProfile;
   openProfile : boolean = false;
@@ -24,9 +22,7 @@ export class UserProfilesService {
    }
 
    getProfilesList() {
-    this.fireDatabaseService.getListFromFirebase(this.userProfileListCollection, this.allAppUsers);
-    // ~log muss weg
-    console.log(this.allAppUsers);
+    this.fireDatabaseService.getListFromFirebase(this.userProfileListCollection, 'allAppUsers');
    }
 
     /**
@@ -61,7 +57,7 @@ export class UserProfilesService {
       await this.fireDatabaseService.updateFireItem(this.userProfileListCollection, id, this.userProfile);
     }
 
-   
+  
 
     /**
      * search for profil in all profiles
@@ -70,7 +66,7 @@ export class UserProfilesService {
      * @returns object or undefine
      */
     findProfile(user: any) {
-      return this.allAppUsers.find(profile => profile.id == user.uid);
+      return this.fireDatabaseService.allAppUsers.find(profile => profile.id == user.uid);
     }
 
 

@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ChatHeadDatasService } from 'src/app/services/chatDatas/channel-head-datas.service';
 import { OpenCloseService } from 'src/app/services/generally/open-close.service';
 import { OpenedChannelService } from 'src/app/services/chatDatas/opened-channel.service';
-import { UserProfilesService } from 'src/app/services/userDatas/user-profiles.service';
+import { FireDatabaseService } from 'src/app/services/firebase/fire-database.service';
 
 @Component({
   selector: 'app-add-chat-members',
@@ -22,7 +22,7 @@ export class AddChatMembersComponent {
   constructor(
     public openCloseService: OpenCloseService,
     public openedChannelService: OpenedChannelService,
-    private userProfilesService: UserProfilesService,
+    private fireDatabaseService: FireDatabaseService,
     private chatHeadDatasService: ChatHeadDatasService
   ) {
     this.chatAddMemberForm.valueChanges.subscribe(
@@ -89,7 +89,7 @@ export class AddChatMembersComponent {
   searchChatMember(jsonValue: any) {
     let member = jsonValue.member.toLowerCase();
     if (member !== '') {
-      this.foundMembers = this.userProfilesService.allAppUsers.filter(
+      this.foundMembers = this.fireDatabaseService.allAppUsers.filter(
         (profile) => profile.userName.toLowerCase().includes(member)
       );
       if (this.foundMembers.length > 0 && this.foundMembers) {

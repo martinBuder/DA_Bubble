@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  Firestore,
-  collection,
-  onSnapshot,
-  query,
-} from '@angular/fire/firestore';
+import { Firestore, collection } from '@angular/fire/firestore';
 import { Message } from '../../interfaces/message';
 import { FireDatabaseService } from '../firebase/fire-database.service';
 import { FireAuthService } from '../firebase/fire-auth.service';
@@ -27,8 +22,6 @@ export default class ChatMessageService {
   messageChannelId: string = 'empty';
   messageThreadId!: string;
   chatMessagesListCollection!: any;
-  channelMessages: any | null = null;
-  threadMessages: any = [];
   chatToContact!: any;
   selectedContact!: UserProfile;
   messageIsSent: boolean = true;
@@ -107,19 +100,12 @@ export default class ChatMessageService {
    * get the messages from this channel
    */
   async getChannelMessagesList() {
-    const channelMessagesListCollection = collection(
+    const chatMessagesListCollection = collection(
       this.firestore,
       this.messageChannelId
     );    
-    onSnapshot(query(channelMessagesListCollection), (querySnapshot) => {
-      this.channelMessages = [];
-      querySnapshot.forEach((doc) => {
-        const messageData = doc.data();
-        messageData['fireId'] = doc.id;
-        this.channelMessages.push(messageData);
-      });
-      this.channelMessages.sort((a: any, b: any) => b.timestamp - a.timestamp); // sort the array by time backwards
-    });
+    this.fireDatabaseService.getListFromFirebase(chatMessagesListCollection, 'channelMessages'); 
+
   }
 
    /**
@@ -129,16 +115,8 @@ export default class ChatMessageService {
     const threadMessagesListCollection = collection(
       this.firestore,
       this.messageThreadId
-    );    
-     onSnapshot(query(threadMessagesListCollection), (querySnapshot) => {
-      this.threadMessages = [];
-      querySnapshot.forEach((doc) => {
-        const messageData = doc.data();
-        messageData['fireId'] = doc.id;
-        this.threadMessages.push(messageData);
-      });
-      this.channelMessages.sort((a: any, b: any) => b.timestamp - a.timestamp); // sort the array by time backwards
-    });
+    );   
+    this.fireDatabaseService.getListFromFirebase(threadMessagesListCollection, 'threadMessages'); 
   }
 
   /**
@@ -182,11 +160,15 @@ export default class ChatMessageService {
    * send the message in this app
    */
   async sendAppMessage(chatOrThread : string) {
+    console.log('here');
+    if (this.selectedContact)
+      this.contactsService.setContact(this.selectedContact.id);
     if(chatOrThread === 'chat') 
+      console.log(this.messageDatas);
+      
       this.setFireChatCollection();
     if(chatOrThread === 'thread')
       this.setFireThreadCollection();
-    // !hier ist ein Fehler er darf hier nicht immer rein
     if(!this.messageDatas.threadExist && this.comeFromAnswer) 
       await this.firstThreadOpen();
     this.getTime();
@@ -194,9 +176,7 @@ export default class ChatMessageService {
     await this.fireDatabaseService.addItemToFirebase(
       this.chatMessagesListCollection,
       this.messageDatas
-    );
-    if (this.selectedContact)
-      this.contactsService.setContact(this.selectedContact.id);
+    );  
     this.messageIsSent = true;
     this.comeFromAnswer = false;
   }

@@ -7,6 +7,18 @@ import { Firestore, addDoc, collection, deleteDoc, doc, onSnapshot, query, setDo
 })
 export class FireDatabaseService {
 
+  // *Arrays for firebaseFill
+  [key: string]: any; // ~ this we need to make from a string a variable name
+
+  userChannels : any = [ ];
+  channelMessages: any = [];
+  threadMessages: any = [];
+  allAppUsers : Array<any> = [];
+  contactChats: Array<any> = [];
+
+
+
+ 
   fireCollection !: any;  
 
   constructor(
@@ -19,16 +31,16 @@ export class FireDatabaseService {
      * @param fireCollection, that we use
      * @param projectArray, that we need for *ngFor 
      */   
-    getListFromFirebase(fireCollection: any, projectArray: any) {      
+    getListFromFirebase(fireCollection: any, fireArray: string) {      
       onSnapshot(query(fireCollection),
       (querySnapshot) => {
-        // projectArray = [];
+        let projectArray: any = [];
         querySnapshot.forEach((doc) => {
           const itemJson: any = doc.data();
           itemJson['id'] = doc.id;          
-          projectArray.push(itemJson);     
+          projectArray.push(itemJson);    
+          this[fireArray] = projectArray
         });   
-    
       });
     }
 
@@ -38,19 +50,21 @@ export class FireDatabaseService {
      * @param fireCollection, that we use
      * @param projectArray, that we need for *ngFor 
      */   
-     getQueryListFromFirebase(fireCollection: any, fireQuery: any, projectArray: Array<any>) {
+    async getQueryListFromFirebase(fireCollection: any, fireQuery: any, fireArray: string) {
       onSnapshot(query(fireCollection,fireQuery),
-      (querySnapshot) => {
-                // projectArray = [];
-
+      (querySnapshot) => { 
+        let projectArray: any = []
         querySnapshot.forEach((doc) => {
           const itemJson: any = doc.data();
           itemJson['id'] = doc.id;
           projectArray.push(itemJson);
-        });   
- 
-          
-      });
+          this[fireArray] = projectArray
+        }); 
+
+        console.log(projectArray);
+                
+        
+      })
     }
    
 

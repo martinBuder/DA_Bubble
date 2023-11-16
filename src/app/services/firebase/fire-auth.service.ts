@@ -14,7 +14,6 @@ import {
 } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { UserProfilesService } from '../userDatas/user-profiles.service';
-import { OpenCloseService } from '../generally/open-close.service';
 
 @Injectable({
   providedIn: 'root',

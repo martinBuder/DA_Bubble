@@ -8,8 +8,8 @@
 		</div>
 		<div class="chat-wrapper">
 			<div class="chat-container scrollbar-none">
-				<ng-container *ngFor="let message of this.chatMessageService.threadMessages; let i = index">
-					<ng-container *ngIf="i === 0 || message.date !== this.chatMessageService.threadMessages[i - 1].date">
+				<ng-container *ngFor="let message of this.fireDatabaseService.threadMessages; let i = index">
+					<ng-container *ngIf="i === 0 || message.date !== this.fireDatabaseService.threadMessages[i - 1].date">
 						<app-chat-date [date]="message.date"></app-chat-date>
 					</ng-container>
 					<app-message-wrapper [message]="message" [chatOrThread]="'thread'"></app-message-wrapper>

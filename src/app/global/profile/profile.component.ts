@@ -22,9 +22,6 @@ export class ProfileComponent {
     this.openCloseService.chatHeader = 'startHeader';
     this.chatMessageService.selectedContact.id = contactProfile.id;
     this.chatMessageService.findChatForMessage();
-
     contactProfile = null;
-    console.log(contactProfile);
-    
   }
 }

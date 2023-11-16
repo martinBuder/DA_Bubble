@@ -7,7 +7,7 @@
   </div>
   <ul class="contact-list scrollbar-none">
     <ng-container
-      *ngFor="let chat of this.contactService.contactChats; let i = index"
+      *ngFor="let chat of this.fireDatabaseService.contactChats; let i = index"
     >
       <ng-container *ngIf="chat.contact">
         <li

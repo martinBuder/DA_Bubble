@@ -27,7 +27,6 @@ import { AddChannelComponent } from './main/sidebar-left/add-channel/add-channel
 import { EditChannelComponent } from './chat/edit-channel/edit-channel.component';
 import { ShowMembersComponent } from './main/sidebar-left/show-members/show-members.component';
 import { AddChatMembersComponent } from './chat/chat-persons/add-chat-members/add-chat-members.component';
-import { EditMessageComponent } from './chat/chat-message/edit-message/edit-message.component';
 import { CheckInComponent } from './checkin/check-in/check-in.component';
 import { ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -71,7 +70,6 @@ import { AddContactComponent } from './chat/chat-persons/add-contact/add-contact
     EditChannelComponent,
     ShowMembersComponent,
     AddChatMembersComponent,
-    EditMessageComponent,
     CheckInComponent,
     ChatSiteComponent,
     ChannelAreaComponent,

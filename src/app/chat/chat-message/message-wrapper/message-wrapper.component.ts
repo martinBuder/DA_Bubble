@@ -166,8 +166,8 @@ export class MessageWrapperComponent {
     messageCopy.reactions = [];
     this.chatMessageService.threadFirstMessage = messageCopy;
     if (!this.message.threadExist) {
-      this.chatMessageService.threadMessages = [];
-      this.chatMessageService.threadMessages.push(messageCopy);
+      this.fireDatabaseService.threadMessages = [];
+      this.fireDatabaseService.threadMessages.push(messageCopy);
       await this.waitForThreadExist();
     }
     this.chatMessageService.getThreadMessagesList();

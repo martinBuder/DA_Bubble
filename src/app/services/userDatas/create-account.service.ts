@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { CheckInSiteServiceService } from '../generally/check-in-site-service.service';
 import { FireAuthService } from '../firebase/fire-auth.service';
 
 

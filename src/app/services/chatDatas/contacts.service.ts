@@ -1,14 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ChatConfig } from '../../interfaces/chat-config';
-import {
-  Firestore,
-  collection,
-  where,
-} from '@angular/fire/firestore';
-
-import { UserProfilesService } from '../userDatas/user-profiles.service';
+import { Firestore, collection, where } from '@angular/fire/firestore';
 import { FireAuthService } from '../firebase/fire-auth.service';
 import { FireDatabaseService } from '../firebase/fire-database.service';
+import { ChatHeadDatasService } from './channel-head-datas.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,15 +16,17 @@ export class ContactsService {
     contactId: ['', ''],
   };
 
-  contactChats: Array<any> = [];
   contactsListCollection = collection(this.firestore, 'contactsList');
 
   constructor(
     private firestore: Firestore,
     private fireAuthService: FireAuthService,
     private fireDatabaseService: FireDatabaseService,
-    private userProfilesService: UserProfilesService,
   ) {
+    this.startContact();
+  } 
+   
+  startContact() {
     this.getChannelList();
     this.fillContactDataInChannel();
   }
@@ -51,31 +48,32 @@ export class ContactsService {
     }    
   }
 
+   /**
+   * filter the right contacts for user from firebase with abo
+   */
+   async getChannelList() {
+    await this.fireAuthService.waitForNotNullValue();
+      this.fireDatabaseService.getQueryListFromFirebase(
+      this.contactsListCollection,
+      where('contactId', 'array-contains', this.fireAuthService.fireUser.uid),
+      'contactChats'
+    );
+  }
   
   createChatDatalId(contactUserId: any){
     let idsToConnect = [this.fireAuthService.fireUser.uid, contactUserId].sort();
     return idsToConnect.join('');   
   }
 
-  addContact() {
-    this.fireDatabaseService.setItemToFirebase(
+  async addContact() {
+    await this.fireDatabaseService.setItemToFirebase(
       'contactsList',
       this.chatData.id,
       this.chatData,
     );
+    this.fillContactDataInChannel()
   }
 
-  /**
-   * filter the right contacts for user from firebase with abo
-   */
-  async getChannelList() {
-    await this.fireAuthService.waitForNotNullValue();
-    this.fireDatabaseService.getQueryListFromFirebase(
-      this.contactsListCollection,
-      where('contactId', 'array-contains', this.fireAuthService.fireUser.uid),
-      this.contactChats
-    );
-  }
 
   /**
    * search for the member informations in all appUsers
@@ -85,11 +83,11 @@ export class ContactsService {
    */
   async fillContactDataInChannel() {
     await this.waitForNotNullValue();
-    this.contactChats.forEach((chat: any) => {
+    this.fireDatabaseService.contactChats.forEach((chat: any) => {
       const searchId = chat.contactId
         .filter((id: any) => id !== this.fireAuthService.fireUser.uid)
         .toString();
-      chat.contact = this.userProfilesService.allAppUsers.find(
+      chat.contact = this.fireDatabaseService.allAppUsers.find(
         (profile) => profile.id == searchId
       );
     });
@@ -99,7 +97,7 @@ export class ContactsService {
    * wait that contactChats is filled
    */
   async waitForNotNullValue() {
-    while (this.contactChats.length === 0) {
+    while (this.fireDatabaseService.contactChats.length === 0) {
       await new Promise((resolve) => setTimeout(resolve, 1000));
     }
   }

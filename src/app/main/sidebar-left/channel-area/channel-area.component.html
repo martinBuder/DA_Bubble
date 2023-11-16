@@ -9,7 +9,7 @@
 		<mat-icon (click)="this.chatHeadDatasService.openAddChannel = true">add</mat-icon>
 	</div>
 	<ul class="channel-list scrollbar-none" *ngIf="channelsOpen">
-			<ng-container *ngFor="let channel of this.chatHeadDatasService.userChannels; let i = index">
+			<ng-container *ngFor="let channel of this.fireDatabaseService.userChannels; let i = index">
 				<li class="pointer" (click)="this.chatHeadDatasService.chatOpen = true" (click)="this.openedChannelService.openChannel(i)"><mat-icon>numbers</mat-icon><p>{{ channel.channelName }}</p></li>
 			</ng-container>
 		<li (click)="this.chatHeadDatasService.openAddChannel = true" class="pointer"><mat-icon>add_circle_outline</mat-icon><p>add channel</p></li>

@@ -11,7 +11,6 @@ import { FireAuthService } from 'src/app/services/firebase/fire-auth.service';
 })
 export class HeaderComponent {
   
-
   navOpen : boolean = true;
 
   constructor(
