@@ -15,9 +15,6 @@ export class FireDatabaseService {
   threadMessages: any = [];
   allAppUsers : Array<any> = [];
   contactChats: Array<any> = [];
-
-
-
  
   fireCollection !: any;  
 
@@ -41,7 +38,12 @@ export class FireDatabaseService {
           projectArray.push(itemJson);    
           this[fireArray] = projectArray
         });   
-      });
+        if(fireArray === 'channelMessages' || fireArray === 'threadMessages')           
+        projectArray.sort((a: any, b: any) => b.timestamp - a.timestamp);
+        console.log(projectArray);
+        });
+     
+        
     }
 
      /**
@@ -60,7 +62,7 @@ export class FireDatabaseService {
           projectArray.push(itemJson);
           this[fireArray] = projectArray
         }); 
-      })
+      });
     }
    
 
@@ -72,7 +74,11 @@ export class FireDatabaseService {
      * @param item 
      */
     async setItemToFirebase(fireList: string, fireListId: any, item: any) {
-      await setDoc(doc(this.firestore, fireList, fireListId), item)
+      console.log(this.firestore);
+      
+      const fireCollection = collection(this.firestore, fireList);
+      const fireDocRef = doc(fireCollection, fireListId)
+      await setDoc(fireDocRef, item)
     }
 
     async addItemToFirebase(fireList: any, item: any) {

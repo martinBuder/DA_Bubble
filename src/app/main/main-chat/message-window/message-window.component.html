@@ -46,15 +46,18 @@
 				</div>
 			</ng-container>
 		</div>
-		<p class="error" *ngIf="this.chatAddressMistake">Keinen User oder Channel gefunden werden.
+		<p class="error" *ngIf="this.chatAddressMistake">FEHLER - Keinen User oder Channel gefunden werden.
 		</p>
-		<p class="error" *ngIf="this.chatMessageService.mailAddressMistake">Fehler in der E-Mail-Adresse.
+		<p class="error" *ngIf="this.chatMessageService.mailAddressMistake">FEHLER - E-Mail-Adresse ist nicht korrekt.
+		</p>
+		<p class="error" *ngIf="this.chatMessageService.noSelectedContact">FEHLER - Nachricht wurde nicht gesendet. Kontakt fehlt.
+
 		</p>
 	</form>
 
 </div>
 <div class="message-window-body">
-	<app-textfield class="posFix"></app-textfield>
+	<app-textfield class="posFix" [chatOrThread]="'chat'"></app-textfield>
 </div>
 
 

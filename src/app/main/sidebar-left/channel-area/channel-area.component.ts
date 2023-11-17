@@ -21,4 +21,8 @@ export class ChannelAreaComponent {
     this.chatHeadDatasService.fillMembersDataInChannel();
   };
 
+  toggleChannelsOpen() {
+    this.channelsOpen = !this.channelsOpen
+  }
+
 }

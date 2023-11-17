@@ -7,9 +7,9 @@
 					<mat-icon (click)="toggleEmojis()" *ngIf="!this.textEmojisOpen">add_reaction_inline</mat-icon>
 					<mat-icon (click)="toggleEmojis()" *ngIf="this.textEmojisOpen" class="abc">abc</mat-icon>
 				</div>
-				<div class="send-btn pointer">
-					<mat-icon (click)="sendMessage(this.textfieldForm.value.textarea)">send</mat-icon>
-				</div>
+					<button class="textfield-btn" [disabled]="!textfieldForm.valid" (click)="sendMessage(this.textfieldForm.value.textarea)">
+						<mat-icon>send</mat-icon>
+					</button>
 			</div>
 			<ng-container *ngIf="this.textEmojisOpen">
 				<div class="emojis-background pointer" (click)="toggleEmojis()"></div>

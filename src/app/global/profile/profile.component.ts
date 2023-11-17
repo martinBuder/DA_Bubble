@@ -20,7 +20,7 @@ export class ProfileComponent {
   writeMessage(contactProfile : any) {
     this.userProfilesService.openProfile = false;
     this.openCloseService.chatHeader = 'startHeader';
-    this.chatMessageService.selectedContact.id = contactProfile.id;
+    this.chatMessageService.selectedContact = contactProfile;
     this.chatMessageService.findChatForMessage();
     contactProfile = null;
   }

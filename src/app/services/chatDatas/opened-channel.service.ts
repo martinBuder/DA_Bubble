@@ -23,8 +23,8 @@ export class OpenedChannelService {
    * 
    * @param channelIndex 
    */
-  openChannel(channelIndex : number) {
-    this.fireDatabaseServie.channelMessages = [];
+  async openChannel(channelIndex : number) {
+    this.chatMessageService.clearOldChatDatas();
     this.openCloseService.chatHeader = 'channelHeader';
     this.openedChannel = this.fireDatabaseServie.userChannels[channelIndex];   
     this.chatHeadDatasService.channel = this.openedChannel;

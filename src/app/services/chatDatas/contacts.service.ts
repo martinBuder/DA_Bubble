@@ -34,7 +34,7 @@ export class ContactsService {
   /**
    * the way to add a contact
    */
-  setContact(contactId: string) {
+  setContact(contactId: string) {    
     this.setChatConfig(contactId);
     this.addContact();
   }
@@ -53,7 +53,7 @@ export class ContactsService {
         ],
         id: this.createChatDatalId(contactUserId)
       };
-    }    
+    }        
   }
 
    /**
@@ -83,6 +83,7 @@ export class ContactsService {
    * add a new contact with all informations
    */
   async addContact() {
+    console.log(this.chatData);    
     await this.fireDatabaseService.setItemToFirebase(
       'contactsList',
       this.chatData.id,

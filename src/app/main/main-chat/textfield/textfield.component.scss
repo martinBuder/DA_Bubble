@@ -67,10 +67,16 @@
 	border-radius: 25px;
 }
 
-.send-btn {
+.textfield-btn {
+	background-color: var(--colorWhite);
+	border: none;
 
-	&:hover {
-		color: var(--colorPurple);
+	&:enabled mat-icon {
+		&:hover {
+			color: var(--colorPurple);
+			cursor: pointer;
+		}
 	}
+	
 }
 

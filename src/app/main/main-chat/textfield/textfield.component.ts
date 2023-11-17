@@ -37,11 +37,15 @@ export class TextfieldComponent {
    * 
    * @param inputText value from the textareafield
    */
-  sendMessage(inputText: string) {    
+  async sendMessage(inputText: string) {       
     this.chatMessageService.messageText = inputText;
     this.chatMessageService.setMessageDatas();
-    this.chatMessageService.sendMessage(this.chatOrThread);
-    this.clearTextarea(this.textfieldForm);
+    await this.chatMessageService.sendMessage(this.chatOrThread);
+    if(!this.chatMessageService.noSelectedContact)
+      this.clearTextarea(this.textfieldForm);
+    setTimeout(() => {
+      this.chatMessageService.noSelectedContact = false;
+    }, 2000);
   }
 
   /**

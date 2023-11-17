@@ -1,32 +1,37 @@
 <div class="members-wrapper">
-  <div class="members-header">
+  <div class="members-header pointer" (click)="toggleContactsOpen()">
     <h4 class="members-text">
+      <mat-icon  *ngIf="contactsOpen">arrow_drop_down</mat-icon>
+      <mat-icon *ngIf="!contactsOpen" class="closedArrow">arrow_drop_down</mat-icon>
       <mat-icon>people_outline</mat-icon>
       <p>Direktnachrichten</p>
     </h4>
   </div>
-  <ul class="contact-list scrollbar-none">
-    <ng-container
-      *ngFor="let chat of this.fireDatabaseService.contactChats; let i = index"
-    >
-      <ng-container *ngIf="chat.contact">
-        <li
-          class="pointer"
-          (click)="this.openContactChat(chat)"
-        >
-          <div class="person-img-wrapper">
-            <img src="{{ chat.contact.userImg }}" alt="" />
-            <div
-              class="status-point"
-              [ngClass]="{
-                'online-point': chat.contact.userOnline,
-                'offline-point': !chat.contact.userOnline
-              }"
-            ></div>
-          </div>
-          <p>{{ chat.contact.userName }}</p>
-        </li>
+  <ng-container *ngIf="contactsOpen">
+    <ul class="contact-list scrollbar-none" >
+      <ng-container
+        *ngFor="let chat of this.fireDatabaseService.contactChats; let i = index"
+      >
+        <ng-container *ngIf="chat.contact">
+          <li
+            class="pointer"
+            (click)="this.openContactChat(chat)"
+          >
+            <div class="person-img-wrapper">
+              <img src="{{ chat.contact.userImg }}" alt="" />
+              <div
+                class="status-point"
+                [ngClass]="{
+                  'online-point': chat.contact.userOnline,
+                  'offline-point': !chat.contact.userOnline
+                }"
+              ></div>
+            </div>
+            <p>{{ chat.contact.userName }}</p>
+          </li>
+        </ng-container>
       </ng-container>
-    </ng-container>
-  </ul>
+    </ul>
+  </ng-container>
+ 
 </div>

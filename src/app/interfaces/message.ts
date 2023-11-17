@@ -1,7 +1,7 @@
 import { Time } from "@angular/common";
 
 export interface Message {
-	fireId?: any;
+	id?: any;
 	timestamp: any;
 	date: any;
 	time: any;
@@ -18,11 +18,11 @@ export interface Message {
 		}>
 	}>;
 	text: string;
-	lastEditedTime ?: {
+	lastEditedTime : {
 		date: any;
 		time: string;
 		year: string
-	};
+	} | null;
 	answerAmount?: number;
 	lastAnswerTime?: string;
 	deletedMessage ?: boolean;

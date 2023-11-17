@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ChatHeadDatasService } from 'src/app/services/chatDatas/channel-head-datas.service';
+import ChatMessageService from 'src/app/services/chatDatas/chat-message.service';
 import { OpenCloseService } from 'src/app/services/generally/open-close.service';
 
 @Component({
@@ -11,10 +12,12 @@ export class SidebarLeftComponent {
 
   constructor(
     public chatHeadDatasService: ChatHeadDatasService,
-    public openCloseService: OpenCloseService
+    public openCloseService: OpenCloseService,
+    private chatMessageService: ChatMessageService
     ){ };
 
     openStartHeader(){
+      this.chatMessageService.clearOldChatDatas();
       this.openCloseService.chatHeader = 'startHeader';
     }
 

@@ -11,10 +11,6 @@
 	align-items: center;
 	gap: var(--chatGap);
 	margin-bottom: var(--chatGap);
-
-	mat-icon {
-		cursor: pointer;
-	}
 }
 
 .channel-text {

@@ -19,11 +19,11 @@ export default class ChatMessageService {
   messageText!: string;
   messageDatas!: Message;
   threadFirstMessage !: Message;
-  messageChannelId: string = 'empty';
+  messageChannelId: string | null = null;
   messageThreadId!: string;
   chatMessagesListCollection!: any;
   chatToContact!: any;
-  selectedContact!: UserProfile;
+  selectedContact : UserProfile | null = null;
   messageIsSent: boolean = true;
   contactMail: string | null = null;
   contactMistake: boolean = true;
@@ -31,6 +31,7 @@ export default class ChatMessageService {
   today !: any;
   comeFromAnswer : boolean = false;
   firstThreadMessageSent : boolean = false;
+  noSelectedContact : boolean = false;
 
   constructor(
     private firestore: Firestore,
@@ -57,7 +58,8 @@ export default class ChatMessageService {
       text: this.messageText,
       reactions: [],
       threadExist: false,
-      deletedMessage: false
+      deletedMessage: false,
+      lastEditedTime: null
     };
   }
 
@@ -70,12 +72,25 @@ export default class ChatMessageService {
     }
   }
 
+  clearOldChatDatas() {
+    this.contactMail = null;
+    this.selectedContact = null;
+    this.messageChannelId = null;
+    this.fireDatabaseService.channelMessages = [];
+  }
+
   /**
    * add messeage to firebase
    */
-  sendMessage(chatOrThread : string) { 
-    if (this.contactMail !== null) this.sendEmail();
-    else this.sendAppMessage(chatOrThread);
+  async sendMessage(chatOrThread : string) {     
+    if (this.contactMail === null &&
+        this.selectedContact === null &&
+        this.messageChannelId === null) {    
+         this.noSelectedContact = true;
+        } else {
+          if (this.contactMail !== null) this.sendEmail();
+          else this.sendAppMessage(chatOrThread);
+        }
   }
 
   /**
@@ -100,18 +115,19 @@ export default class ChatMessageService {
    * get the messages from this channel
    */
   async getChannelMessagesList() {
-    const chatMessagesListCollection = collection(
-      this.firestore,
-      this.messageChannelId
-    );    
-    this.fireDatabaseService.getListFromFirebase(chatMessagesListCollection, 'channelMessages'); 
-
+    if(this.messageChannelId !== null) {
+      const chatMessagesListCollection = collection(
+        this.firestore,
+        this.messageChannelId
+      );    
+      this.fireDatabaseService.getListFromFirebase(chatMessagesListCollection, 'channelMessages'); 
+    }
   }
 
    /**
    * get the messages from this channel
    */
-   async getThreadMessagesList() {
+   async getThreadMessagesList() {   
     const threadMessagesListCollection = collection(
       this.firestore,
       this.messageThreadId
@@ -131,12 +147,15 @@ export default class ChatMessageService {
    * we sort it so that is always the same number for contact and for the fireUser
    */
   async createMessageChannelId() {
-    let idsToConnect = [
-      this.fireAuthService.fireUser.uid,
-      this.selectedContact.id,
-    ].sort();
-    this.messageChannelId = idsToConnect.join('');
+    if(this.selectedContact !== null) {
+      let idsToConnect = [
+        this.fireAuthService.fireUser.uid,
+        this.selectedContact.id,
+      ].sort();
+      this.messageChannelId = idsToConnect.join('');
+    }    
   }
+  
 
   /**
    * fill the selectContact with the contactProfile
@@ -144,7 +163,7 @@ export default class ChatMessageService {
    * @param profile
    */
   selectContact(profile: UserProfile) {
-    this.selectedContact = profile;
+    this.selectedContact = profile;    
   }
 
   /**
@@ -159,20 +178,20 @@ export default class ChatMessageService {
   /**
    * send the message in this app
    */
-  async sendAppMessage(chatOrThread : string) {
-    console.log('here');
+  async sendAppMessage(chatOrThread : string) {   
+    if(chatOrThread === 'chat')      
+    this.setFireChatCollection();
+    if(chatOrThread === 'thread')
+    this.setFireThreadCollection();
     if (this.selectedContact)
       this.contactsService.setContact(this.selectedContact.id);
-    if(chatOrThread === 'chat') 
-      console.log(this.messageDatas);
-      
-      this.setFireChatCollection();
-    if(chatOrThread === 'thread')
-      this.setFireThreadCollection();
-    if(!this.messageDatas.threadExist && this.comeFromAnswer) 
+    if(!this.messageDatas.threadExist && this.comeFromAnswer) {
       await this.firstThreadOpen();
+    }
     this.getTime();
     this.setMessageDatas();
+    console.log(this.messageDatas);
+    
     await this.fireDatabaseService.addItemToFirebase(
       this.chatMessagesListCollection,
       this.messageDatas
@@ -191,7 +210,7 @@ export default class ChatMessageService {
       this.chatMessagesListCollection,
       this.threadFirstMessage
     );
-    this.setFirstThreadMessageSent();
+     this.setFirstThreadMessageSent();
   }
 
   /**
@@ -213,14 +232,14 @@ export default class ChatMessageService {
         this.firestore,
         this.openCloseService.threadChannel.id
       );    
-      await this.fireDatabaseService.updateFireItem(chatMessagesListCollection, this.threadFirstMessage.fireId, this.threadFirstMessage)
+      await this.fireDatabaseService.updateFireItem(chatMessagesListCollection, this.threadFirstMessage.id, this.threadFirstMessage)
     }
   }
 
   /**
    * set the fire collection with the thread Datas
    */
-  setFireThreadCollection() {
+  setFireThreadCollection() {   
     this.chatMessagesListCollection = collection(
       this.firestore,
       this.messageThreadId
@@ -231,10 +250,12 @@ export default class ChatMessageService {
    * set the fire collection with the chat Datas
    */
   setFireChatCollection() {
+    if(this.messageChannelId !== null) {
     this.chatMessagesListCollection = collection(
       this.firestore,
       this.messageChannelId
     );
+    }
   }
 
   /**

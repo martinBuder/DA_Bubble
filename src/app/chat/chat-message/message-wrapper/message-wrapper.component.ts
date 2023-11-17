@@ -52,16 +52,18 @@ export class MessageWrapperComponent {
    * @param emoji
    */
   async addEmoji(emoji: any) {
-    const chatMessagesListCollection = collection(
-      this.firestore,
-      this.chatMessageService.messageChannelId
-    );
-    await this.setEmojiDatas(emoji, this.message);
-    this.fireDatabaseService.updateFireItem(
-      chatMessagesListCollection,
-      this.message.fireId,
-      this.message
-    );
+    if(this.chatMessageService.messageChannelId !== null) {
+      const chatMessagesListCollection = collection(
+        this.firestore,
+        this.chatMessageService.messageChannelId
+      );
+      await this.setEmojiDatas(emoji, this.message);
+      this.fireDatabaseService.updateFireItem(
+        chatMessagesListCollection,
+        this.message.id,
+        this.message
+      );
+    }
   }
 
   /**
@@ -155,19 +157,21 @@ export class MessageWrapperComponent {
   // * open thread Message
 
   async answerToMessage() {
-    this.chatMessageService.comeFromAnswer = true;
     this.openCloseService.threadChannel = {
       name: this.chatHeadDataService.channel.channelName,
       id: this.chatHeadDataService.channel.id,
-    };
+    };    
     this.openCloseService.threadOpen = true;
-    this.chatMessageService.messageThreadId = this.message.fireId;
+    this.chatMessageService.messageThreadId = this.message.id; 
+    this.chatMessageService.comeFromAnswer = true;
+    this.chatMessageService.threadFirstMessage = this.message;  
     let messageCopy = this.message;
     messageCopy.reactions = [];
+    messageCopy.lastEditedTime = null; 
     this.chatMessageService.threadFirstMessage = messageCopy;
     if (!this.message.threadExist) {
       this.fireDatabaseService.threadMessages = [];
-      this.fireDatabaseService.threadMessages.push(messageCopy);
+      this.fireDatabaseService.threadMessages.push(messageCopy);    
       await this.waitForThreadExist();
     }
     this.chatMessageService.getThreadMessagesList();
@@ -235,15 +239,18 @@ export class MessageWrapperComponent {
   }
 
   async sendUpdateDatasToFirebaseService() {
+    if(this.chatMessageService.messageChannelId !== null) {
+
     const chatMessagesListCollection = collection(
       this.firestore,
       this.chatMessageService.messageChannelId
     );
     await this.fireDatabaseService.updateFireItem(
       chatMessagesListCollection,
-      this.message.fireId,
+      this.message.id,
       this.message
     );
+    }
   }
 
   /**
