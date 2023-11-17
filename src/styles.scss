@@ -430,6 +430,38 @@ app-chat-date {
 	height: 78vh;
 }
 
+// *emojis
+.all-emojies-wrapper {
+	position: absolute;
+	top: 30px;
+	left: 0;
+	z-index: 20;
+	display: flex;
+	justify-content: center;
+	gap: 5px;
+	flex-wrap: wrap;
+	width: 40vw;
+	height: 300px;
+	background-color: var(--colorBackground);
+	padding: var(--chatGap);
+	border: 1px solid var(--colorPurple);
+	border-radius: 10px;
+}
+
+.emojis-background {
+	width: 100svw;
+	height: 100svh;
+	top: 0;
+	left: 0;
+	position: fixed;
+	z-index: 20;	
+	background: rgba(0,0,0, 0.1);
+}
+
+.emoji-list-item {
+	font-size: 1.5rem;
+}
+
 
 @media screen and (max-width: 600px) {
 

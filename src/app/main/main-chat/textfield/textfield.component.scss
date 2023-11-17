@@ -11,6 +11,7 @@
 	flex-direction: column;
 	padding: var(--chatGap);
 	gap: var(--chatGap);
+	position: relative;
 
 
 	&:focus-within { //with '-within' we can style the parent of focused elements
@@ -37,20 +38,39 @@
 	display: flex;
 	align-items: center;
 	min-height: min-content;
+	min-width: min-content;
 	gap: var(--chatGap);
 
 	mat-icon {
 		color: var(--colorTextGrey);
 		font-size: 1.4rem;
 		cursor: pointer;
+		position: relative;
+		z-index: 30;	
 
-		&:first-child {
-			border-right: 2px solid var(--colorTextGrey);
-		}
-
-		&:hover {
+	&:hover {
 			color: var(--colorPurple);
 		}
+	}
+
+	.abc {
+		width: min-content;
+		font-size: 2rem;
+	}
+}
+
+.textfield-backdrop .all-emojies-wrapper {
+	top: -104px;
+	width: 100%;
+	height: 100px;
+	overflow: auto;
+	border-radius: 25px;
+}
+
+.send-btn {
+
+	&:hover {
+		color: var(--colorPurple);
 	}
 }
 

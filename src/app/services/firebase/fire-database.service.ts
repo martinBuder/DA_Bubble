@@ -60,10 +60,6 @@ export class FireDatabaseService {
           projectArray.push(itemJson);
           this[fireArray] = projectArray
         }); 
-
-        console.log(projectArray);
-                
-        
       })
     }
    

@@ -1,15 +1,23 @@
 <div class="textfield-backdrop">
+
 	<form class="textfield-wrapper" [formGroup]="textfieldForm">
 		<textarea name="" id="" rows="3" placeholder="Aa" formControlName="textarea"></textarea>
 			<div class="textfield-bottom">
 				<div class="icon-container">
-					<mat-icon>add</mat-icon>
-					<mat-icon>add_reaction_inline</mat-icon>
-					<mat-icon>alternate_email</mat-icon>
+					<mat-icon (click)="toggleEmojis()" *ngIf="!this.textEmojisOpen">add_reaction_inline</mat-icon>
+					<mat-icon (click)="toggleEmojis()" *ngIf="this.textEmojisOpen" class="abc">abc</mat-icon>
 				</div>
 				<div class="send-btn pointer">
 					<mat-icon (click)="sendMessage(this.textfieldForm.value.textarea)">send</mat-icon>
 				</div>
 			</div>
+			<ng-container *ngIf="this.textEmojisOpen">
+				<div class="emojis-background pointer" (click)="toggleEmojis()"></div>
+				<div class="all-emojies-wrapper scrollbar-none">
+					<div class="emoji-list-item pointer" *ngFor="let emoji of allEmojis" (click)="selectEmoji(emoji.unicode)">
+						{{ emoji.unicode }}
+					</div>
+				</div>
+			</ng-container>
 	</form>
 </div>

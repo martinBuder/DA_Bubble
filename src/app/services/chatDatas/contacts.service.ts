@@ -31,11 +31,19 @@ export class ContactsService {
     this.fillContactDataInChannel();
   }
 
+  /**
+   * the way to add a contact
+   */
   setContact(contactId: string) {
     this.setChatConfig(contactId);
     this.addContact();
   }
 
+  /**
+   * fill the contact with all datas 
+   * 
+   * @param contactUserId 
+   */
   setChatConfig(contactUserId: string) {
     if (this.fireAuthService.fireUser !== null) {
       this.chatData = {
@@ -60,11 +68,20 @@ export class ContactsService {
     );
   }
   
+  /**
+   * take the id's from the new and make them to a new id, which is the same for both persons
+   * 
+   * @param contactUserId 
+   * @returns 
+   */
   createChatDatalId(contactUserId: any){
     let idsToConnect = [this.fireAuthService.fireUser.uid, contactUserId].sort();
     return idsToConnect.join('');   
   }
 
+  /**
+   * add a new contact with all informations
+   */
   async addContact() {
     await this.fireDatabaseService.setItemToFirebase(
       'contactsList',
