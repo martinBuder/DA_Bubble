@@ -17,9 +17,10 @@
 <div class="own-img-container">
 	<p>eigenes Bild verwenden</p>
 	<!-- !eigenes Bild laden -->
-	<button disabled class="secondary-btn">Datei hochladen</button>
+	<button (click)="toggleImgUploadOpen()" class="secondary-btn">Datei hochladen</button>
 </div>
 <button class="primary-btn one-btn" (click)="finishCreateAccount()">Weiter</button>
+<app-image-upload></app-image-upload>
 <div class="spinner-wrapper" *ngIf="creatingAccount">
 	<mat-spinner class="spinner"></mat-spinner>
 </div>

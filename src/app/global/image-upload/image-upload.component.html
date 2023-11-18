@@ -1,0 +1,46 @@
+<ng-container *ngIf="this.openCloseService.imgUploadOpen">
+	<div class="pop-up-background" (click)="this.openCloseService.imgUploadOpen = false">
+		<div class="pop-up-container" (click)="$event.stopPropagation()">
+			<div class="space-between">
+				<h4>Profilebild hochladen</h4>
+				<mat-icon (click)="this.openCloseService.imgUploadOpen = false" class="pointer">close</mat-icon>
+			</div>
+			<div class="inputfield-wrapper">
+				<input type="file" accept="image/*" (change)="selectFile($event)" />
+				<button class="btn btn-success btn-sm float-right" [disabled]="!selectedFiles" (click)="upload()"> 
+					Upload
+				</button>
+			</div>
+			<div>
+				<img [src]="preview" class="preview">
+			</div>
+			<div *ngIf="currentFile && progress" class="progress">
+				<div
+						class="progress-bar progress-bar-info"
+						role="progressbar"
+						attr.aria-valuenow="{{ progress }}"
+						aria-valuemin="0"
+						aria-valuemax="100"
+						[ngStyle]="{ width: progress + '%' }"
+				>
+						{{ progress }}%
+				</div>
+			</div>
+			<div *ngIf="message" class="alert alert-secondary" role="alert">
+				{{ message }}
+			</div>
+			<div class="card mt-3">
+				<div class="card-header">List of Images</div>
+				<ul class="list-group list-group-flush">
+						<li *ngFor="let image of imageInfos | async" class="list-group-item">
+								<p><a href="{{ image.url }}">{{ image.name }}</a></p>
+								<img src="{{ image.url }}" alt="{{ image.name }}" height="80px" />
+						</li>
+				</ul>
+			</div>
+
+		</div>
+	</div>
+</ng-container>
+
+

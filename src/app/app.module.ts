@@ -44,6 +44,8 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { MessageWindowComponent } from './main/main-chat/message-window/message-window.component';
 import { ChatMembersComponent } from './chat/chat-persons/chat-members/chat-members.component';
 import { AddContactComponent } from './chat/chat-persons/add-contact/add-contact.component';
+import { ImageUploadComponent } from './global/image-upload/image-upload.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -77,9 +79,11 @@ import { AddContactComponent } from './chat/chat-persons/add-contact/add-contact
     MessageWindowComponent,
     ChatMembersComponent,
     AddContactComponent,
+    ImageUploadComponent,
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
