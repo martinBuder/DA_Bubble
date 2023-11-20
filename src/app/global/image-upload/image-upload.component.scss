@@ -1,0 +1,32 @@
+.upload-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: var(--chatGap);
+}
+
+$preview-img: 100px;
+
+.upload-preview {
+	width: $preview-img;
+	height: $preview-img;
+}
+
+.progress {
+	flex: 1;
+	background-color: var(--colorBackground);
+	border-radius: 100px;
+	border: 1px solid var(--colorPurpleDark);
+	height: 25px;
+	overflow: hidden;
+}
+
+.progress-bar {
+	background-color: var(--colorPurpleLight);
+	height: 100%;
+	border-radius: 10px;
+	text-align: end;
+	line-height: 23px;
+	padding-right: var(--chatGap);
+}
+

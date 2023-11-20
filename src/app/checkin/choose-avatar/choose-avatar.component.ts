@@ -20,7 +20,7 @@ export class ChooseAvatarComponent {
     public checkInSiteServiceService: CheckInSiteServiceService,
     public createAccountService: CreateAccountService,
     private userProfileService: UserProfilesService,
-    private openCloseService: OpenCloseService
+    public openCloseService: OpenCloseService
   ) {  }
 
  

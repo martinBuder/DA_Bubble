@@ -14,13 +14,14 @@
 	<img src="assets/img/avatars/person-5.png" alt="" (click)='this.createAccountService.profileImg = "assets/img/avatars/person-5.png"'>
 	<img src="assets/img/avatars/person-6.png" alt="" (click)='this.createAccountService.profileImg = "assets/img/avatars/person-6.png"'>
 </div>
-<div class="own-img-container">
+<div class="own-img-container" *ngIf="!this.openCloseService.imgUploadOpen">
 	<p>eigenes Bild verwenden</p>
-	<!-- !eigenes Bild laden -->
-	<button (click)="toggleImgUploadOpen()" class="secondary-btn">Datei hochladen</button>
+		<button (click)="toggleImgUploadOpen()" class="secondary-btn">Datei hochladen</button>
 </div>
+<app-image-upload *ngIf="this.openCloseService.imgUploadOpen"></app-image-upload>
+
 <button class="primary-btn one-btn" (click)="finishCreateAccount()">Weiter</button>
-<app-image-upload></app-image-upload>
+
 <div class="spinner-wrapper" *ngIf="creatingAccount">
 	<mat-spinner class="spinner"></mat-spinner>
 </div>
