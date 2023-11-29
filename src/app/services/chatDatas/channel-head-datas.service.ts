@@ -12,7 +12,7 @@ export class ChatHeadDatasService {
 
   chatOpen : boolean = false;
   channelListCollection = collection(this.firestore, 'channelList');
-  channel !: ChannelConfig;
+  channel !: ChannelConfig | null;
   
   fireChannelMembers : Array<any> =  [];
   openAddChannel : boolean = false;
@@ -107,11 +107,13 @@ export class ChatHeadDatasService {
    * @param newProfiles 
    */
   changeChannelMembers(newProfiles: Array<string>) {
-    this.channel.members.forEach(member => {
-     this.fireChannelMembers.push(member.id);  
-    });
-    this.fireChannelMembers = this.fireChannelMembers.concat(newProfiles);
-    this.channel.membersId = this.fireChannelMembers;
+    if(this.channel !== null) {
+      this.channel.members.forEach(member => {
+        this.fireChannelMembers.push(member.id);  
+       });
+       this.fireChannelMembers = this.fireChannelMembers.concat(newProfiles);
+       this.channel.membersId = this.fireChannelMembers;
+    }
   }
 
   /**
@@ -119,14 +121,17 @@ export class ChatHeadDatasService {
    */
   async updateChannel() {
     let membersAmount
-    if(this.channel.membersId)
-    membersAmount = this.channel.membersId.length
-    if (this.channel.id) { // Überprüfen, ob channelId vorhanden ist
-      await this.fireDatabaseService.updateFireItem(this.channelListCollection, this.channel.id, {
-          membersId: this.channel.membersId,
-          usersAmount: membersAmount 
-      });
-    } 
+    if(this.channel !== null) {
+      if(this.channel.membersId)
+      membersAmount = this.channel.membersId.length
+      if (this.channel.id) { // Überprüfen, ob channelId vorhanden ist
+        await this.fireDatabaseService.updateFireItem(this.channelListCollection, this.channel.id, {
+            membersId: this.channel.membersId,
+            usersAmount: membersAmount 
+        });
+      } 
+    }
+ 
 }
 
   /**

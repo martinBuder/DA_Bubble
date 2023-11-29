@@ -4,6 +4,7 @@ export interface Message {
 	id?: any;
 	timestamp: any;
 	date: any;
+	numDate: any;
 	time: any;
 	year: any;
 	writerName: string;
@@ -24,7 +25,8 @@ export interface Message {
 		year: string
 	} | null;
 	answerAmount?: number;
-	lastAnswerTime?: string;
+	lastAnswerDate?: string | null;
+	lastAnswerTime?: string | null;
 	deletedMessage ?: boolean;
 	threadExist ?: boolean;
 }

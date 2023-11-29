@@ -40,7 +40,7 @@ export class MessageWrapperComponent {
     private fireDatabaseService: FireDatabaseService,
     private openCloseService: OpenCloseService,
     public chatMessageService: ChatMessageService,
-    private chatHeadDataService: ChatHeadDatasService,
+    public chatHeadDataService: ChatHeadDatasService,
     private emojisService: EmojisService
   ) {
     this.allEmojis = this.emojisService.getAllEmoijs();
@@ -156,31 +156,42 @@ export class MessageWrapperComponent {
 
   // * open thread Message
 
-  async answerToMessage() {
-    this.openCloseService.threadChannel = {
-      name: this.chatHeadDataService.channel.channelName,
-      id: this.chatHeadDataService.channel.id,
-    };    
-    this.openCloseService.threadOpen = true;
-    this.chatMessageService.messageThreadId = this.message.id; 
-    this.chatMessageService.comeFromAnswer = true;
-    this.chatMessageService.threadFirstMessage = this.message;  
-    let messageCopy = this.message;
-    messageCopy.reactions = [];
-    messageCopy.lastEditedTime = null; 
-    this.chatMessageService.threadFirstMessage = messageCopy;
-    if (!this.message.threadExist) {
+  async answerToMessage(text: any) {
+   this.setOpenCloseServiceDatas();
+   this.setChatMessageServiceDatas();
+   if (!this.message.threadExist) {
       this.fireDatabaseService.threadMessages = [];
-      this.fireDatabaseService.threadMessages.push(messageCopy);    
+      this.fireDatabaseService.threadMessages.push(this.chatMessageService.threadFirstMessage);    
       await this.waitForThreadExist();
     }
     this.chatMessageService.getThreadMessagesList();
+  
+    
   }
 
   async waitForThreadExist() {
     while (!this.chatMessageService.firstThreadMessageSent === true) {
       await new Promise((resolve) => setTimeout(resolve, 1000));
     }
+  }
+
+  setOpenCloseServiceDatas() {
+    if( this.chatHeadDataService.channel !== null) {
+      this.openCloseService.threadChannel = {
+        name: this.chatHeadDataService.channel.channelName,
+        id: this.chatHeadDataService.channel.id,
+      };    
+      this.openCloseService.threadOpen = true;
+    }
+  }
+
+  setChatMessageServiceDatas() {
+    this.chatMessageService.messageThreadId = this.message.id; 
+    this.chatMessageService.comeFromAnswer = true;
+    this.chatMessageService.threadFirstMessage = this.message;  
+    this.chatMessageService.messageCopy = this.message;
+    console.log(this.message);
+    
   }
 
   // *deletedMessage

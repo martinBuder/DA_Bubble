@@ -6,6 +6,7 @@ import { FireAuthService } from '../firebase/fire-auth.service';
 import { UserProfile } from 'src/app/interfaces/user-profile';
 import { ContactsService } from './contacts.service';
 import { OpenCloseService } from '../generally/open-close.service';
+import { ChatHeadDatasService } from './channel-head-datas.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,8 +18,11 @@ export default class ChatMessageService {
   time!: any;
   year!: any;
   messageText!: string;
+
   messageDatas!: Message;
   threadFirstMessage !: Message;
+  messageCopy!: Message;
+
   messageChannelId: string | null = null;
   messageThreadId!: string;
   chatMessagesListCollection!: any;
@@ -33,10 +37,12 @@ export default class ChatMessageService {
   firstThreadMessageSent : boolean = false;
   noSelectedContact : boolean = false;
 
+
   constructor(
     private firestore: Firestore,
     private fireAuthService: FireAuthService,
     private fireDatabaseService: FireDatabaseService,
+    private chatHeadDataService: ChatHeadDatasService,
     private contactsService: ContactsService,
     private openCloseService: OpenCloseService,
   ) {
@@ -50,6 +56,7 @@ export default class ChatMessageService {
     this.messageDatas = {
       timestamp: this.timestamp,
       date: this.date,
+      numDate: this.dateNumber,
       time: this.time,
       year: this.year,
       writerName: this.fireAuthService.fireUser.displayName,
@@ -77,6 +84,7 @@ export default class ChatMessageService {
     this.selectedContact = null;
     this.messageChannelId = null;
     this.fireDatabaseService.channelMessages = [];
+    this.chatHeadDataService.channel = null;
   }
 
   /**
@@ -185,17 +193,16 @@ export default class ChatMessageService {
     this.setFireThreadCollection();
     if (this.selectedContact)
       this.contactsService.setContact(this.selectedContact.id);
-    if(!this.messageDatas.threadExist && this.comeFromAnswer) {
+      this.getTime();
+      this.setMessageDatas();   
+      await this.fireDatabaseService.addItemToFirebase(
+        this.chatMessagesListCollection,
+        this.messageDatas
+      );  
+    if(!this.threadFirstMessage.threadExist && this.comeFromAnswer)
       await this.firstThreadOpen();
-    }
-    this.getTime();
-    this.setMessageDatas();
-    console.log(this.messageDatas);
-    
-    await this.fireDatabaseService.addItemToFirebase(
-      this.chatMessagesListCollection,
-      this.messageDatas
-    );  
+    else
+      this.changeChannelMessage();  
     this.messageIsSent = true;
     this.comeFromAnswer = false;
   }
@@ -204,8 +211,8 @@ export default class ChatMessageService {
    * add the first message, which opened the thread to firebase
    */
   async firstThreadOpen() {
-    this.threadFirstMessage.threadExist = true;
     await this.changeChannelMessage();
+    this.threadFirstMessage.reactions = [];
     await this.fireDatabaseService.addItemToFirebase(
       this.chatMessagesListCollection,
       this.threadFirstMessage
@@ -227,13 +234,28 @@ export default class ChatMessageService {
    * send the variable threadExist in the channel message 
    */
   async changeChannelMessage(){
+    this.setMessageCopy();
     if(this.openCloseService.threadChannel) {
       const chatMessagesListCollection = collection(
         this.firestore,
         this.openCloseService.threadChannel.id
       );    
-      await this.fireDatabaseService.updateFireItem(chatMessagesListCollection, this.threadFirstMessage.id, this.threadFirstMessage)
+      await this.fireDatabaseService.updateFireItem(chatMessagesListCollection, this.threadFirstMessage.id, this.messageCopy)
     }
+  }
+
+  /**
+   * set the datas from the message from channel, which was open for the thread
+   */
+  setMessageCopy() {
+    this.messageCopy.threadExist = true;
+    if(!this.messageCopy.answerAmount)
+      this.messageCopy.answerAmount = 0;
+    this.messageCopy.answerAmount += 1;
+    this.messageCopy.lastAnswerDate = this.messageDatas.numDate;
+    this.messageCopy.lastAnswerTime = this.messageDatas.time;
+    console.log(this.messageCopy.answerAmount);
+    
   }
 
   /**

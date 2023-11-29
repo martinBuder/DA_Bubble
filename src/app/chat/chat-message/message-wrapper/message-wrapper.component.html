@@ -33,13 +33,18 @@
 			</div>
 			<div class="message">{{ message.text }}</div>
 			<ng-container *ngIf="chatOrThread === 'chat'">
-				<div class="answer-container">
+				<div class="answer-container" *ngIf="message.answerAmount !== undefined && message.answerAmount > 0">
 					<!-- !ANSWER CONTAINER -->
-						<div class="answer-amount">2 Anworten</div>
-						<div class="last-answer-time text-light">Letzte Antwort 14:56</div>
+						<div class="answer-amount" *ngIf="message.answerAmount === 1">{{ message.answerAmount }} Antwort</div> 
+						<div class="answer-amount" *ngIf="message.answerAmount !== 1">{{ message.answerAmount }} Antworten</div> 
+						<div class="last-answer-time text-light">Letzte Antwort: 
+							<ng-container *ngIf="message.lastAnswerDate !== this.chatMessageService.today.dateNumber" >
+								{{ message.lastAnswerDate }}
+							</ng-container>
+							{{ message.lastAnswerTime }}
+						</div>
 					</div>
 			</ng-container>
-	
 			<div class="smilies-wrapper">
 				<ng-container *ngIf="message.reactions.length > 0">
 				<div class="smilie-container pointer" *ngFor="let emoji of message.reactions" (click)="addEmoji(emoji.item)">
@@ -75,8 +80,8 @@
 					<mat-icon (click)="deleteMessage()">delete</mat-icon>
 				</ng-container>
 				<ng-container *ngIf="chatOrThread === 'chat'">
-					<ng-container *ngIf="message.writerId !== this.fireAuthService.fireUser.uid">
-						<mat-icon (click)="answerToMessage()">reply</mat-icon>
+					<ng-container *ngIf="message.writerId !== this.fireAuthService.fireUser.uid && this.chatHeadDataService.channel">
+						<mat-icon (click)="answerToMessage(this.message)">reply</mat-icon>
 					</ng-container>
 				</ng-container>
 			</div>
