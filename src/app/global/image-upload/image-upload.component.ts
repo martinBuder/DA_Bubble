@@ -16,20 +16,17 @@ import { UploadService } from 'src/app/services/userDatas/upload.service';
     progress = 0;
     errorMessage :string = '';
     preview = '';
-  
-    imageInfos?: Observable<any>;
-  
+   
     constructor(
       private uploadService: UploadService,
       public openCloseService: OpenCloseService
       ) {}
 
   ngOnInit(): void {
-    this.imageInfos = this.uploadService.getFiles();
   }
   
   upload(): void {
-    this.progress = 0;
+    this.progress = 0;   
   
     if (this.selectedFiles) {
       const file: File | null = this.selectedFiles.item(0);
@@ -43,7 +40,6 @@ import { UploadService } from 'src/app/services/userDatas/upload.service';
               this.progress = Math.round((100 * event.loaded) / event.total);
             } else if (event instanceof HttpResponse) {
               this.errorMessage = event.body.message;
-              this.imageInfos = this.uploadService.getFiles();
             }
           },
           error: (err: any) => {

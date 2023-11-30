@@ -6,24 +6,22 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UploadService {
-  private baseUrl = 'http://localhost:4200'
+  private baseUrl = 'https://designyourstage.com/'
 
-  constructor(private http: HttpClient) { }
+  constructor(private https: HttpClient) { }
 
   upload(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {
+    const req = new HttpRequest('POST', `${this.baseUrl}`, formData, {
       reportProgress: true,
       responseType: 'json',
     });
 
-    return this.http.request(req);
+    return this.https.request(req);
   }
 
-  getFiles(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/files`);
-  }
+
 }
