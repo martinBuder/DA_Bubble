@@ -37,7 +37,11 @@ import { UploadService } from 'src/app/services/userDatas/upload.service';
         this.uploadService.upload(this.currentFile).subscribe({
           next: (event: any) => {
             if (event.type === HttpEventType.UploadProgress) {
+              console.log('here is if next');
+              
               this.progress = Math.round((100 * event.loaded) / event.total);
+              console.log(event);
+              
             } else if (event instanceof HttpResponse) {
               this.errorMessage = event.body.message;
             }
