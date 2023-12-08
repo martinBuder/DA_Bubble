@@ -101,7 +101,7 @@ import { HttpClientModule } from '@angular/common/http';
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
-    
+          
   ],
   providers: [
     CheckInSiteServiceService,

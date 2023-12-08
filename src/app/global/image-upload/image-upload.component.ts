@@ -11,8 +11,10 @@ import { environment } from 'src/environments/environment';
 })
 
   export class ImageUploadComponent {
+ 
     selectedFiles?: FileList;
     currentFile?: File;
+    progress = 0;
     errorMessage :string = '';
     preview = '';
    
@@ -23,20 +25,21 @@ import { environment } from 'src/environments/environment';
  
   upload(): void {
   
-    // if (this.selectedFiles) {
-    //   const file: File | null = this.selectedFiles.item(0);
-    //   if (file) {
-    //     this.currentFile = file;
-    //     this.fireStorageService.uploadFile(this.currentFile)
-    //     this.currentFile = undefined;
-    //   }
-    //   this.selectedFiles = undefined;
-    // }
+    if (this.selectedFiles) {
+      const file: File | null = this.selectedFiles.item(0);
+      if (file) {
+        this.currentFile = file;
+        this.fireStorageService.uploadFile(this.currentFile)
+        this.currentFile = undefined;
+      }
+      this.selectedFiles = undefined;
+    }
   }
 
   selectFile(event: any): void {
     this.errorMessage = '';
     this.preview = '';
+    this.progress = 0;
     this.selectedFiles = event.target.files;
   
     if (this.selectedFiles) {
