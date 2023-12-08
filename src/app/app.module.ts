@@ -4,7 +4,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+// firebase
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { getStorage, provideStorage } from '@angular/fire/storage';
 
+// components
 import { AnimationComponent } from './checkin/animation/animation.component';
 import { SignInComponent } from './checkin/sign-in/sign-in.component';
 import { LogInComponent } from './checkin/log-in/log-in.component';
@@ -32,19 +39,19 @@ import { ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { CheckInSiteServiceService } from './services/generally/check-in-site-service.service';
 import { ChatSiteComponent } from './main/chat-site/chat-site.component';
 import { ChannelAreaComponent } from './main/sidebar-left/channel-area/channel-area.component';
 import { ChatDateComponent } from './chat/chat-message/chat-date/chat-date.component';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
-import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideDatabase, getDatabase } from '@angular/fire/database';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { MessageWindowComponent } from './main/main-chat/message-window/message-window.component';
 import { ChatMembersComponent } from './chat/chat-persons/chat-members/chat-members.component';
 import { AddContactComponent } from './chat/chat-persons/add-contact/add-contact.component';
 import { ImageUploadComponent } from './global/image-upload/image-upload.component';
+
+// services
+import { CheckInSiteServiceService } from './services/generally/check-in-site-service.service';
+
+
+import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -93,6 +100,7 @@ import { HttpClientModule } from '@angular/common/http';
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
     
   ],
   providers: [

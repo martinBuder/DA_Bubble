@@ -15,19 +15,6 @@
 						<img [src]="preview">
 					</div>
 				</ng-container>
-				<div *ngIf="currentFile" class="progress">
-					<!-- && progress -->
-					<div
-							class="progress-bar progress-bar-info"
-							role="progressbar"
-							attr.aria-valuenow="{{ progress }}"
-							aria-valuemin="0"
-							aria-valuemax="100"
-							[ngStyle]="{ width: progress + '%' }"
-					>
-							{{ progress }}%
-					</div>
-				</div>
 			</div>
 			
 			<div *ngIf="errorMessage" class="error" role="alert">
