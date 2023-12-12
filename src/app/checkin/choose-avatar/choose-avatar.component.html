@@ -20,7 +20,7 @@
 </div>
 <app-image-upload *ngIf="this.openCloseService.imgUploadOpen"></app-image-upload>
 
-<button class="primary-btn one-btn" (click)="finishCreateAccount()">Weiter</button>
+<button *ngIf="!this.openCloseService.imgUploadOpen" class="primary-btn one-btn" (click)="finishCreateAccount()">Weiter</button>
 
 <div class="spinner-wrapper" *ngIf="creatingAccount">
 	<mat-spinner class="spinner"></mat-spinner>

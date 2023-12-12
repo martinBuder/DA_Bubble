@@ -20,16 +20,17 @@ import { environment } from 'src/environments/environment';
    
     constructor(
       private fireStorageService: FireStorageService,
-      public openCloseService: OpenCloseService
+      public openCloseService: OpenCloseService,
       ) {}
  
-  upload(): void {
+  async upload() {
   
     if (this.selectedFiles) {
       const file: File | null = this.selectedFiles.item(0);
       if (file) {
         this.currentFile = file;
-        this.fireStorageService.uploadFile(this.currentFile)
+        await this.fireStorageService.uploadFile(this.currentFile);
+        this.openCloseService.imgUploadOpen = false;
         this.currentFile = undefined;
       }
       this.selectedFiles = undefined;
