@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import ChatMessageService from 'src/app/services/chatDatas/chat-message.service';
 import { EmojisService } from 'src/app/services/generally/emojis.service';
+import { OpenCloseService } from 'src/app/services/generally/open-close.service';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class TextfieldComponent {
 
   constructor(
     public chatMessageService: ChatMessageService,
-    private emojisService: EmojisService
+    private emojisService: EmojisService,
+    public openCloseService: OpenCloseService,
     ) { 
       this.allEmojis = this.emojisService.getAllEmoijs();
     }
@@ -64,6 +66,10 @@ export class TextfieldComponent {
   selectEmoji(emoji: string) {
     this.textfieldForm.get('textarea')?.setValue(this.textfieldForm.value.textarea + emoji);
     this.textEmojisOpen = false;
+  }
+
+  toogleOpenImage() {
+    this.openCloseService.openImage = !this.openCloseService.openImage;
   }
   
 }

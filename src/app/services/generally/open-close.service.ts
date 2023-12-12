@@ -15,6 +15,7 @@ export class OpenCloseService {
   channelMembersOpen: boolean = false;
   openAddChannelMembers: boolean = false;
   imgUploadOpen: boolean = false;
+  openImage: boolean = false;
   
   constructor() { }
 

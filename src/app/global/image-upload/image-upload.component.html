@@ -1,7 +1,8 @@
 		<div class="pop-up-container" (click)="$event.stopPropagation()">
 			<div class="space-between">
 				<h4>Profilebild hochladen</h4>
-				<mat-icon (click)="this.openCloseService.imgUploadOpen = false" class="pointer">close</mat-icon>
+				<mat-icon *ngIf="this.openCloseService.openImage" (click)="this.openCloseService.openImage = false" class="pointer">close</mat-icon>
+				<mat-icon *ngIf="!this.openCloseService.openImage" (click)="this.openCloseService.imgUploadOpen = false" class="pointer">close</mat-icon>
 			</div>
 			<div class="inputfield-wrapper">
 				<input type="file" accept="image/*" (change)="selectFile($event)" />

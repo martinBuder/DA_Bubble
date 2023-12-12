@@ -1,11 +1,11 @@
 <div class="textfield-backdrop">
-
 	<form class="textfield-wrapper" [formGroup]="textfieldForm">
 		<textarea name="" id="" rows="3" placeholder="Aa" formControlName="textarea"></textarea>
 			<div class="textfield-bottom">
 				<div class="icon-container">
 					<mat-icon (click)="toggleEmojis()" *ngIf="!this.textEmojisOpen">add_reaction_inline</mat-icon>
 					<mat-icon (click)="toggleEmojis()" *ngIf="this.textEmojisOpen" class="abc">abc</mat-icon>
+					<mat-icon (click)="toogleOpenImage()" >add_photo_alternate</mat-icon>
 				</div>
 					<button class="textfield-btn" [disabled]="!textfieldForm.valid" (click)="sendMessage(this.textfieldForm.value.textarea)">
 						<mat-icon>send</mat-icon>
@@ -21,3 +21,4 @@
 			</ng-container>
 	</form>
 </div>
+<app-add-image *ngIf="this.openCloseService.openImage"></app-add-image>

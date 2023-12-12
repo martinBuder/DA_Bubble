@@ -40,7 +40,7 @@ export class FireStorageService {
     return token;
   }
   
-  
+
   async uploadFile(image: File) {    
     this.userImgToken = this.generateRandomToken(32);
     const storageFireStringUrl = `gs://mb-dabubble-1985.appspot.com/avatarUpload/${ this.userImgToken }`
