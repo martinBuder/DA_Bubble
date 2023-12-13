@@ -47,17 +47,29 @@ import { environment } from 'src/environments/environment';
       return token;
     }
 
-    async uploadProfileImg() {
+    /**
+     * set datas for fire storage
+     */
+    setFireStorageDatas() {
       this.imgToken = this.generateRandomToken(32);
       this.storageFireStringUrl = `gs://mb-dabubble-1985.appspot.com/avatarUpload/${ this.imgToken }`
+    }
+
+    /**
+     * upload img as profil img
+     */
+    async uploadProfileImg() {
+      this.setFireStorageDatas();
       await this.upload();
       this.createAccountService.profileImg = this.fireStorageService.fireImgUrl;
       this.closeImgUpload();
     }
 
+    /**
+     * upload img as message
+     */
     async uploadMessageImg() {
-      this.imgToken = this.generateRandomToken(32);
-      this.storageFireStringUrl = `gs://mb-dabubble-1985.appspot.com/avatarUpload/${ this.imgToken }`
+      this.setFireStorageDatas();
       await this.upload();
       this.chatMessageService.isThisAnImage = true;
       this.chatMessageService.messageText = this.fireStorageService.fireImgUrl;
@@ -65,12 +77,20 @@ import { environment } from 'src/environments/environment';
       this.closeImgUpload()
     }
 
+    /**
+     * close the uploader
+     */
     closeImgUpload() {
       this.openCloseService.imgUploadOpen = false;
       this.currentFile = undefined;
       this.selectedFiles = undefined;
+      this.openCloseService.imgUploadOpen = false;
+      this.openCloseService.openImage = false;
     }
   
+   /**
+    * set datas for firestorage upload service 
+    */
   async upload() {
     if (this.selectedFiles) {
       const file: File | null = this.selectedFiles.item(0);
@@ -81,6 +101,11 @@ import { environment } from 'src/environments/environment';
     }
   }
 
+  /**
+   * select a img
+   * 
+   * @param event 
+   */
   selectFile(event: any): void {
     this.errorMessage = '';
     this.preview = '';
