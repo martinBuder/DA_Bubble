@@ -18,6 +18,7 @@ export default class ChatMessageService {
   time!: any;
   year!: any;
   messageText!: string;
+  isThisAnImage : boolean = false;
 
   messageDatas!: Message;
   threadFirstMessage !: Message;
@@ -66,7 +67,8 @@ export default class ChatMessageService {
       reactions: [],
       threadExist: false,
       deletedMessage: false,
-      lastEditedTime: null
+      lastEditedTime: null,
+      isThisAnImage : this.isThisAnImage
     };
   }
 

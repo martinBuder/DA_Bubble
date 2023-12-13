@@ -68,8 +68,9 @@ export class TextfieldComponent {
     this.textEmojisOpen = false;
   }
 
-  toogleOpenImage() {
-    this.openCloseService.openImage = !this.openCloseService.openImage;
+  toogleOpenImage(chatOrThread: string) {
+    this.openCloseService.openImage = !this.openCloseService.openImage; 
+    this.openCloseService.chatOrThread = chatOrThread;
   }
   
 }

@@ -31,7 +31,8 @@
 					</p>
 				</ng-container>
 			</div>
-			<div class="message">{{ message.text }}</div>
+			<img class="message-img" *ngIf="message.isThisAnImage" src="{{ message.text }}" alt="">
+			<div class="message" *ngIf="!message.isThisAnImage">{{ message.text }}</div>
 			<ng-container *ngIf="chatOrThread === 'chat'">
 				<div class="answer-container" *ngIf="message.answerAmount !== undefined && message.answerAmount > 0">
 					<!-- !ANSWER CONTAINER -->
@@ -76,7 +77,7 @@
 		</div>
 			<div class="work-icon-container">
 				<ng-container *ngIf="message.writerId === this.fireAuthService.fireUser.uid">
-					<mat-icon (click)="editMessage(message)">edit</mat-icon>
+					<mat-icon *ngIf="!message.isThisAnImage" (click)="editMessage(message)">edit</mat-icon>
 					<mat-icon (click)="deleteMessage()">delete</mat-icon>
 				</ng-container>
 				<ng-container *ngIf="chatOrThread === 'chat'">

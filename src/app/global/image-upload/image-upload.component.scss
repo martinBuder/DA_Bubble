@@ -12,6 +12,11 @@ $preview-img: 100px;
 	height: $preview-img;
 }
 
+.message-img-preview {
+	width: 500px;
+	height: auto;
+}
+
 .progress {
 	flex: 1;
 	background-color: var(--colorBackground);

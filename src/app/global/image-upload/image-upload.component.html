@@ -1,23 +1,43 @@
 		<div class="pop-up-container" (click)="$event.stopPropagation()">
-			<div class="space-between">
-				<h4>Profilebild hochladen</h4>
-				<mat-icon *ngIf="this.openCloseService.openImage" (click)="this.openCloseService.openImage = false" class="pointer">close</mat-icon>
-				<mat-icon *ngIf="!this.openCloseService.openImage" (click)="this.openCloseService.imgUploadOpen = false" class="pointer">close</mat-icon>
-			</div>
-			<div class="inputfield-wrapper">
-				<input type="file" accept="image/*" (change)="selectFile($event)" />
-				<button class="btn btn-success btn-sm float-right" [disabled]="!selectedFiles" (click)="upload()"> 
-					Upload
-				</button>
-			</div>
-			<div class="upload-container">
-				<ng-container *ngIf="preview">
-					<div class="upload-preview">
-						<img [src]="preview">
-					</div>
-				</ng-container>
-			</div>
-			
+			<!-- profil img upload -->
+			<ng-container *ngIf="!this.openCloseService.openImage">
+				<div class="space-between">
+					<h4>Profilebild hochladen</h4>
+					<mat-icon (click)="this.openCloseService.imgUploadOpen = false" class="pointer">close</mat-icon>
+				</div>
+				<div class="inputfield-wrapper">
+					<input type="file" accept="image/*" (change)="selectFile($event)" />
+					<button class="btn btn-success btn-sm float-right" [disabled]="!selectedFiles" *ngIf="!this.openCloseService.openImage" (click)="uploadProfileImg()"> 
+						Upload
+					</button>
+				</div>
+				<div class="upload-container">
+					<ng-container *ngIf="preview">
+						<div class="upload-preview">
+							<img [src]="preview">
+						</div>
+					</ng-container>
+				</div>
+			</ng-container>
+			<!-- img upload as message -->
+			<ng-container *ngIf="this.openCloseService.openImage">
+				<div class="space-between">
+					<mat-icon *ngIf="this.openCloseService.openImage" (click)="this.openCloseService.openImage = false" class="pointer">close</mat-icon>
+				</div>
+				<div class="inputfield-wrapper">
+					<input type="file" accept="image/*" (change)="selectFile($event)" />
+					<button class="btn btn-success btn-sm float-right" [disabled]="!selectedFiles" (click)="uploadMessageImg()"> 
+						Upload
+					</button>
+				</div>
+				<div class="upload-container">
+					<ng-container *ngIf="preview">
+						<div class="message-img-preview">
+							<img [src]="preview">
+						</div>
+					</ng-container>
+				</div>
+			</ng-container>
 			<div *ngIf="errorMessage" class="error" role="alert">
 				{{ errorMessage }}
 			</div>

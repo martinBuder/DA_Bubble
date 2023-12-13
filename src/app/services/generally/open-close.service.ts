@@ -16,6 +16,8 @@ export class OpenCloseService {
   openAddChannelMembers: boolean = false;
   imgUploadOpen: boolean = false;
   openImage: boolean = false;
+
+  chatOrThread !: string;
   
   constructor() { }
 
