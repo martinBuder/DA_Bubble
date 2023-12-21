@@ -1,0 +1,78 @@
+<div class="pop-up-background" (click)="closeOpenOwnProfile()">
+	<div class="pop-up-container" (click)="$event.stopPropagation()">
+			<ng-container *ngIf="!editModus" class="space-between">
+				<div class="close-line">
+					<h3>Dein Profil</h3>
+					<mat-icon (click)="closeOpenOwnProfile()" class="pointer">close</mat-icon>
+				</div>
+
+						<div class="person-img-wrapper">
+							<img src="{{ this.fireAuthService.fireUser.photoURL }}" alt="">
+						</div>
+						<div class="name-line">
+							<h2>{{ this.fireAuthService.fireUser.displayName }}</h2>
+							<mat-icon class="pointer purple-hover" (click)="openEditModus()">edit</mat-icon>
+						</div>
+							<div class="one-line">
+								<mat-icon>mail_outline</mat-icon>
+								<h4>E-Mail-Adresse</h4>
+							</div>
+							<div class="one-line mail">
+								<mat-icon></mat-icon>
+								<a href='mailto: {{ this.fireAuthService.fireUser.email }}' target="_blank">{{ this.fireAuthService.fireUser.email }}</a>
+							</div>
+			</ng-container>
+
+			<ng-container *ngIf="editModus" class="space-between">
+				<div class="close-line">
+					<h3>Dein Profil bearbeiten</h3>
+					<mat-icon (click)="closeOpenOwnProfile()" class="pointer">close</mat-icon>
+				</div>
+						<div class="person-img-wrapper">
+							<img src="{{ this.fireAuthService.fireUser.photoURL }}" alt="">
+						</div>
+						<form [formGroup]="editProfileForm">
+								<div class="one-line">
+									<mat-icon class="pointer purple-hover">person_outline</mat-icon>
+									<h4>Vollstängiger Name</h4>
+								</div>
+
+								<div class="inputfield-wrapper">
+									<input formControlName="name" type="text" placeholder="{{ this.fireAuthService.fireUser.displayName }}">
+									<ng-container *ngIf="editProfileForm.controls['email'].touched">
+										<p class="error" *ngIf="editProfileForm.controls['email'].errors?.['required']"> *Dieses Feld ist ein Pflichtfeld.
+										</p>
+										<p class="error" *ngIf="editProfileForm.controls['email'].errors?.['pattern']"> *Diese E-Mail-Adresse ist ungültig.
+										</p>
+									</ng-container>
+							</div>	
+
+									<div class="one-line">
+										<mat-icon>mail_outline</mat-icon>
+										<h4>E-Mail-Adresse</h4>
+									</div>
+
+									<div class="inputfield-wrapper">
+										<input formControlName="email" type="email" placeholder="{{ this.fireAuthService.fireUser.email }}">
+										<ng-container *ngIf="editProfileForm.controls['email'].touched">
+											<p class="error" *ngIf="editProfileForm.controls['email'].errors?.['required']"> *Dieses Feld ist ein Pflichtfeld.
+											</p>
+											<p class="error" *ngIf="editProfileForm.controls['email'].errors?.['pattern']"> *Diese E-Mail-Adresse ist ungültig.
+											</p>
+								</ng-container>
+						</div>	
+					</form>
+
+					<div class="btn-wrapper">
+						<button class="secondary-btn" (click)="this.editModus = false">
+							Abbrechen
+						</button>
+						<button class="primary-btn" [disabled]="!editProfileForm.valid" (click)="saveEditedProfile()">
+							speichern
+						</button>
+					</div>
+
+			</ng-container>
+		
+	</div>
+</div>

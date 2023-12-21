@@ -12,3 +12,4 @@
 </div>
 <app-profile *ngIf="this.userProfilesService.openProfile" class="pop-up-wrapper"
  ></app-profile>
+	<app-own-profile class="pop-up-wrapper" *ngIf="openCloseService.openOwnProfile"></app-own-profile>

@@ -1,6 +1,6 @@
 <div class="nav-background-site" (click)="this.openCloseService.navOpen = false">
 	<div class="nav" (click)="$event.stopPropagation()">
-		<div class="link">Profil</div>
+		<div class="link" (click)="openProfile()">Profil</div>
 		<div class="link" (click)="logOut()">Log out</div>
 		<div class="link">Impressum</div>
 		<div class="link">Datenschutz</div>

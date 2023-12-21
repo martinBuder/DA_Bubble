@@ -225,6 +225,10 @@ export class MessageWrapperComponent {
         year: '',
       });
     this.message.deletedMessage = true;
+    if(this.message.isThisAnImage) {
+      this.message.isThisAnImage = false;
+      this.message.storageUrl = undefined; 
+    }
   }
 
   // * edit messeage

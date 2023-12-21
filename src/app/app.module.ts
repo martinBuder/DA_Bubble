@@ -54,6 +54,7 @@ import { CheckInSiteServiceService } from './services/generally/check-in-site-se
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { AddImageComponent } from './main/main-chat/add-image/add-image.component';
+import { OwnProfileComponent } from './global/own-profile/own-profile.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { AddImageComponent } from './main/main-chat/add-image/add-image.componen
     AddContactComponent,
     ImageUploadComponent,
     AddImageComponent,
+    OwnProfileComponent,
   ],
   imports: [
     BrowserModule,

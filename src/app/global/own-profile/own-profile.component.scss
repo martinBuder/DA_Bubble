@@ -1,0 +1,47 @@
+.person-img-wrapper {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	border-radius: none;
+
+	img {
+		width: 150px;
+		aspect-ratio: 1/1;
+		border-radius: 50%;
+	}
+}
+
+.one-line {
+	display: flex;
+	gap: 15px;
+}
+
+.mail {
+	margin-top: -10px;
+}
+
+.name-line, .close-line {
+	display: flex;
+	justify-content: space-between;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 300px;
+}
+
+.btn-wrapper {
+	display: flex;
+	justify-content: space-around;
+}
+
+.inputfield-wrapper {
+	margin-bottom: 15px;
+}
+
+
+
+
+
