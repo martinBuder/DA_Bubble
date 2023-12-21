@@ -38,6 +38,9 @@
 					</ng-container>
 				</div>
 			</ng-container>
+			<div class="spinner-wrapper" *ngIf="uploading">
+				<mat-spinner class="spinner"></mat-spinner>
+			</div>
 			<div *ngIf="errorMessage" class="error" role="alert">
 				{{ errorMessage }}
 			</div>

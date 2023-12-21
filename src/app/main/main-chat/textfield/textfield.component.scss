@@ -31,14 +31,13 @@
 .textfield-bottom {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	align-items: flex-end;
 }
 
 .icon-container {
 	display: flex;
 	align-items: center;
-	min-height: min-content;
-	min-width: min-content;
+
 	gap: var(--chatGap);
 
 	mat-icon {
@@ -65,6 +64,10 @@
 	height: 100px;
 	overflow: auto;
 	border-radius: 25px;
+}
+
+button.textfield-btn {
+	padding: 0;
 }
 
 .textfield-btn {

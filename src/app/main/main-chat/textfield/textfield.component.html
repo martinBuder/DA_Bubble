@@ -5,7 +5,7 @@
 				<div class="icon-container">
 					<mat-icon (click)="toggleEmojis()" *ngIf="!this.textEmojisOpen">add_reaction_inline</mat-icon>
 					<mat-icon (click)="toggleEmojis()" *ngIf="this.textEmojisOpen" class="abc">abc</mat-icon>
-					<mat-icon (click)="toogleOpenImage(chatOrThread)" >add_photo_alternate</mat-icon>
+					<mat-icon (click)="toogleOpenImage(chatOrThread)">add_photo_alternate</mat-icon>
 				</div>
 					<button class="textfield-btn" [disabled]="!textfieldForm.valid" (click)="sendMessage(this.textfieldForm.value.textarea)">
 						<mat-icon>send</mat-icon>

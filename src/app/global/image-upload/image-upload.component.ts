@@ -21,6 +21,7 @@ import { environment } from 'src/environments/environment';
     preview = '';
     storageFireStringUrl !: string;
     imgToken !: string;
+    uploading : boolean = false;
 
    
     constructor(
@@ -69,12 +70,14 @@ import { environment } from 'src/environments/environment';
      * upload img as message
      */
     async uploadMessageImg() {
+      this.uploading = true;
       this.setFireStorageDatas();
       await this.upload();
       this.chatMessageService.isThisAnImage = true;
       this.chatMessageService.messageText = this.fireStorageService.fireImgUrl;
       await this.chatMessageService.sendMessage(this.openCloseService.chatOrThread);
       this.closeImgUpload()
+      this.uploading = false;
     }
 
     /**
