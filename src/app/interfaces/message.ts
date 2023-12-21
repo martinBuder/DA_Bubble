@@ -30,5 +30,6 @@ export interface Message {
 	deletedMessage ?: boolean;
 	threadExist ?: boolean;
 	isThisAnImage ?: boolean;
+	storageUrl ?: string;
 }
 

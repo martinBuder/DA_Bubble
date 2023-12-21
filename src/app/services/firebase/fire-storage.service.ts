@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FirebaseApp, initializeApp } from '@angular/fire/app';
-import { Storage, getDownloadURL, getStorage, ref, uploadBytesResumable } from '@angular/fire/storage';
+import { Storage, deleteObject, getDownloadURL, getStorage, ref, uploadBytesResumable } from '@angular/fire/storage';
 
 import { environment } from 'src/environments/environment';
 import { CreateAccountService } from '../userDatas/create-account.service';
@@ -37,6 +37,12 @@ export class FireStorageService {
       // Handle any errors
     });
   } 
+
+  deleteFile(storageFireStringUrl: string) {
+    const storageFireRef = ref(this.storage, storageFireStringUrl);
+
+    deleteObject(storageFireRef)
+  }
 
 
 

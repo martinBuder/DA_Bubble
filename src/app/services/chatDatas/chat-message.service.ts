@@ -19,6 +19,7 @@ export default class ChatMessageService {
   year!: any;
   messageText!: string;
   isThisAnImage : boolean = false;
+  storageUrl : string | null = null;
 
   messageDatas!: Message;
   threadFirstMessage !: Message;
@@ -68,8 +69,12 @@ export default class ChatMessageService {
       threadExist: false,
       deletedMessage: false,
       lastEditedTime: null,
-      isThisAnImage : this.isThisAnImage
+      isThisAnImage : this.isThisAnImage,
     };
+    if(this.storageUrl !== null) {
+      this.messageDatas.storageUrl = this.storageUrl;
+      this.storageUrl = null;
+    }
   }
 
   getToday() {
@@ -255,9 +260,7 @@ export default class ChatMessageService {
       this.messageCopy.answerAmount = 0;
     this.messageCopy.answerAmount += 1;
     this.messageCopy.lastAnswerDate = this.messageDatas.numDate;
-    this.messageCopy.lastAnswerTime = this.messageDatas.time;
-    console.log(this.messageCopy.answerAmount);
-    
+    this.messageCopy.lastAnswerTime = this.messageDatas.time;   
   }
 
   /**

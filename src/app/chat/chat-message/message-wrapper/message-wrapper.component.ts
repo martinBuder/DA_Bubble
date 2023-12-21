@@ -6,6 +6,7 @@ import { ChatHeadDatasService } from 'src/app/services/chatDatas/channel-head-da
 import ChatMessageService from 'src/app/services/chatDatas/chat-message.service';
 import { FireAuthService } from 'src/app/services/firebase/fire-auth.service';
 import { FireDatabaseService } from 'src/app/services/firebase/fire-database.service';
+import { FireStorageService } from 'src/app/services/firebase/fire-storage.service';
 import { EmojisService } from 'src/app/services/generally/emojis.service';
 import { OpenCloseService } from 'src/app/services/generally/open-close.service';
 
@@ -38,10 +39,11 @@ export class MessageWrapperComponent {
     private firestore: Firestore,
     public fireAuthService: FireAuthService,
     private fireDatabaseService: FireDatabaseService,
+    private fireStorageService: FireStorageService,
     private openCloseService: OpenCloseService,
     public chatMessageService: ChatMessageService,
     public chatHeadDataService: ChatHeadDatasService,
-    private emojisService: EmojisService
+    private emojisService: EmojisService,
   ) {
     this.allEmojis = this.emojisService.getAllEmoijs();
   }
@@ -200,6 +202,8 @@ export class MessageWrapperComponent {
    * delete Message
    */
   async deleteMessage() {
+    if(this.message.storageUrl)
+      this.fireStorageService.deleteFile(this.message.storageUrl);
     this.setDeleteMessage();
     await this.sendUpdateDatasToFirebaseService();
   }

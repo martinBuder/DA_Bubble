@@ -73,11 +73,19 @@ import { environment } from 'src/environments/environment';
       this.uploading = true;
       this.setFireStorageDatas();
       await this.upload();
-      this.chatMessageService.isThisAnImage = true;
-      this.chatMessageService.messageText = this.fireStorageService.fireImgUrl;
+      this.sendDatasToChatMessageService();
       await this.chatMessageService.sendMessage(this.openCloseService.chatOrThread);
       this.closeImgUpload()
       this.uploading = false;
+    }
+
+    /**
+     * set chat message datas for image
+     */
+    sendDatasToChatMessageService() {
+      this.chatMessageService.isThisAnImage = true;
+      this.chatMessageService.storageUrl = this.storageFireStringUrl;
+      this.chatMessageService.messageText = this.fireStorageService.fireImgUrl;
     }
 
     /**
