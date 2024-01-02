@@ -16,7 +16,7 @@ import { FireAuthService } from 'src/app/services/firebase/fire-auth.service';
 export class LogInComponent {
 
   isLoggingIn : boolean = false;
-  errorMessage: string | null = null
+  noUserFounded: boolean = false;
 
 
   /**
@@ -36,7 +36,7 @@ export class LogInComponent {
  
 
   constructor(
-    private fireAuthService: FireAuthService,
+    public fireAuthService: FireAuthService,
     public checkInSiteServiceService: CheckInSiteServiceService,
     private router: Router,
     ) { }
@@ -45,8 +45,13 @@ export class LogInComponent {
    async logIn(email: string, password: string) {
     this.isLoggingIn = true; 
     await this.fireAuthService.fireLogIn(email, password);
-    this.goToNextPage();
-    this.isLoggingIn = false; 
+    if(this.fireAuthService.fireUser) {
+      this.goToNextPage();
+      this.isLoggingIn = false; 
+    }
+    else {
+      this.isLoggingIn = false;  
+    }
   }
 
  

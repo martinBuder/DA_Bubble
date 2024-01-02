@@ -47,9 +47,10 @@
 	<div class="spinner-wrapper" *ngIf="isLoggingIn">
 		<mat-spinner class="spinner"></mat-spinner>
 	</div>
-	<div *ngIf="errorMessage" class="fire-error-message">
-  {{ errorMessage }}
+	<div *ngIf="this.fireAuthService.errorMessage" class="fire-error-message">
+  {{ this.fireAuthService.errorMessage }}
 </div>
+
 
 
 

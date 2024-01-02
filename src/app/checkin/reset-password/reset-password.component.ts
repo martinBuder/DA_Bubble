@@ -11,9 +11,6 @@ import { FireAuthService } from 'src/app/services/firebase/fire-auth.service';
 })
 export class ResetPasswordComponent {
 
-  errorMessage: string | null = null;
-  successfulMessage: string | null = null;
-
   /**
    * this is the validation for the input fields
    */
@@ -34,7 +31,7 @@ export class ResetPasswordComponent {
 
     constructor(
       public checkInSiteServiceService: CheckInSiteServiceService,
-      private fireAuthService: FireAuthService
+      public fireAuthService: FireAuthService
     ) {}
 
     /**

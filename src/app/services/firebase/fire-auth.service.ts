@@ -5,12 +5,17 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   getAuth,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateEmail,
   updatePassword,
   updateProfile,
+  verifyBeforeUpdateEmail,
+  AuthErrorCodes,
 } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { UserProfilesService } from '../userDatas/user-profiles.service';
@@ -23,6 +28,7 @@ export class FireAuthService {
 
   errorMessage: string | null = null;
   successfulMessage: string | null = null;
+
 
   constructor(
     private auth: Auth,
@@ -88,7 +94,6 @@ export class FireAuthService {
     await signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        // this.userDatasService.setLoggedInUser(user);
         this.userProfilesService.handleProfileData(user);
       })
       .catch((error) => {
@@ -103,6 +108,8 @@ export class FireAuthService {
    * @param errorCode
    */
   createErrorMessages(errorCode: string) {
+    console.log(errorCode);
+    
     if (errorCode === 'auth/invalid-login-credentials') {
       this.errorMessage = 'E-Mail und/oder Passwort ist nicht bekannt.';
     } else {
@@ -128,7 +135,6 @@ export class FireAuthService {
           const token = credential.accessToken;
         }
         const user = result.user;
-        // this.userDatasService.setLoggedInUser(user);
         this.userProfilesService.handleProfileData(user);
       })
       .catch((error) => {
@@ -145,6 +151,7 @@ export class FireAuthService {
     const errorCode = error.code;
     const errorMessage = error.message;
     console.log(errorMessage);
+
     const email = error.customData.email;
     const credential = GoogleAuthProvider.credentialFromError(error);
   }
@@ -176,13 +183,6 @@ export class FireAuthService {
       await updateProfile(this.auth.currentUser, {
         [key]: value,
       })
-        .then(() => {
-          // Profile updated!
-        })
-        .catch((error) => {
-          // An error occurred
-          // ...
-        });
     }
   }
 
@@ -237,4 +237,31 @@ export class FireAuthService {
         });
     }
   }
+
+  async updateFireAuthMail(newAuthMail : string, confirmPassword: string) {
+     if(this.auth.currentUser) {
+      console.log(this.fireUser.email,);
+      
+      const credential = EmailAuthProvider.credential(
+        this.fireUser.email,
+        confirmPassword
+      )
+      try {
+        await reauthenticateWithCredential(this.fireUser, credential)    
+      } 
+      finally {
+        await updateEmail(this.auth.currentUser, newAuthMail);
+
+      } 
+        
+      }
+
+
+
+      console.log(this.auth.currentUser);
+      
+    
+  }
 }
+
+
