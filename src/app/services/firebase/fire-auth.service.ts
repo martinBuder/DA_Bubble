@@ -29,7 +29,6 @@ export class FireAuthService {
   errorMessage: string | null = null;
   successfulMessage: string | null = null;
 
-
   constructor(
     private auth: Auth,
     private userProfilesService: UserProfilesService
@@ -109,7 +108,7 @@ export class FireAuthService {
    */
   createErrorMessages(errorCode: string) {
     console.log(errorCode);
-    
+
     if (errorCode === 'auth/invalid-login-credentials') {
       this.errorMessage = 'E-Mail und/oder Passwort ist nicht bekannt.';
     } else {
@@ -182,7 +181,7 @@ export class FireAuthService {
     if (this.auth.currentUser) {
       await updateProfile(this.auth.currentUser, {
         [key]: value,
-      })
+      });
     }
   }
 
@@ -238,30 +237,17 @@ export class FireAuthService {
     }
   }
 
-  async updateFireAuthMail(newAuthMail : string, confirmPassword: string) {
-     if(this.auth.currentUser) {
-      console.log(this.fireUser.email,);
-      
+  async updateFireAuthMail(newAuthMail: string, confirmPassword: string) {
+    if (this.auth.currentUser) {
+      console.log(this.fireUser.email);
+
       const credential = EmailAuthProvider.credential(
         this.fireUser.email,
         confirmPassword
-      )
-      try {
-        await reauthenticateWithCredential(this.fireUser, credential)    
-      } 
-      finally {
-        await updateEmail(this.auth.currentUser, newAuthMail);
-
-      } 
-        
-      }
-
-
-
-      console.log(this.auth.currentUser);
-      
-    
+      );
+      await reauthenticateWithCredential(this.fireUser, credential);
+      await updateEmail(this.auth.currentUser, newAuthMail);
+    }
+    console.log(this.auth.currentUser);
   }
 }
-
-

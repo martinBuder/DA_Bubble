@@ -79,8 +79,10 @@ export class OwnProfileComponent {
   async updateFireUser() {
     if(this.editedName)
       await this.fireAuthService.updateFireUser('displayName', this.editedName);
-    if(this.editedMail && this.passwordForEdit)
-      await this.fireAuthService.updateFireAuthMail(this.editedMail, this.passwordForEdit);    
+    if(this.editedMail && this.passwordForEdit) {
+      await this.fireAuthService.updateFireAuthMail(this.editedMail, this.passwordForEdit);  
+    }
+     
       // await this.fireAuthService.updateFireUser('email', this.editedMail);    
   }
 
