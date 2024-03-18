@@ -46,3 +46,18 @@
 	}
 
 }
+
+@media screen and (max-width: 400px) {
+
+	.check-in-wrapper {
+		.check-in-container {
+			max-width: calc(320px - var(--bodyPadding) - var(--bodyPadding));
+
+		}
+	}
+	.text-btn-wrapper {
+		font-size: 12px;
+		gap: 10px;
+	}
+
+}

@@ -21,6 +21,7 @@
   --widthChatLeft: 20%;
   --widthChatRight: 25%;
   --chatHeaderMaxWidth: 60px;
+
 }
 
 body {
@@ -485,7 +486,17 @@ app-chat-date {
 @media screen and (max-width: 420px) {
 
   :root {
-    --bodyPadding: 1.5rem;
+    --logoWidth: 30px;
+    --bodyPadding: 0.6rem;
+    --logoFontsize: 1.6rem;
+  }
+
+  body {
+    font-size: 12px;
+  }
+
+  button {
+    padding: 6px 12px;
   }
 
   .check-in-headline {
@@ -495,5 +506,18 @@ app-chat-date {
   .back-arrow {
     font-size: 2rem;
   }
+
+  .inputfield-wrapper {
+    gap: 5px;
+    padding: 0 16px;
+
+    input {
+      padding: 12px 0;
+    }
+  }
+
+  input {
+		font-size: 12px;
+	}
 
 }
