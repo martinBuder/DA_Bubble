@@ -50,3 +50,15 @@
 .closed-sidebar {
 	margin-top: var(--bodyPadding);
 }
+
+@media screen and (max-width: 620px) {
+	.chat-site-wrapper {
+		padding-top: var(--bodyPadding);
+
+		>* {
+			height: calc(100svh - var(--bodyPadding)*7);
+			margin-bottom: var(--bodyPadding);
+		}
+
+	}
+}
