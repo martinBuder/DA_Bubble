@@ -63,11 +63,44 @@
 }
 
 
-@media screen and (max-width: 600px) {
 
-	.check-in-header-wrapper {
-		position: inherit;
-	
+
+@media screen and (max-width: 620px) {
+
+	.chat-header-wrapper {
+
+		.logo-wrapper {
+			width: 25%;
+		}
+
+		.user-header {
+			width: auto;
+
+			p {
+				display: none;
+			}
+		}
+	}
+
+}
+
+@media screen and (max-width: 620px) {
+
+	.chat-header-wrapper {
+		justify-content: space-between;
+		min-width: 100svw;
+
+		.logo-wrapper {
+			width: auto;
+		}
+
+		.searchfield {
+			width: 90%;
+			position: absolute;
+			top: 50px;
+			left: 5%;
+		}
+
 	}
 
 }

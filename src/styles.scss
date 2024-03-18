@@ -26,17 +26,14 @@
 
 body {
 	background: var(--colorBackground);
-	padding: 0 var(--bodyPadding);
+	padding: 0 var(--bodyPadding) var(--bodyPadding) var(--bodyPadding);
 	width: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
 }
 
 img {
 	width: 100%;
 	height: auto;
-}
-
-body { 
-  font-family: Roboto, "Helvetica Neue", sans-serif; 
 }
 
 li {
@@ -462,6 +459,44 @@ app-chat-date {
 .emoji-list-item {
 	font-size: 1.5rem;
 }
+
+@media screen and (max-width: 1150px) {
+
+	:root {
+		--logoFontsize: 1.6rem;
+    --logoWidth: 40px; 
+	
+	}
+
+}
+
+@media screen and (max-width: 1000px) {
+
+	:root {
+		--logoFontsize: 1.4rem;
+    --logoWidth: 30px; 
+	
+	}
+
+}
+
+@media screen and (max-width: 800px) {
+
+	:root {
+		--logoFontsize: 1.2rem;
+	}
+
+}
+
+@media screen and (max-width: 650px) {
+
+	// :root {
+	// 	--logoWidth: 20px; 
+  //   --logoFontsize: 1rem;
+	// }
+
+}
+
 
 
 @media screen and (max-width: 600px) {
