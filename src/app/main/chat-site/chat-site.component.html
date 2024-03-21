@@ -1,14 +1,15 @@
 <div class="chat-site-wrapper">
-	<app-sidebar-left class="contact-site" *ngIf="sidebarOpen"></app-sidebar-left>
+	<app-sidebar-left class="contact-site" *ngIf="openCloseService.sidebarOpen"></app-sidebar-left>
 	<app-main-chat class="main-chat" *ngIf="this.openCloseService.chatHeader !== 'startHeader'"></app-main-chat>
 	<app-message-window class="main-chat" *ngIf="openCloseService.chatHeader == 'startHeader'"></app-message-window>
 	<app-thread-right class="thread-site" *ngIf="openCloseService.threadOpen"></app-thread-right>
 </div>	
-<div class="sidebar-close-area" (click)="sidebarOpen = !sidebarOpen">
-	<p *ngIf="sidebarOpen">Workspace-Menü schließen</p>
-	<img *ngIf="sidebarOpen" src="assets/img/no-mat-icons/sidebar-close.svg" alt="">
-	<p *ngIf="!sidebarOpen" class="closed-sidebar">Workspace-Menü öffnen</p>
-	<img *ngIf="!sidebarOpen" class="closed-sidebar" src="assets/img/no-mat-icons/sidebar-open.svg" alt="">
+<div class="sidebar-close-area" (click)="this.openCloseService.sidebarOpen = !this.openCloseService.sidebarOpen;
+">
+	<p *ngIf="openCloseService.sidebarOpen">Workspace-Menü schließen</p>
+	<img *ngIf="openCloseService.sidebarOpen" src="assets/img/no-mat-icons/sidebar-close.svg" alt="">
+	<p *ngIf="!openCloseService.sidebarOpen" class="closed-sidebar">Workspace-Menü öffnen</p>
+	<img *ngIf="!openCloseService.sidebarOpen" class="closed-sidebar" src="assets/img/no-mat-icons/sidebar-open.svg" alt="">
 </div>
 <app-profile *ngIf="this.userProfilesService.openProfile" class="pop-up-wrapper"
  ></app-profile>

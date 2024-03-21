@@ -9,7 +9,6 @@ import { UserProfilesService } from 'src/app/services/userDatas/user-profiles.se
   styleUrls: ['./chat-site.component.scss']
 })
 export class ChatSiteComponent {
-  sidebarOpen : boolean = true;
 
 
   constructor(
@@ -18,5 +17,6 @@ export class ChatSiteComponent {
     public userProfilesService: UserProfilesService
     ){
     };
+
 
 }

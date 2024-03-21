@@ -1,13 +1,16 @@
-import { Injectable } from '@angular/core';
+import { HostListener, Injectable } from '@angular/core';
 import { ChatHeadDatasService } from './channel-head-datas.service';
 import ChatMessageService from '../chatDatas/chat-message.service';
 import { OpenCloseService } from '../generally/open-close.service';
 import { FireDatabaseService } from '../firebase/fire-database.service';
+import { ChatSiteComponent } from 'src/app/main/chat-site/chat-site.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class OpenedChannelService {
+export class OpenedChannelService{
+
+  @HostListener('window:resize', ['$event'])
 
   openedChannel : any | null = null;
 
@@ -30,6 +33,11 @@ export class OpenedChannelService {
     this.chatHeadDatasService.channel = this.openedChannel;
     this.chatMessageService.messageChannelId = this.openedChannel.id;
     this.chatMessageService.getChannelMessagesList();
+    const maxWidth = 750; // Hier die maximale Breite einstellen
+      if (window.innerWidth <= maxWidth) {
+        this.openCloseService.sidebarOpen = false;
+      }
+    
   }
 
 

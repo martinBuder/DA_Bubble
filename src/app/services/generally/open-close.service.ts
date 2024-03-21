@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class OpenCloseService {
 
+
+  sidebarOpen : boolean = true;
   threadOpen : boolean = false;
   navOpen : boolean = false;
   chatHeader: string = 'startHeader';

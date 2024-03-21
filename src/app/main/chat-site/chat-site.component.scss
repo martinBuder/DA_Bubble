@@ -57,6 +57,26 @@
  .thread-site {
 		width: calc(100% - 16rem);
 	}
+
+}
+
+@media screen and (max-width: 750px) {
+	
+ .contact-site {
+		width: 100%;
+		position: relative;
+		z-index: 3;
+	}
+
+	.close-sidebar {
+		transition: all 300ms ease-in-out;
+	 max-width: 0 !important;
+		overflow: hidden;
+	}
+
+	.sidebar-close-area {
+		z-index: 5;
+	}
 }
 
 @media screen and (max-width: 620px) {
@@ -68,5 +88,11 @@
 			height: calc(100svh - 8rem);
 		}
 
+	}
+}
+
+@media screen and (max-width: 420px) {
+	.sidebar-close-area {
+		left: -80px;
 	}
 }
