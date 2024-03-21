@@ -53,11 +53,11 @@
 
 @media screen and (max-width: 620px) {
 	.chat-site-wrapper {
-		padding-top: var(--bodyPadding);
+		padding-top: calc( var(--bodyPadding)* 15);
 
 		>* {
-			height: calc(100svh - var(--bodyPadding)*7);
-			margin-bottom: var(--bodyPadding);
+			margin-top: 0;
+			height: calc(100svh - calc( var(--bodyPadding)* 15));
 		}
 
 	}
