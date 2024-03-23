@@ -4,6 +4,7 @@ import ChatMessageService from '../chatDatas/chat-message.service';
 import { OpenCloseService } from '../generally/open-close.service';
 import { FireDatabaseService } from '../firebase/fire-database.service';
 import { ChatSiteComponent } from 'src/app/main/chat-site/chat-site.component';
+import { SearchService } from './search.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class OpenedChannelService{
     public chatHeadDatasService: ChatHeadDatasService,
     private chatMessageService: ChatMessageService,
     private fireDatabaseServie: FireDatabaseService,
-    private openCloseService: OpenCloseService
+    private openCloseService: OpenCloseService,
+    private searchService: SearchService
   ) { };
 
   /**
@@ -33,14 +35,13 @@ export class OpenedChannelService{
     this.chatHeadDatasService.channel = this.openedChannel;
     this.chatMessageService.messageChannelId = this.openedChannel.id;
     this.chatMessageService.getChannelMessagesList();
-    const maxWidth = 750; // Hier die maximale Breite einstellen
-      if (window.innerWidth <= maxWidth) {
-        this.openCloseService.sidebarOpen = false;
-      }
-    
+    this.closeSidebar();
   }
 
-
-
- 
+  closeSidebar() {
+    const maxWidth = 750; // Hier die maximale Breite einstellen
+    if (window.innerWidth <= maxWidth) {
+      this.openCloseService.sidebarOpen = false;
+    }
+  }
 }

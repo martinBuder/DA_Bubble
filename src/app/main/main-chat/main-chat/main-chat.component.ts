@@ -5,6 +5,7 @@ import ChatMessageService from 'src/app/services/chatDatas/chat-message.service'
 import { ContactsService } from 'src/app/services/chatDatas/contacts.service';
 import { OpenCloseService } from 'src/app/services/generally/open-close.service';
 import { FireDatabaseService } from 'src/app/services/firebase/fire-database.service';
+import { SearchService } from 'src/app/services/chatDatas/search.service';
 
 @Component({
   selector: 'app-main-chat',
@@ -22,6 +23,8 @@ export class MainChatComponent {
     public contactService: ContactsService,
     public fireDatabaseService: FireDatabaseService,
     public chatMessageService: ChatMessageService,
-  ) { }
+    public searchService: SearchService
+  ) { 
+  }
 
 }

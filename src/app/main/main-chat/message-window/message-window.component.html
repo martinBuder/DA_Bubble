@@ -3,7 +3,7 @@
 	<form [formGroup]="channelFinderForm" class="pos-relative">
 		<div class="inputfield-wrapper">
 			<ng-container *ngIf="this.foundUser === null && this.foundChannel === null" >
-				<input type="text" placeholder="An: #channel, oder @jemand oder E-Mail-Adresse" formControlName="recipient">
+				<input type="text" placeholder="An: #channel, oder @jemand oder E-Mail-Adresse" formControlName="recipient" data-has-passwords-badge="false">
 			</ng-container>
 			<!-- *contact area -->
 			<!-- search contacts -->

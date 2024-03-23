@@ -158,7 +158,7 @@ export class MessageWrapperComponent {
 
   // * open thread Message
 
-  async answerToMessage(text: any) {
+  async answerToMessage() {
    this.setOpenCloseServiceDatas();
    this.setChatMessageServiceDatas();
    if (!this.message.threadExist) {

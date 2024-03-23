@@ -21,6 +21,7 @@ export class OpenCloseService {
   openOwnProfile: boolean = false;
 
   chatOrThread !: string;
+  searchMessageArray !: Array<string>;
   
   constructor() { }
 

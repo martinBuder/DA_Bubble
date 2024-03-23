@@ -19,7 +19,7 @@
       <div class="logo-text">DABubble</div>
     </div>
     <div class="searchfield inputfield-wrapper">
-      <input type="text" placeholder="Code learning durchsuchen">
+      <input type="text" placeholder="Hauptchat durchsuchen" [formControl]="searchService.searchInput">
       <mat-icon>search</mat-icon>
     </div>
     <div class="user-header" (click)="this.openCloseService.navOpen = true">

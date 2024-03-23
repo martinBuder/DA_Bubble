@@ -1,5 +1,6 @@
 import { Injectable} from '@angular/core';
 import { Firestore, addDoc, collection, deleteDoc, doc, onSnapshot, query, setDoc, updateDoc } from '@angular/fire/firestore';
+import { SearchService } from '../chatDatas/search.service';
 
 
 @Injectable({
@@ -20,6 +21,7 @@ export class FireDatabaseService {
 
   constructor(
     private firestore: Firestore,
+    private searchService: SearchService
   ) { }
 
     /**
@@ -40,7 +42,11 @@ export class FireDatabaseService {
         });   
         if(fireArray === 'channelMessages' || fireArray === 'threadMessages')           
         projectArray.sort((a: any, b: any) => b.timestamp - a.timestamp);
-        console.log(projectArray);
+        if(fireArray === 'channelMessages') {
+          this.searchService.searchMessageArray = projectArray;
+          this.searchService.searchMessageCopy =  this.searchService.searchMessageArray;
+
+        }
         });
      
         

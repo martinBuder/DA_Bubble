@@ -82,7 +82,10 @@
 				</ng-container>
 				<ng-container *ngIf="chatOrThread === 'chat'">
 					<ng-container *ngIf="message.writerId !== this.fireAuthService.fireUser.uid && this.chatHeadDataService.channel">
-						<mat-icon (click)="answerToMessage(this.message)">reply</mat-icon>
+						<mat-icon (click)="answerToMessage()">reply</mat-icon>
+					</ng-container>
+					<ng-container *ngIf="message.writerId === this.fireAuthService.fireUser.uid && this.chatHeadDataService.channel">
+						<mat-icon (click)="answerToMessage()">open_in_new</mat-icon>
 					</ng-container>
 				</ng-container>
 			</div>
