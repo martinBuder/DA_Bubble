@@ -44,6 +44,16 @@
 	padding: 4px var(--chatGap);
 }
 
+@media screen and (max-width: 600px) {
+	.main-chat-header {
+		padding: 4px 16px;
+	}
+
+	.posFix {
+		bottom: calc(var(--chatGap) + 10px)
+	}
+}
+
 
 
 

@@ -47,6 +47,13 @@
 	}
 }
 
+@media  screen and (max-width: 600px) {
+	.channel-list {
+		padding-top: var(--chatGap);
+	}
+	
+}
+
 
 
 

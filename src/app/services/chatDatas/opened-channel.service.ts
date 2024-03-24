@@ -3,7 +3,6 @@ import { ChatHeadDatasService } from './channel-head-datas.service';
 import ChatMessageService from '../chatDatas/chat-message.service';
 import { OpenCloseService } from '../generally/open-close.service';
 import { FireDatabaseService } from '../firebase/fire-database.service';
-import { ChatSiteComponent } from 'src/app/main/chat-site/chat-site.component';
 import { SearchService } from './search.service';
 
 @Injectable({

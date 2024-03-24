@@ -9,8 +9,8 @@ const routes: Routes = [
   { path: '', component: CheckInComponent },
   { path: 'resetPassword', component: CheckInComponent },
   { path: 'chat', component: ChatSiteComponent },
-  { path: 'impressum', component: ImprintComponent },
-  { path: 'datenschutz', component: LegalNoticeComponent },
+  { path: 'imprint', component: ImprintComponent },
+  { path: 'legal-notice', component: LegalNoticeComponent },
 ];
 
 @NgModule({

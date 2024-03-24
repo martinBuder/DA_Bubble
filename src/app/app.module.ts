@@ -56,6 +56,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddImageComponent } from './main/main-chat/add-image/add-image.component';
 import { OwnProfileComponent } from './global/own-profile/own-profile.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,6 +92,7 @@ import { OwnProfileComponent } from './global/own-profile/own-profile.component'
     ImageUploadComponent,
     AddImageComponent,
     OwnProfileComponent,
+
   ],
   imports: [
     BrowserModule,

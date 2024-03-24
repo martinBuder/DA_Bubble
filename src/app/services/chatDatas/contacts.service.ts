@@ -1,14 +1,18 @@
-import { Injectable } from '@angular/core';
+import { HostListener, Injectable } from '@angular/core';
 import { ChatConfig } from '../../interfaces/chat-config';
 import { Firestore, collection, where } from '@angular/fire/firestore';
 import { FireAuthService } from '../firebase/fire-auth.service';
 import { FireDatabaseService } from '../firebase/fire-database.service';
 import { ChatHeadDatasService } from './channel-head-datas.service';
+import { OpenCloseService } from '../generally/open-close.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContactsService {
+
+  @HostListener('window:resize', ['$event'])
+
   openChatData!: ChatConfig;
   contactId!: any;
 
@@ -18,10 +22,13 @@ export class ContactsService {
 
   contactsListCollection = collection(this.firestore, 'contactsList');
 
+  
+
   constructor(
     private firestore: Firestore,
     private fireAuthService: FireAuthService,
     private fireDatabaseService: FireDatabaseService,
+    private openCloseService: OpenCloseService
   ) {
     this.startContact();
   } 
@@ -66,6 +73,13 @@ export class ContactsService {
       where('contactId', 'array-contains', this.fireAuthService.fireUser.uid),
       'contactChats'
     );
+  }
+
+  closeSidebar() {
+    const maxWidth = 750; // Hier die maximale Breite einstellen
+    if (window.innerWidth <= maxWidth) {
+      this.openCloseService.sidebarOpen = false;
+    }
   }
   
   /**

@@ -30,6 +30,7 @@ export class ShowMembersComponent {
     this.chatMessageService.selectedContact = chat.contact;
     this.chatMessageService.createMessageChannelId();
     await this.chatMessageService.getChannelMessagesList();
+    this.contactService.closeSidebar();
   }
 
   toggleContactsOpen() {

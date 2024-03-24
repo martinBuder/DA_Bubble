@@ -62,7 +62,7 @@ li {
 
 .posFix {
   position: sticky;
-  bottom: 0;
+  bottom: var(--chatGap);
   left: 0;
   z-index: 1;
 }

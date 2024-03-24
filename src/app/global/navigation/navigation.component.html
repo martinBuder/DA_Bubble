@@ -2,7 +2,14 @@
 	<div class="nav" (click)="$event.stopPropagation()">
 		<div class="link" (click)="openProfile()">Profil</div>
 		<div class="link" (click)="logOut()">Log out</div>
-		<div class="link">Impressum</div>
-		<div class="link">Datenschutz</div>
+		<ng-container *ngIf="currentPath !== '/chat'">
+			<div class="link" (click)="navigateToSite('/chat');">Chatseite</div>
+		</ng-container>
+		<ng-container *ngIf="currentPath !== '/imprint'">
+		<div class="link" (click)="navigateToSite('/imprint');">Impressum</div>
+		</ng-container>
+		<ng-container *ngIf="currentPath !== '/legal-notice'">
+			<div class="link" (click)="navigateToSite('/legal-notice');">Datenschutz</div>
+		</ng-container>
 	</div>
 </div>

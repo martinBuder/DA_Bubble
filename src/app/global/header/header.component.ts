@@ -13,25 +13,13 @@ import { SearchService } from 'src/app/services/chatDatas/search.service';
 })
 export class HeaderComponent {
   
-  navOpen : boolean = true;
-
-
-  
+  navOpen : boolean = true;  
 
   constructor(
     public openCloseService: OpenCloseService,
     public fireAuthService: FireAuthService,
     public router: Router,
     public searchService: SearchService,
-    ) { 
-
-  
-    }
-
-  
-
-   
-
-  
+    ) { }
 
 }
