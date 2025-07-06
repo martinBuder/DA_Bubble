@@ -28,7 +28,7 @@ export interface Message {
 	lastAnswerDate?: string | null;
 	lastAnswerTime?: string | null;
 	deletedMessage ?: boolean;
-	threadExist ?: boolean;
+	threadExist : boolean;
 	isThisAnImage ?: boolean;
 	storageUrl ?: string;
 }

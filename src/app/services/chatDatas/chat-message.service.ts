@@ -23,6 +23,7 @@ export default class ChatMessageService {
 
   messageDatas!: Message;
   threadFirstMessage !: Message;
+  threadExist : boolean = false;
   messageCopy!: Message;
 
   messageChannelId: string | null = null;
@@ -206,8 +207,9 @@ export default class ChatMessageService {
         this.chatMessagesListCollection,
         this.messageDatas
       );  
-    if(!this.threadFirstMessage.threadExist && this.comeFromAnswer)
-      await this.firstThreadOpen();
+        if(this.threadFirstMessage && !this.threadFirstMessage.threadExist && this.comeFromAnswer)
+          await this.firstThreadOpen();
+
     else
       this.changeChannelMessage();  
     this.messageIsSent = true;
@@ -255,7 +257,8 @@ export default class ChatMessageService {
    * set the datas from the message from channel, which was open for the thread
    */
   setMessageCopy() {
-    this.messageCopy.threadExist = true;
+    if (this.messageCopy) 
+      this.messageCopy.threadExist = true;
     if(!this.messageCopy.answerAmount)
       this.messageCopy.answerAmount = 0;
     this.messageCopy.answerAmount += 1;
