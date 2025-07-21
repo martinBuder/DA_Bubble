@@ -257,13 +257,15 @@ export default class ChatMessageService {
    * set the datas from the message from channel, which was open for the thread
    */
   setMessageCopy() {
-    if (this.messageCopy) 
+    if (this.messageCopy) {
       this.messageCopy.threadExist = true;
-    if(!this.messageCopy.answerAmount || this.messageCopy.answerAmount !== undefined)
-      this.messageCopy.answerAmount = 0;
-    this.messageCopy.answerAmount += 1;
-    this.messageCopy.lastAnswerDate = this.messageDatas.numDate;
-    this.messageCopy.lastAnswerTime = this.messageDatas.time;   
+      if(!this.messageCopy.answerAmount)
+        this.messageCopy.answerAmount = 0;
+      this.messageCopy.answerAmount += 1;
+      this.messageCopy.lastAnswerDate = this.messageDatas.numDate;
+      this.messageCopy.lastAnswerTime = this.messageDatas.time;   
+    }
+     
   }
 
   /**
