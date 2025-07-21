@@ -25,6 +25,9 @@ export class MainChatComponent {
     public chatMessageService: ChatMessageService,
     public searchService: SearchService
   ) { 
+
+
+    
   }
 
 }

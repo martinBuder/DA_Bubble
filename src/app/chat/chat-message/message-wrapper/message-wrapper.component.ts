@@ -192,7 +192,6 @@ export class MessageWrapperComponent {
     this.chatMessageService.comeFromAnswer = true;
     this.chatMessageService.threadFirstMessage = this.message;  
     this.chatMessageService.messageCopy = this.message;
-    console.log(this.message);
     
   }
 

@@ -4,6 +4,7 @@ import { ChatHeadDatasService } from 'src/app/services/chatDatas/channel-head-da
 import { OpenCloseService } from 'src/app/services/generally/open-close.service';
 import { OpenedChannelService } from 'src/app/services/chatDatas/opened-channel.service';
 import { FireDatabaseService } from 'src/app/services/firebase/fire-database.service';
+import { reload } from 'firebase/auth';
 
 @Component({
   selector: 'app-add-chat-members',
@@ -72,13 +73,14 @@ export class AddChatMembersComponent {
    * @param member
    */
   async addChatMember(channelId: string) {
-    this.chatHeadDatasService.changeChannelMembers(this.selectedProfiles);
+    this.chatHeadDatasService.changeChannelMembers(this.selectedProfiles);   
     await this.chatHeadDatasService.updateChannel();
     const updatedChannelIndex =
       this.chatHeadDatasService.findUpdatedChannel(channelId);
     this.openedChannelService.openChannel(updatedChannelIndex);
     this.searchingUser = false;
     this.selectedProfiles = [];
+    this.chatHeadDatasService.fillMembersDataInChannel();
   }
 
   /**

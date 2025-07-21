@@ -112,7 +112,6 @@ export class MessageWindowComponent {
     this.foundChannel = channel;
     this.chatMessageService.messageIsSent = false;
     this.chatMessageService.messageChannelId = channel.id;
-    console.log(this.chatMessageService.messageChannelId);
     await this.chatMessageService.waitForMessageIsSent();
     this.clearSearchInput();
   }

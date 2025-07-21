@@ -18,7 +18,6 @@ export class UploadService {
       reportProgress: true,
       responseType: 'text',
     });
-    console.log(req);
     
     return this.https.request(req);
   }

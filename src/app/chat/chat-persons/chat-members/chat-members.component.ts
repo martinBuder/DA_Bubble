@@ -17,7 +17,6 @@ export class ChatMembersComponent {
   ) { }
 
   openMemberProfile(member:any){
-    console.log(member);
     this.userProfilesService.contactProfile = member;
     this.userProfilesService.openProfile = true;
   }

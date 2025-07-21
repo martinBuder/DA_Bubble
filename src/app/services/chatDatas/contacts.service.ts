@@ -97,7 +97,6 @@ export class ContactsService {
    * add a new contact with all informations
    */
   async addContact() {
-    console.log(this.chatData);    
     await this.fireDatabaseService.setItemToFirebase(
       'contactsList',
       this.chatData.id,

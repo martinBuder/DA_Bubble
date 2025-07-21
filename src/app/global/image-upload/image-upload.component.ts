@@ -131,7 +131,6 @@ import { environment } from 'src/environments/environment';
         this.currentFile = file;
         const reader = new FileReader();
           reader.onload = (e: any) => {
-          console.log(e.target.result);
           this.preview = e.target.result;
         };
           reader.readAsDataURL(this.currentFile);

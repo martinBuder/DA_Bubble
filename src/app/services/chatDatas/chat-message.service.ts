@@ -259,7 +259,7 @@ export default class ChatMessageService {
   setMessageCopy() {
     if (this.messageCopy) 
       this.messageCopy.threadExist = true;
-    if(!this.messageCopy.answerAmount)
+    if(!this.messageCopy.answerAmount || this.messageCopy.answerAmount !== undefined)
       this.messageCopy.answerAmount = 0;
     this.messageCopy.answerAmount += 1;
     this.messageCopy.lastAnswerDate = this.messageDatas.numDate;

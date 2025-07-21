@@ -72,7 +72,6 @@ export class OwnProfileComponent {
     if(this.editProfileForm.value.email !== '')
       this.editedMail = this.editProfileForm.value.email
     this.passwordForEdit = this.editProfileForm.value.password;
-    console.log('name = '+ this.editedName + ' mail = ' + this.editedMail);
     
   }
 

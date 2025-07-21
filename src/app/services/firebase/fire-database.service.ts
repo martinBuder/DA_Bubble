@@ -80,7 +80,6 @@ export class FireDatabaseService {
      * @param item 
      */
     async setItemToFirebase(fireList: string, fireListId: any, item: any) {
-      console.log(this.firestore);
       
       const fireCollection = collection(this.firestore, fireList);
       const fireDocRef = doc(fireCollection, fireListId)

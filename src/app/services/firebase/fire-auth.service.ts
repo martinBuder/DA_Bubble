@@ -107,7 +107,6 @@ export class FireAuthService {
    * @param errorCode
    */
   createErrorMessages(errorCode: string) {
-    console.log(errorCode);
 
     if (errorCode === 'auth/invalid-login-credentials') {
       this.errorMessage = 'E-Mail und/oder Passwort ist nicht bekannt.';
@@ -149,7 +148,6 @@ export class FireAuthService {
   googleLogInErrorHandler(error: any) {
     const errorCode = error.code;
     const errorMessage = error.message;
-    console.log(errorMessage);
 
     const email = error.customData.email;
     const credential = GoogleAuthProvider.credentialFromError(error);
@@ -165,7 +163,6 @@ export class FireAuthService {
   async checkFirebaseUser() {
     this.auth.onAuthStateChanged((firebaseUser) => {
       this.fireUser = firebaseUser;
-      console.log(this.fireUser);
     });
   }
 
@@ -239,7 +236,6 @@ export class FireAuthService {
 
   async updateFireAuthMail(newAuthMail: string, confirmPassword: string) {
     if (this.auth.currentUser) {
-      console.log(this.fireUser.email);
 
       const credential = EmailAuthProvider.credential(
         this.fireUser.email,
@@ -248,6 +244,5 @@ export class FireAuthService {
       await reauthenticateWithCredential(this.fireUser, credential);
       await updateEmail(this.auth.currentUser, newAuthMail);
     }
-    console.log(this.auth.currentUser);
   }
 }
